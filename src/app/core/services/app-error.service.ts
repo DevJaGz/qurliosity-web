@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { AppErrorModel } from '@core/models';
+import { removeDomainFromMessage } from '@shared/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class AppErrorService implements ErrorHandler {
 
     if (error instanceof HttpErrorResponse) {
       const httpError = error;
-      console.log(httpError.message, httpError.error);
+      console.log(removeDomainFromMessage(httpError.message), httpError.error);
     }
 
     if (appError.userMessage) {
