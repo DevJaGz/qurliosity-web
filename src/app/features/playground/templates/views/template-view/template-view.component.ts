@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+  signal,
+} from '@angular/core';
 import { TemplateSourcesComponent } from '../../components';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import {
@@ -7,21 +13,23 @@ import {
 } from 'primeng/selectbutton';
 import { SharedModule } from '@shared/index';
 import { ButtonList, ButtonListItem } from '@shared/datatypes';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-template-view',
   standalone: true,
   imports: [
-    SharedModule,
     RouterOutlet,
+    FormsModule,
     SelectButtonModule,
+    SharedModule,
     TemplateSourcesComponent,
   ],
   templateUrl: './template-view.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateViewComponent {
+export class TemplateViewComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
 
@@ -43,7 +51,15 @@ export class TemplateViewComponent {
     },
   ];
 
-  onTemplateClick(data: SelectButtonOptionClickEvent) {
+  currentNavigation = signal('sources');
+
+  ngOnInit(): void {
+    const currentRoute = this.#router.url.split('/').pop();
+    if (!currentRoute) return;
+    this.currentNavigation.set(currentRoute);
+  }
+
+  onOptionClick(data: SelectButtonOptionClickEvent) {
     const option = data.option as ButtonListItem;
     if (!option) return;
     this.#router.navigate([option.navigateTo], { relativeTo: this.#route });
