@@ -9,7 +9,7 @@ export const apiResponseInterceptor: HttpInterceptorFn = (req, next) => {
 
   const execFn = (event: HttpResponse<unknown>) => {
     const apiResponse = event.body as ApiResponse<unknown>;
-    event = event.clone({ body: apiResponse.payload });
+    return event.clone({ body: apiResponse.payload });
   };
 
   return next(req).pipe(

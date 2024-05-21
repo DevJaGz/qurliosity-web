@@ -6,16 +6,20 @@ export const isApiRequest = (url: string) => url.includes(environment.API_URL);
 
 export const execAfterResponsePipe =
   <T = unknown>(params: {
-    execFn: (res: HttpResponse<T>) => void;
+    execFn: (res: HttpResponse<T>) => HttpResponse<T> | void;
     errorFn?: (err: unknown) => void;
   }) =>
   (source: Observable<HttpEvent<T>>) => {
     return source.pipe(
       map((event) => {
+        let newEvent = event;
         if (event instanceof HttpResponse) {
-          params.execFn(event);
+          const execFnRes = params.execFn(event);
+          if (execFnRes) {
+            newEvent = execFnRes;
+          }
         }
-        return event;
+        return newEvent;
       }),
       catchError((err) => {
         params.errorFn?.(err);
