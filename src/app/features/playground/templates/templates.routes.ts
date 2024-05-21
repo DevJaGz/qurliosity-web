@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
-import { templateResolver, templateSourcesResolver } from './resolvers';
+import { templateResolver } from './resolvers';
 import { TemplateService } from './services';
+import { TemplateViewComponent } from './views';
 
 const routes: Routes = [
   {
     path: ':templateId',
-    loadComponent: () => import('./views').then((f) => f.TemplateViewComponent),
+    component: TemplateViewComponent,
     resolve: {
       template: templateResolver,
     },
