@@ -1,0 +1,18 @@
+<h1>Welcome to Template</h1>
+
+<div class="grid place-items-center text-sm">
+  <p-selectButton
+    [options]="templateButtons"
+    optionLabel="name"
+    (onOptionClick)="onTemplateClick($event)"
+  >
+    <ng-template let-item pTemplate>
+      <a class="flex items-center flex-nowrap justify-center gap-1 z-10">
+        <i-tabler [name]="item.icon"></i-tabler>
+        <span>{{ item.name }}</span>
+      </a>
+    </ng-template>
+  </p-selectButton>
+</div>
+
+<router-outlet></router-outlet>
