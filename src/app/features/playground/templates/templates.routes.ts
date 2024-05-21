@@ -1,10 +1,15 @@
 import { Routes } from '@angular/router';
-import { templateSourcesResolver } from './resolvers';
+import { templateResolver, templateSourcesResolver } from './resolvers';
+import { TemplateService } from './services';
 
 const routes: Routes = [
   {
     path: ':templateId',
     loadComponent: () => import('./views').then((f) => f.TemplateViewComponent),
+    resolve: {
+      template: templateResolver,
+    },
+    providers: [TemplateService],
     children: [
       {
         path: '',
@@ -15,9 +20,6 @@ const routes: Routes = [
         path: 'sources',
         loadComponent: () =>
           import('./components').then((f) => f.TemplateSourcesComponent),
-        resolve: {
-          sourcesData: templateSourcesResolver,
-        },
       },
       {
         path: 'prompts',
