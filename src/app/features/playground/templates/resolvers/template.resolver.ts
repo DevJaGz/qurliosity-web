@@ -1,5 +1,5 @@
 import { ResolveFn, Router } from '@angular/router';
-import { EMPTY, Observable, Subject, forkJoin, map, take, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, forkJoin, map, tap } from 'rxjs';
 import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
 import { TemplateService } from '../services';
@@ -33,7 +33,6 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
     }),
   })
     .pipe(
-      take(1),
       map(({ template }) => {
         return {
           ...template,
