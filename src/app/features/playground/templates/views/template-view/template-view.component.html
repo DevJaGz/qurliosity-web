@@ -1,6 +1,8 @@
 <section class="grid place-items-center mt-4 text-center">
-  <h1>{{ templateData().name | titlecase }}</h1>
-  <p>{{ templateData().description | lowercase }}</p>
+  <h1 class="line-clamp-2">{{ templateData().name | titlecase }}</h1>
+  <p class="line-clamp-6">
+    {{ templateData().description | lowercase }}
+  </p>
 </section>
 <section
   class="grid place-items-center text-sm my-4 sticky top-4 p-0.5 rounded-lg dark:bg-[#27272a] w-fit mx-auto"
