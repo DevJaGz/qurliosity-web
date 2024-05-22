@@ -11,7 +11,9 @@ import { FormGroup } from '@angular/forms';
 export class TemplateService {
   readonly #templatesRequestService = inject(TemplatesRequestService);
   readonly #sourcesRequestService = inject(SourcesRequestService);
-  readonly #formService = inject(TemplateFormService);
+  readonly #templateFormService = inject(TemplateFormService);
+
+  #form!: FormGroup;
 
   getTemplate(templateId: string): Observable<TemplateState> {
     return forkJoin({
@@ -33,7 +35,8 @@ export class TemplateService {
     );
   }
 
-  createFormTemplate(template: TemplateState): FormGroup {
-    return this.#formService.createTemplateForm(template);
+  intializeForm(template: TemplateState): void {
+    this.#form = this.#templateFormService.createForm(template);
+    console.log(this.#form);
   }
 }

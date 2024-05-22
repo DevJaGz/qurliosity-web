@@ -6,7 +6,7 @@ import { Source } from '@core/datatypes';
 export class SourceFormService {
   readonly #formBuilder = inject(FormBuilder);
 
-  createSourceForm(source: Source): FormGroup {
+  createForm(source: Source): FormGroup {
     return this.#formBuilder.group({
       _id: [source._id, [Validators.required]],
       _templateId: [source._templateId, [Validators.required]],

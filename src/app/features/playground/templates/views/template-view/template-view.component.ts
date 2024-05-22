@@ -16,6 +16,7 @@ import { ButtonList, ButtonListItem } from '@shared/datatypes';
 import { FormsModule } from '@angular/forms';
 import { TemplateState } from '../../datatypes';
 import { LowerCasePipe, TitleCasePipe } from '@angular/common';
+import { TemplateService } from '../../services';
 
 @Component({
   selector: 'app-template-view',
@@ -35,6 +36,7 @@ import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 export class TemplateViewComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
+  readonly #templateService = inject(TemplateService);
 
   templateButtons: ButtonList = [
     {
@@ -71,6 +73,7 @@ export class TemplateViewComponent implements OnInit {
   #initializeTemplateData() {
     const templateData = this.#route.snapshot.data['template'];
     this.templateData = signal<TemplateState>(templateData);
+    this.#templateService.intializeForm(templateData);
   }
 
   #initializeNavigation() {

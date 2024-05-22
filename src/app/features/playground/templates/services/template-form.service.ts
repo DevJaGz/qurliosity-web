@@ -9,7 +9,7 @@ export class TemplateFormService {
   readonly #sourceFormService = inject(SourceFormService);
   readonly #formBuilder = inject(FormBuilder);
 
-  createTemplateForm(template: TemplateState): FormGroup {
+  createForm(template: TemplateState): FormGroup {
     return this.#formBuilder.group({
       _id: [template._id, [Validators.required]],
       isDemo: [template.isDemo, [Validators.required]],
@@ -23,13 +23,13 @@ export class TemplateFormService {
   createSourcesFormArray(sources: Sources): FormArray {
     const formGroups: FormGroup[] = [];
     for (const source of sources) {
-      const formGroup = this.#sourceFormService.createSourceForm(source);
+      const formGroup = this.#sourceFormService.createForm(source);
       formGroups.push(formGroup);
     }
     return this.#formBuilder.array(formGroups);
   }
 
   createSourceForm(source: Source): FormGroup {
-    return this.#sourceFormService.createSourceForm(source);
+    return this.#sourceFormService.createForm(source);
   }
 }
