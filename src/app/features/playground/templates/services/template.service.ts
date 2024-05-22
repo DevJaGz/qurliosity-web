@@ -5,11 +5,13 @@ import { Observable, forkJoin, map } from 'rxjs';
 import { TemplateStateService } from './template-state.service';
 import { handleErrorPipeUtil } from '@core/utils';
 import { TemplateState } from '../datatypes';
+import { TemplateFormService } from './template-form.service';
 
 @Injectable()
 export class TemplateService {
   readonly #templatesRequestService = inject(TemplatesRequestService);
   readonly #sourcesRequestService = inject(SourcesRequestService);
+  readonly #formService = inject(TemplateFormService);
   readonly #state = inject(TemplateStateService);
 
   template$ = this.#state.state$;
@@ -33,4 +35,6 @@ export class TemplateService {
       })
     );
   }
+
+  createFormTemplate() {}
 }
