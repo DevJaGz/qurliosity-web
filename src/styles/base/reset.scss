@@ -3,11 +3,11 @@ html {
 }
 
 h1 {
-  @apply text-4xl m-2 font-semibold;
+  @apply text-4xl m-2 font-semibold text-balance;
 }
 
 p {
-  @apply mx-2 mb-2;
+  @apply mx-2 mb-2 text-pretty;
 }
 
 i-tabler {
