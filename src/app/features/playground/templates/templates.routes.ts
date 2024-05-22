@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { templateResolver } from './resolvers';
-import { TemplateService } from './services';
+import { TemplateService, TemplateStateService } from './services';
 import { TemplateViewComponent } from './views';
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
     resolve: {
       template: templateResolver,
     },
-    providers: [TemplateService],
+    providers: [TemplateService, TemplateStateService],
     children: [
       {
         path: '',

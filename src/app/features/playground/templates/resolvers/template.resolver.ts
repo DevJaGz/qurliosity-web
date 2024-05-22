@@ -1,5 +1,5 @@
 import { ResolveFn, Router } from '@angular/router';
-import { EMPTY, Observable, of, tap } from 'rxjs';
+import { EMPTY, Observable, take, tap } from 'rxjs';
 import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
 import { TemplateService } from '../services';
@@ -9,7 +9,7 @@ const returnAndNavigate = (router: Router) => {
   return EMPTY;
 };
 
-export const templateResolver: ResolveFn<Observable<TemplateState>> = (
+export const templateResolver: ResolveFn<Observable<TemplateState | null>> = (
   route
 ) => {
   const router = inject(Router);

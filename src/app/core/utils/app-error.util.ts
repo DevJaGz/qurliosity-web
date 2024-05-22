@@ -5,11 +5,11 @@ import { Observable, catchError, throwError } from 'rxjs';
 export const handleErrorPipeUtil = (params: Omit<AppError, 'error'> = {}) => {
   return <S = unknown>(source: Observable<S>) => {
     return source.pipe(
-      catchError((unknowError: unknown) => {
-        if (unknowError instanceof AppErrorModel) {
+      catchError((unknownError: unknown) => {
+        if (unknownError instanceof AppErrorModel) {
           return throwError(() => {
             const appError = new AppErrorModel({
-              error: unknowError.error,
+              error: unknownError.error,
               ...params,
             });
             return appError;
@@ -18,7 +18,7 @@ export const handleErrorPipeUtil = (params: Omit<AppError, 'error'> = {}) => {
 
         return throwError(() => {
           const appError = new AppErrorModel({
-            error: unknowError,
+            error: unknownError,
             ...params,
           });
           return appError;
