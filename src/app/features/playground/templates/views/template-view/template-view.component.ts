@@ -53,15 +53,24 @@ export class TemplateViewComponent implements OnInit {
 
   currentNavigation = signal('sources');
 
-  ngOnInit(): void {
-    const currentRoute = this.#router.url.split('/').pop();
-    if (!currentRoute) return;
-    this.currentNavigation.set(currentRoute);
-  }
-
   onOptionClick(data: SelectButtonOptionClickEvent) {
     const option = data.option as ButtonListItem;
     if (!option) return;
     this.#router.navigate([option.navigateTo], { relativeTo: this.#route });
+  }
+
+  ngOnInit(): void {
+    this.#initializeNavigation();
+    this.#initializeTemplateData();
+  }
+
+  #initializeTemplateData() {
+    console.log('data', this.#route.snapshot.data);
+  }
+
+  #initializeNavigation() {
+    const currentRoute = this.#router.url.split('/').pop();
+    if (!currentRoute) return;
+    this.currentNavigation.set(currentRoute);
   }
 }
