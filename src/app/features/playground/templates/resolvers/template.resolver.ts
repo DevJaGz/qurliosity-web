@@ -1,35 +1,67 @@
 import { ResolveFn, Router } from '@angular/router';
-import { EMPTY, Observable, take, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, forkJoin, map, take, tap } from 'rxjs';
 import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
 import { TemplateService } from '../services';
+import { SourcesRequestService, TemplatesRequestService } from '@core/services';
+import { SourceType } from '@core/enums';
 
-const returnAndNavigate = (router: Router) => {
-  router.navigateByUrl('/');
-  return EMPTY;
+const goHomeInNextTick = (router: Router) => {
+  setTimeout(() => {
+    router.navigateByUrl('/');
+  }, 0);
 };
 
-export const templateResolver: ResolveFn<Observable<TemplateState | null>> = (
-  route
-) => {
+export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
   const router = inject(Router);
-  const templateService = inject(TemplateService);
-  const templatedId = route.params['templateId'];
+  const isDataLoaded = new Subject<boolean>();
 
-  if (!templatedId) {
-    return returnAndNavigate(router);
+  const templatesRequestService = inject(TemplatesRequestService);
+  const sourcesRequestService = inject(SourcesRequestService);
+  const templateService = inject(TemplateService);
+
+  const templateId = route.params['templateId'];
+  if (!templateId) {
+    goHomeInNextTick(router);
+    return EMPTY;
   }
 
-  return templateService.getTemplate(templatedId).pipe(
-    tap({
-      next: (template) => {
-        templateService.intializeForm(template);
-      },
-      error: () => {
-        setTimeout(() => {
-          returnAndNavigate(router);
-        }, 0);
-      },
-    })
-  );
+  forkJoin({
+    template: templatesRequestService.getTemplate(templateId),
+    sources: sourcesRequestService.listSources({
+      _templateId: templateId,
+    }),
+  })
+    .pipe(
+      take(1),
+      map(({ template }) => {
+        return {
+          ...template,
+          sources: [
+            {
+              _id: '1',
+              __v: 0,
+              value: 'Source 1',
+              type: SourceType.PDF,
+              _templateId: '6644ffa6065e545f87808399',
+              _storageRecordId: '2',
+            },
+          ],
+        } as TemplateState;
+      }),
+      tap({
+        next: (templateState) => {
+          console.log('templateState', templateState);
+          isDataLoaded.next(true);
+        },
+        error: () => {
+          isDataLoaded.next(false);
+          goHomeInNextTick(router);
+        },
+        complete: () => isDataLoaded.complete(),
+      })
+    )
+    .subscribe();
+
+  return isDataLoaded;
 };
