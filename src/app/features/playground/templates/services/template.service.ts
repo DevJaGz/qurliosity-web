@@ -5,7 +5,6 @@ import { Observable, forkJoin, map } from 'rxjs';
 import { handleErrorPipeUtil } from '@core/utils';
 import { TemplateState } from '../datatypes';
 import { TemplateFormService } from './template-form.service';
-import { FormGroup } from '@angular/forms';
 import { SourceType } from '@core/enums';
 
 @Injectable()
@@ -14,8 +13,13 @@ export class TemplateService {
   readonly #sourcesRequestService = inject(SourcesRequestService);
   readonly #templateFormService = inject(TemplateFormService);
 
-  templateForm: FormGroup | undefined = this.#templateFormService.form;
-  sourceForms: FormGroup[] = this.#templateFormService.sourceForms;
+  get templateForm() {
+    return this.#templateFormService.form;
+  }
+
+  get sourceForms() {
+    return this.#templateFormService.sourceForms;
+  }
 
   getTemplate(templateId: string): Observable<TemplateState> {
     return forkJoin({
