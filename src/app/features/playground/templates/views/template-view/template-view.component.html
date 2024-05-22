@@ -1,22 +1,26 @@
-<h1>Welcome to Template</h1>
-
-<div class="grid place-items-center text-sm">
-  <p-selectButton
-    [ngModel]="currentNavigation()"
-    (ngModelChange)="currentNavigation.set($event)"
-    [options]="templateButtons"
-    optionLabel="name"
-    optionValue="navigateTo"
-    [unselectable]="true"
-    (onOptionClick)="onOptionClick($event)"
-  >
-    <ng-template let-item pTemplate>
-      <a class="flex items-center flex-nowrap justify-center gap-1 z-10">
-        <i-tabler [name]="item.icon"></i-tabler>
-        <span>{{ item.name }}</span>
-      </a>
-    </ng-template>
-  </p-selectButton>
-</div>
+<header>
+  <section class="grid place-items-center mt-4">
+    <h1>{{ templateData().name | titlecase }}</h1>
+    <p>{{ templateData().description | lowercase }}</p>
+  </section>
+  <section class="grid place-items-center text-sm mt-4">
+    <p-selectButton
+      [ngModel]="currentNavigation()"
+      (ngModelChange)="currentNavigation.set($event)"
+      [options]="templateButtons"
+      optionLabel="name"
+      optionValue="navigateTo"
+      [unselectable]="true"
+      (onOptionClick)="onOptionClick($event)"
+    >
+      <ng-template let-item pTemplate>
+        <a class="flex items-center flex-nowrap justify-center gap-1 z-10">
+          <i-tabler [name]="item.icon"></i-tabler>
+          <span>{{ item.name }}</span>
+        </a>
+      </ng-template>
+    </p-selectButton>
+  </section>
+</header>
 
 <router-outlet></router-outlet>

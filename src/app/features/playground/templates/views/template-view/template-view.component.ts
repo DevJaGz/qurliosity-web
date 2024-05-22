@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Signal,
+  WritableSignal,
   inject,
   signal,
 } from '@angular/core';
@@ -14,6 +16,8 @@ import {
 import { SharedModule } from '@shared/index';
 import { ButtonList, ButtonListItem } from '@shared/datatypes';
 import { FormsModule } from '@angular/forms';
+import { TemplateState } from '../../datatypes';
+import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-template-view',
@@ -21,6 +25,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     RouterOutlet,
     FormsModule,
+    TitleCasePipe,
+    LowerCasePipe,
     SelectButtonModule,
     SharedModule,
     TemplateSourcesComponent,
@@ -52,6 +58,7 @@ export class TemplateViewComponent implements OnInit {
   ];
 
   currentNavigation = signal('sources');
+  templateData!: WritableSignal<TemplateState>;
 
   onOptionClick(data: SelectButtonOptionClickEvent) {
     const option = data.option as ButtonListItem;
@@ -65,7 +72,8 @@ export class TemplateViewComponent implements OnInit {
   }
 
   #initializeTemplateData() {
-    console.log('data', this.#route.snapshot.data);
+    const templateData = this.#route.snapshot.data['template'];
+    this.templateData = signal<TemplateState>(templateData);
   }
 
   #initializeNavigation() {
