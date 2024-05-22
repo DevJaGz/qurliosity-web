@@ -6,6 +6,7 @@ import { handleErrorPipeUtil } from '@core/utils';
 import { TemplateState } from '../datatypes';
 import { TemplateFormService } from './template-form.service';
 import { FormGroup } from '@angular/forms';
+import { SourceType } from '@core/enums';
 
 @Injectable()
 export class TemplateService {
@@ -13,7 +14,8 @@ export class TemplateService {
   readonly #sourcesRequestService = inject(SourcesRequestService);
   readonly #templateFormService = inject(TemplateFormService);
 
-  #form!: FormGroup;
+  templateForm: FormGroup | undefined = this.#templateFormService.form;
+  sourceForms: FormGroup[] = this.#templateFormService.sourceForms;
 
   getTemplate(templateId: string): Observable<TemplateState> {
     return forkJoin({
@@ -25,8 +27,17 @@ export class TemplateService {
       map(({ template }) => {
         return {
           ...template,
-          sources: [],
-        };
+          sources: [
+            {
+              _id: '1',
+              __v: 0,
+              value: 'Source 1',
+              type: SourceType.PDF,
+              _templateId: '6644ffa6065e545f87808399',
+              _storageRecordId: '2',
+            },
+          ],
+        } as TemplateState;
       }),
       handleErrorPipeUtil({
         userMessage:
@@ -36,7 +47,6 @@ export class TemplateService {
   }
 
   intializeForm(template: TemplateState): void {
-    this.#form = this.#templateFormService.createForm(template);
-    console.log(this.#form);
+    this.#templateFormService.initializeForm(template);
   }
 }

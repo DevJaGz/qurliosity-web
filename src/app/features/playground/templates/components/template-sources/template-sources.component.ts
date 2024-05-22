@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TemplateService } from '../../services';
 
 @Component({
   selector: 'app-template-sources',
@@ -8,4 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateSourcesComponent {}
+export class TemplateSourcesComponent {
+  readonly #templateService = inject(TemplateService);
+  readonly sourceForms = this.#templateService.sourceForms;
+}

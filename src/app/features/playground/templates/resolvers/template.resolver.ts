@@ -22,6 +22,9 @@ export const templateResolver: ResolveFn<Observable<TemplateState | null>> = (
 
   return templateService.getTemplate(templatedId).pipe(
     tap({
+      next: (template) => {
+        templateService.intializeForm(template);
+      },
       error: () => {
         setTimeout(() => {
           returnAndNavigate(router);
