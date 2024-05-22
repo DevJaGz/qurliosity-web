@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TemplateStateService } from './template-state.service';
+import { SourceFormService } from './source-form.service';
 
-describe('TemplateStateService', () => {
-  let service: TemplateStateService;
+describe('SourceFormService', () => {
+  let service: SourceFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TemplateStateService);
+    service = TestBed.inject(SourceFormService);
   });
 
   it('should be created', () => {

@@ -7,7 +7,7 @@ export interface Source extends Entity {
   type: SourceType;
   value: string;
   _storageRecordId?: string;
-  sessionId?: string;
+  userId?: string;
 }
 
 export type Sources = Source[];

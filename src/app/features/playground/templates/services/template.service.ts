@@ -2,19 +2,16 @@ import { Injectable, inject } from '@angular/core';
 import { SourcesRequestService, TemplatesRequestService } from '@core/services';
 import { Observable, forkJoin, map } from 'rxjs';
 
-import { TemplateStateService } from './template-state.service';
 import { handleErrorPipeUtil } from '@core/utils';
 import { TemplateState } from '../datatypes';
 import { TemplateFormService } from './template-form.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class TemplateService {
   readonly #templatesRequestService = inject(TemplatesRequestService);
   readonly #sourcesRequestService = inject(SourcesRequestService);
   readonly #formService = inject(TemplateFormService);
-  readonly #state = inject(TemplateStateService);
-
-  template$ = this.#state.state$;
 
   getTemplate(templateId: string): Observable<TemplateState> {
     return forkJoin({
@@ -36,5 +33,7 @@ export class TemplateService {
     );
   }
 
-  createFormTemplate() {}
+  createFormTemplate(template: TemplateState): FormGroup {
+    return this.#formService.createTemplateForm(template);
+  }
 }
