@@ -2,12 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  Signal,
   WritableSignal,
   inject,
   signal,
 } from '@angular/core';
-import { TemplateSourcesComponent } from '../../components';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import {
   SelectButtonModule,
@@ -29,7 +27,6 @@ import { LowerCasePipe, TitleCasePipe } from '@angular/common';
     LowerCasePipe,
     SelectButtonModule,
     SharedModule,
-    TemplateSourcesComponent,
   ],
   templateUrl: './template-view.component.html',
   styles: ``,
