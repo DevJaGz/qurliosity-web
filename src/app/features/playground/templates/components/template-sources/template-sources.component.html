@@ -1,6 +1,8 @@
-@for (sourceForm of sourceForms; track $index) {
-{{ sourceForm.get("value")?.value }}
-} lenght:{{ sourceForms.length }}
+@for (sourceForm of sourceForms(); track $index) {
+<pre>{{ sourceForm.value }}</pre>
+}
+
+<pre>lenght:{{ sourceForms().length }}</pre>
 
 <div>This is a long text for Sources, so remember, this is a long text 1</div>
 <div>This is a long text for Sources, so remember, this is a long text 2</div>

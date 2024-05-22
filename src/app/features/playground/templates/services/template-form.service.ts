@@ -1,4 +1,11 @@
-import { Injectable, inject } from '@angular/core';
+import {
+  Injectable,
+  Signal,
+  WritableSignal,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { SourceFormService } from './source-form.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TemplateState } from '../datatypes';
@@ -9,22 +16,20 @@ export class TemplateFormService {
   readonly #sourceFormService = inject(SourceFormService);
   readonly #formBuilder = inject(FormBuilder);
 
-  #form!: FormGroup | undefined;
+  #form: WritableSignal<FormGroup | undefined> = signal<FormGroup | undefined>(
+    undefined
+  );
+  form: Signal<FormGroup | undefined> = this.#form.asReadonly();
 
-  get form(): FormGroup | undefined {
-    return this.#form;
-  }
+  sourcesFormArray = computed(
+    () => this.#form()?.get('sources') as FormArray | undefined
+  );
 
-  get sourcesFormArray(): FormArray | undefined {
-    return this.#form?.get('sources') as FormArray;
-  }
-
-  get sourceForms(): FormGroup[] {
-    return (this.sourcesFormArray?.controls || []) as FormGroup[];
-  }
+  sourceForms = computed(() => this.sourcesFormArray()?.controls || []);
 
   initializeForm(template: TemplateState): void {
-    this.#form = this.#createForm(template);
+    const form = this.#createForm(template);
+    this.#form.set(form);
   }
 
   createSourceForm(source: Source): FormGroup {

@@ -13,13 +13,8 @@ export class TemplateService {
   readonly #sourcesRequestService = inject(SourcesRequestService);
   readonly #templateFormService = inject(TemplateFormService);
 
-  get templateForm() {
-    return this.#templateFormService.form;
-  }
-
-  get sourceForms() {
-    return this.#templateFormService.sourceForms;
-  }
+  templateForm = this.#templateFormService.form;
+  sourceForms = this.#templateFormService.sourceForms;
 
   getTemplate(templateId: string): Observable<TemplateState> {
     return forkJoin({

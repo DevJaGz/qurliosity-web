@@ -11,5 +11,5 @@ import { TemplateService } from '../../services';
 })
 export class TemplateSourcesComponent {
   readonly #templateService = inject(TemplateService);
-  readonly sourceForms = this.#templateService.sourceForms;
+  sourceForms = this.#templateService.sourceForms;
 }
