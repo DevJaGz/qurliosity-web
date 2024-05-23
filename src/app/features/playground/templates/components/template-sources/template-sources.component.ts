@@ -28,6 +28,7 @@ export class TemplateSourcesComponent {
         tooltipPosition: 'left',
       },
       icon: 'file-type-pdf',
+      styleClass: 'text-cyan-400',
       command: () => {
         console.log('PDF File');
       },
@@ -39,6 +40,7 @@ export class TemplateSourcesComponent {
         tooltipPosition: 'left',
       },
       icon: 'unlink',
+      styleClass: 'text-fuchsia-400',
       id: 'link',
     },
   ];

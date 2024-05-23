@@ -1,4 +1,4 @@
-<div class="p-5 flex flex-col gap-5">
+<div class="p-5 flex flex-col gap-5 pb-20">
   @for (sourceForm of sourcesFormControls; track $index) {
   <app-template-source [source]="sourceForm.value" />
   } @for (sourceForm of sourcesFormControls; track $index) {
@@ -38,10 +38,10 @@
   }
 </div>
 
-<div class="fixed right-20 bottom-20">
+<div class="fixed right-16 bottom-20">
   <p-speedDial
     [model]="buttons"
-    radius="100"
+    radius="80"
     direction="up-left"
     type="quarter-circle"
     [visible]="isShownButtons()"
@@ -62,7 +62,7 @@
         }
       </div> -->
       <div
-        class="grid place-items-center p-3.5 shadow rounded-full dark:bg-cyan-500/20 dark:hover:bg-cyan-400/20 backdrop-blur transition-colors"
+        class="grid place-items-center p-3.5 shadow rounded-full dark:bg-cyan-900 dark:hover:bg-cyan-600/20 backdrop-blur transition-colors"
       >
         <i-tabler name="plus"></i-tabler>
       </div>
@@ -70,9 +70,9 @@
     <ng-template pTemplate="item" let-item>
       <div
         (click)="addSource(item.id)"
-        class="grid place-items-center p-3.5 shadow dark:bg-cyan-400/20 dark:hover:bg-cyan-500/20 backdrop-blur transition-colors rounded-full cursor-pointer"
+        class="grid place-items-center p-3.5 shadow dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors rounded-full cursor-pointer"
       >
-        <i-tabler [name]="item.icon"></i-tabler>
+        <i-tabler [name]="item.icon" class="{{ item.styleClass }}"></i-tabler>
       </div>
     </ng-template>
   </p-speedDial>
