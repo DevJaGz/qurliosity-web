@@ -4,6 +4,8 @@ import {
   IconBrandGithub,
   IconFileTypePdf,
   IconX,
+  IconUnlink,
+  IconPlus,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -12,6 +14,8 @@ const icons = {
   IconBrandGithub,
   IconFileTypePdf,
   IconX,
+  IconUnlink,
+  IconPlus,
 } as const;
 
 export { icons as TABLER_ICONS };

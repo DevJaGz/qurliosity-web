@@ -4,7 +4,33 @@
   }
 </div>
 
-<pre>lenght:{{ sourcesFormControls.length }}</pre>
+<p-speedDial
+  [model]="buttons"
+  radius="100"
+  direction="up-left"
+  type="quarter-circle"
+  class="block fixed bottom-16 right-32"
+  [visible]="true"
+  [rotateAnimation]="false"
+  [mask]="true"
+  buttonClassName="flex items-center justify-center w-full h-full rounded-none"
+>
+  <ng-template pTemplate="button">
+    <div
+      class="flex items-center justify-center gap-2 flex-nowrap px-4 py-2 rounded-lg bg-neutral-800"
+    >
+      <i-tabler name="plus"></i-tabler>
+      <span>ADD</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="item" let-item>
+    <div
+      class="grid place-items-center p-3 bg-neutral-700 rounded-full cursor-pointer"
+    >
+      <i-tabler [name]="item.icon"></i-tabler>
+    </div>
+  </ng-template>
+</p-speedDial>
 
 <div>This is a long text for Sources, so remember, this is a long text 1</div>
 <div>This is a long text for Sources, so remember, this is a long text 2</div>
