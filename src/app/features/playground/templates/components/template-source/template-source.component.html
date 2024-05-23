@@ -1,14 +1,16 @@
 <p-panel [collapsed]="true" styleClass="overflow-hidden">
   <ng-template pTemplate="header">
     @if (sourceType() === type.PDF) {
-    <div class="flex items-center gap-2">
-      <i-tabler name="file-type-pdf"></i-tabler>
-      <span>{{ sourceName() }}</span>
+    <div class="flex items-center gap-2 flex-nowrap">
+      <i-tabler name="file-type-pdf" class="flex-shrink-0"></i-tabler>
+      <span class="line-clamp-1 flex-1">{{ sourceName() }}</span>
     </div>
     }
   </ng-template>
   <ng-template pTemplate="icons">
-    <i-tabler name="x"></i-tabler>
+    <p-button class="icon danger">
+      <i-tabler name="x"></i-tabler>
+    </p-button>
   </ng-template>
   <!-- <ng-template pTemplate="footer"> FOOTER </ng-template> -->
   <!-- CONTENT -->

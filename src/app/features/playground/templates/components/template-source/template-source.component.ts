@@ -7,7 +7,6 @@ import {
 import { Source } from '@core/datatypes';
 import { SourceType } from '@core/enums';
 import { SharedModule } from '@shared/index';
-import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-template-source',
