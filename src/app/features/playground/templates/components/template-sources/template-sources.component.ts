@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TemplateService } from '../../services';
+import { SourcesService, TemplateService } from '../../services';
 
 @Component({
   selector: 'app-template-sources',
@@ -10,6 +10,6 @@ import { TemplateService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateSourcesComponent {
-  readonly #templateService = inject(TemplateService);
-  sourceForms = this.#templateService.sourceForms;
+  readonly #sourcesService = inject(SourcesService);
+  sourcesFormControls = this.#sourcesService.sourcesFormControls;
 }

@@ -2,11 +2,11 @@ import { ResolveFn, Router } from '@angular/router';
 import { EMPTY, Observable, Subject, forkJoin, map, tap } from 'rxjs';
 import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
-import { TemplateService } from '../services';
+import { TemplateFormService } from '../services';
 import { SourcesRequestService, TemplatesRequestService } from '@core/services';
 import { SourceType } from '@core/enums';
 
-const goHomeInNextTick = (router: Router) => {
+const goHomeAfterNextTick = (router: Router) => {
   setTimeout(() => {
     router.navigateByUrl('/');
   }, 0);
@@ -18,11 +18,11 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
 
   const templatesRequestService = inject(TemplatesRequestService);
   const sourcesRequestService = inject(SourcesRequestService);
-  const templateService = inject(TemplateService);
+  const templateFormService = inject(TemplateFormService);
 
   const templateId = route.params['templateId'];
   if (!templateId) {
-    goHomeInNextTick(router);
+    goHomeAfterNextTick(router);
     return EMPTY;
   }
 
@@ -50,12 +50,12 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
       }),
       tap({
         next: (templateState) => {
-          console.log('templateState', templateState);
+          templateFormService.initializeForm(templateState);
           isDataLoaded.next(true);
         },
         error: () => {
           isDataLoaded.next(false);
-          goHomeInNextTick(router);
+          goHomeAfterNextTick(router);
         },
         complete: () => isDataLoaded.complete(),
       })

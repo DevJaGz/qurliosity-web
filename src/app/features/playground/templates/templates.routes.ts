@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { templateResolver } from './resolvers';
 import {
-  SourceFormService,
+  SourceFormFactoryService,
+  TemplateFormFactoryService,
   TemplateFormService,
-  TemplateService,
 } from './services';
 import { TemplateViewComponent } from './views';
 
@@ -14,7 +14,11 @@ const routes: Routes = [
     resolve: {
       template: templateResolver,
     },
-    providers: [TemplateService, TemplateFormService, SourceFormService],
+    providers: [
+      TemplateFormFactoryService,
+      SourceFormFactoryService,
+      TemplateFormService,
+    ],
     children: [
       {
         path: '',

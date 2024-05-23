@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Source } from '@core/datatypes';
 
 @Injectable()
-export class SourceFormService {
+export class SourceFormFactoryService {
   readonly #formBuilder = inject(FormBuilder);
 
   createForm(source: Source): FormGroup {
