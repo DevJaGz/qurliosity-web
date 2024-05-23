@@ -1,6 +1,6 @@
-// button {
-//   @apply px-1 py-0.5;
-// }
+button {
+  @apply px-1 py-0.5;
+}
 
 button.icon {
   @apply rounded-full grid place-items-center transition-colors;

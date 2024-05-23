@@ -29,9 +29,6 @@ export class TemplateSourcesComponent {
       },
       icon: 'file-type-pdf',
       styleClass: 'text-cyan-400',
-      command: () => {
-        console.log('PDF File');
-      },
       id: 'pdf',
     },
     {
