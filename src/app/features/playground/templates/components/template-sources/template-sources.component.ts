@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { SourcesService, TemplateService } from '../../services';
 import { TemplateSourceComponent } from '../template-source/template-source.component';
 import { SharedModule } from '@shared/shared.module';
@@ -37,6 +42,8 @@ export class TemplateSourcesComponent {
       id: 'link',
     },
   ];
+
+  isShownButtons = signal(true);
 
   addSource(id: 'link' | 'pdf') {
     console.log('add source', id);

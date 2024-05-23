@@ -38,31 +38,37 @@
   }
 </div>
 
-<p-speedDial
-  [model]="buttons"
-  radius="100"
-  direction="up-left"
-  type="quarter-circle"
-  class="block fixed bottom-16 right-28"
-  [visible]="true"
-  [rotateAnimation]="false"
-  [mask]="true"
-  buttonClassName="flex items-center justify-center w-full h-full rounded-none"
->
-  <ng-template pTemplate="button">
-    <div
-      class="flex items-center justify-center gap-2 flex-nowrap px-4 py-2 rounded-lg dark:bg-[var(--primary-color)] dark:hover:bg-[var(--highlight-bg)] backdrop-blur-lg transition-colors"
-    >
-      <i-tabler name="plus"></i-tabler>
-      <span>ADD</span>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="item" let-item>
-    <div
-      (click)="addSource(item.id)"
-      class="grid place-items-center p-3 dark:bg-[var(--highlight-bg)] dark:hover:bg-[var(--primary-color)] transition-colors rounded-full cursor-pointer"
-    >
-      <i-tabler [name]="item.icon"></i-tabler>
-    </div>
-  </ng-template>
-</p-speedDial>
+<div class="fixed right-32 bottom-20">
+  <p-speedDial
+    [model]="buttons"
+    radius="100"
+    direction="up-left"
+    type="quarter-circle"
+    [visible]="isShownButtons()"
+    (visibleChange)="isShownButtons.set($event)"
+    [rotateAnimation]="false"
+    buttonClassName="flex items-center justify-center w-full h-full rounded-none"
+  >
+    <ng-template pTemplate="button">
+      <div
+        class="flex items-center justify-center gap-2 flex-nowrap w-28 px-4 py-2 rounded-lg dark:bg-cyan-500/20 dark:hover:bg-cyan-400/20 backdrop-blur transition-colors"
+      >
+        @if (isShownButtons()) {
+        <i-tabler name="x"></i-tabler>
+        <span>CLOSE</span>
+        } @else {
+        <i-tabler name="plus"></i-tabler>
+        <span>ADD</span>
+        }
+      </div>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+      <div
+        (click)="addSource(item.id)"
+        class="grid place-items-center p-3 dark:bg-cyan-400/20 dark:hover:bg-cyan-500/20 backdrop-blurtransition-colors rounded-full cursor-pointer"
+      >
+        <i-tabler [name]="item.icon"></i-tabler>
+      </div>
+    </ng-template>
+  </p-speedDial>
+</div>
