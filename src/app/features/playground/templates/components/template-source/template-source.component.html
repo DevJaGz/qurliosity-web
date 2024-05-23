@@ -1,3 +1,6 @@
-<p>
-  {{ source().value }}
-</p>
+@if (sourceType() === type.PDF) {
+<div class="flex items-center gap-2">
+  <i-tabler name="file-type-pdf"></i-tabler>
+  <span>{{ sourceName() }}</span>
+</div>
+}
