@@ -1,0 +1,7 @@
+button.icon {
+  @apply rounded-full grid place-items-center transition-colors;
+
+  &.danger {
+    @apply dark:hover:text-red-700;
+  }
+}

@@ -2,15 +2,24 @@
   <ng-template pTemplate="header">
     @if (sourceType() === type.PDF) {
     <div class="flex items-center gap-2 flex-nowrap">
-      <i-tabler name="file-type-pdf" class="flex-shrink-0"></i-tabler>
+      <i-tabler
+        name="file-type-pdf"
+        class="flex-shrink-0"
+        class="text-cyan-400"
+      ></i-tabler>
       <span class="line-clamp-1 flex-1">{{ sourceName() }}</span>
     </div>
     }
   </ng-template>
   <ng-template pTemplate="icons">
-    <p-button class="icon danger" (click)="showDeleteDialog.set(true)">
+    <button
+      type="button"
+      pButton
+      (click)="showDeleteDialog.set(true)"
+      class="icon danger"
+    >
       <i-tabler name="x"></i-tabler>
-    </p-button>
+    </button>
   </ng-template>
   <!-- <ng-template pTemplate="footer"> FOOTER </ng-template> -->
   <!-- CONTENT -->
@@ -24,7 +33,9 @@
 >
   <ng-template pTemplate="header"> Delete source </ng-template>
   <ng-template pTemplate="closeicon">
-    <i-tabler name="x"></i-tabler>
+    <button type="button" pButton class="icon danger">
+      <i-tabler name="x"></i-tabler>
+    </button>
   </ng-template>
   <span class="p-text-secondary block mb-5"
     >Are you sure you want to delete the source?</span
