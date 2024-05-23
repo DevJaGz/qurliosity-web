@@ -26,6 +26,7 @@ export class TemplateSourcesComponent {
       command: () => {
         console.log('PDF File');
       },
+      id: 'pdf',
     },
     {
       tooltipOptions: {
@@ -33,9 +34,11 @@ export class TemplateSourcesComponent {
         tooltipPosition: 'left',
       },
       icon: 'unlink',
-      command: () => {
-        console.log('Link');
-      },
+      id: 'link',
     },
   ];
+
+  addSource(id: 'link' | 'pdf') {
+    console.log('add source', id);
+  }
 }

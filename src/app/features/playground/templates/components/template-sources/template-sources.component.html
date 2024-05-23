@@ -25,6 +25,7 @@
   </ng-template>
   <ng-template pTemplate="item" let-item>
     <div
+      (click)="addSource(item.id)"
       class="grid place-items-center p-3 bg-neutral-700 rounded-full cursor-pointer"
     >
       <i-tabler [name]="item.icon"></i-tabler>
