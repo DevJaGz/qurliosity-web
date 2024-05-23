@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { PRIMENG_SHARED_MODULES, TABLER_ICONS } from './constants';
 
