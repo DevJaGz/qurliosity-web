@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
 import { RouterOutlet } from '@angular/router';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LoaderIndicatorService } from '@shared/services';
+import { SharedModule } from './shared';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BlockUIModule, ProgressSpinnerModule],
+  imports: [RouterOutlet, SharedModule],
   template: `
     <router-outlet></router-outlet>
     <p-blockUI [blocked]="isLoading()">
@@ -19,9 +18,7 @@ import { LoaderIndicatorService } from '@shared/services';
       />
     </p-blockUI>
   `,
-  styles: `
-
-  `,
+  styles: ``,
 })
 export class AppComponent {
   readonly loadingService = inject(LoaderIndicatorService);
