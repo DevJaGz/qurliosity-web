@@ -38,7 +38,7 @@
   }
 </div>
 
-<div class="fixed right-32 bottom-20">
+<div class="fixed right-20 bottom-20">
   <p-speedDial
     [model]="buttons"
     radius="100"
@@ -46,11 +46,11 @@
     type="quarter-circle"
     [visible]="isShownButtons()"
     (visibleChange)="isShownButtons.set($event)"
-    [rotateAnimation]="false"
+    [rotateAnimation]="true"
     buttonClassName="flex items-center justify-center w-full h-full rounded-none"
   >
     <ng-template pTemplate="button">
-      <div
+      <!-- <div
         class="flex items-center justify-center gap-2 flex-nowrap w-28 px-4 py-2 rounded-lg dark:bg-cyan-500/20 dark:hover:bg-cyan-400/20 backdrop-blur transition-colors"
       >
         @if (isShownButtons()) {
@@ -60,12 +60,17 @@
         <i-tabler name="plus"></i-tabler>
         <span>ADD</span>
         }
+      </div> -->
+      <div
+        class="grid place-items-center p-3.5 shadow rounded-full dark:bg-cyan-500/20 dark:hover:bg-cyan-400/20 backdrop-blur transition-colors"
+      >
+        <i-tabler name="plus"></i-tabler>
       </div>
     </ng-template>
     <ng-template pTemplate="item" let-item>
       <div
         (click)="addSource(item.id)"
-        class="grid place-items-center p-3 dark:bg-cyan-400/20 dark:hover:bg-cyan-500/20 backdrop-blurtransition-colors rounded-full cursor-pointer"
+        class="grid place-items-center p-3.5 shadow dark:bg-cyan-400/20 dark:hover:bg-cyan-500/20 backdrop-blur transition-colors rounded-full cursor-pointer"
       >
         <i-tabler [name]="item.icon"></i-tabler>
       </div>
