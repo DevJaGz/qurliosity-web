@@ -1,5 +1,5 @@
 @for (sourceForm of sourcesFormControls; track $index) {
-<pre>{{ sourceForm.value }}</pre>
+<app-template-source [source]="sourceForm.value" />
 }
 
 <pre>lenght:{{ sourcesFormControls.length }}</pre>
