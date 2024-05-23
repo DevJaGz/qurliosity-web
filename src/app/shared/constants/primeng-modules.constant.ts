@@ -5,6 +5,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 export const PRIMENG_SHARED_MODULES = [
   ButtonModule,
@@ -14,4 +15,5 @@ export const PRIMENG_SHARED_MODULES = [
   FileUploadModule,
   SpeedDialModule,
   DialogModule,
+  DynamicDialogModule,
 ] as const;
