@@ -4,9 +4,9 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { SourcesService, TemplateService } from '../../services';
+import { SourcesService } from '../../services';
 import { TemplateSourceComponent } from '../template-source/template-source.component';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
 import { UploadFileDialogService } from '@shared/dialogs';

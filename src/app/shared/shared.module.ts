@@ -1,18 +1,11 @@
-import { NgModule, Type } from '@angular/core';
-import { TablerIconsModule } from 'angular-tabler-icons';
-import { PRIMENG_SHARED_MODULES, TABLER_ICONS } from './constants';
-import { UploadFileDialogService } from './dialogs';
-import { DialogService } from 'primeng/dynamicdialog';
+import { NgModule } from '@angular/core';
+import { PRIMENG_SHARED_MODULES } from './constants';
+import { IconsModule } from './modules';
 
-const modules: any[] | Type<any> = [
-  TablerIconsModule.pick(TABLER_ICONS),
-  ...PRIMENG_SHARED_MODULES,
-];
+const modules = [...PRIMENG_SHARED_MODULES, IconsModule];
 
 @NgModule({
-  declarations: [],
   imports: [...modules],
   exports: [...modules],
-  providers: [UploadFileDialogService, DialogService],
 })
 export class SharedModule {}

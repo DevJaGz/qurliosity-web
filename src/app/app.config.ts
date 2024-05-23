@@ -14,6 +14,7 @@ import {
   cookieInterceptor,
 } from '@core/interceptors';
 import { AppErrorService } from '@core/services';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
       ])
     ),
     provideAnimations(),
+    DialogService,
     {
       provide: ErrorHandler,
       useClass: AppErrorService,
