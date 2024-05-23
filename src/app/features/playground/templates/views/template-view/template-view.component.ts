@@ -72,8 +72,8 @@ export class TemplateViewComponent implements OnInit {
   }
 
   #initializeTemplateData() {
-    console.log(this.#templateService.templateForm.value);
-    this.templateData = signal<TemplateState>({} as TemplateState);
+    const template = this.#templateService.templateForm.value as TemplateState;
+    this.templateData = signal<TemplateState>(template);
   }
 
   #initializeNavigation() {
