@@ -41,19 +41,23 @@
     >Are you sure you want to delete the source?</span
   >
   <ng-template pTemplate="footer">
-    <div class="flex gap-4 items-center flex-nowrap justify-end">
-      <p-button
-        (onClick)="showDeleteDialog.set(false)"
-        label="Cancel"
-        [text]="true"
-        severity="secondary"
-      />
-      <p-button
-        (onClick)="deleteSource()"
-        label="Yes"
-        [outlined]="true"
-        severity="secondary"
-      />
+    <div class="flex gap-8 items-center flex-nowrap justify-end">
+      <button
+        type="button"
+        pButton
+        (click)="showDeleteDialog.set(false)"
+        class="text danger"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        pButton
+        (click)="deleteSource()"
+        class="text primary"
+      >
+        Yes
+      </button>
     </div>
   </ng-template>
 </p-dialog>

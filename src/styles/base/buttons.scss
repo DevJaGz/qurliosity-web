@@ -1,7 +1,23 @@
+// button {
+//   @apply px-1 py-0.5;
+// }
+
 button.icon {
   @apply rounded-full grid place-items-center transition-colors;
 
   &.danger {
-    @apply dark:hover:text-red-700;
+    @apply dark:hover:text-red-500;
+  }
+}
+
+button.text {
+  @apply flex items-center gap-1 justify-center transition-colors;
+
+  &.danger {
+    @apply dark:hover:text-red-500;
+  }
+
+  &.primary {
+    @apply dark:hover:text-cyan-500;
   }
 }

@@ -27,6 +27,7 @@ export class TemplateSourceComponent {
 
   deleteSource() {
     this.showDeleteDialog.set(false);
+    console.log('delete source');
     // TODO: delete source
   }
 }
