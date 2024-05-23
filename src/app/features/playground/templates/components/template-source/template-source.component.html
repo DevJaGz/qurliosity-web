@@ -8,10 +8,41 @@
     }
   </ng-template>
   <ng-template pTemplate="icons">
-    <p-button class="icon danger">
+    <p-button class="icon danger" (click)="showDeleteDialog.set(true)">
       <i-tabler name="x"></i-tabler>
     </p-button>
   </ng-template>
   <!-- <ng-template pTemplate="footer"> FOOTER </ng-template> -->
   <!-- CONTENT -->
 </p-panel>
+
+<p-dialog
+  header="Header"
+  [visible]="showDeleteDialog()"
+  (visibleChange)="showDeleteDialog.set($event)"
+  [modal]="true"
+>
+  <ng-template pTemplate="header"> Delete source </ng-template>
+  <ng-template pTemplate="closeicon">
+    <i-tabler name="x"></i-tabler>
+  </ng-template>
+  <span class="p-text-secondary block mb-5"
+    >Are you sure you want to delete the source?</span
+  >
+  <ng-template pTemplate="footer">
+    <div class="flex gap-4 items-center flex-nowrap justify-end">
+      <p-button
+        (onClick)="showDeleteDialog.set(false)"
+        label="Cancel"
+        [text]="true"
+        severity="secondary"
+      />
+      <p-button
+        (onClick)="deleteSource()"
+        label="Yes"
+        [outlined]="true"
+        severity="secondary"
+      />
+    </div>
+  </ng-template>
+</p-dialog>

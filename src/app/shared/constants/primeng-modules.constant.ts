@@ -4,6 +4,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { DialogModule } from 'primeng/dialog';
 
 export const PRIMENG_SHARED_MODULES = [
   ButtonModule,
@@ -12,4 +13,5 @@ export const PRIMENG_SHARED_MODULES = [
   BlockUIModule,
   FileUploadModule,
   SpeedDialModule,
+  DialogModule,
 ] as const;

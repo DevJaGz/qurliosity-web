@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   input,
+  signal,
 } from '@angular/core';
 import { Source } from '@core/datatypes';
 import { SourceType } from '@core/enums';
@@ -21,4 +22,11 @@ export class TemplateSourceComponent {
   type = SourceType;
   sourceType = computed(() => this.source().type);
   sourceName = computed(() => this.source().value);
+
+  showDeleteDialog = signal(false);
+
+  deleteSource() {
+    this.showDeleteDialog.set(false);
+    // TODO: delete source
+  }
 }
