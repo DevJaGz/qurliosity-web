@@ -1,9 +1,14 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import { TABLER_ICONS } from './constants';
+import { PRIMENG_SHARED_MODULES, TABLER_ICONS } from './constants';
+
+const modules: any[] | Type<any> = [
+  TablerIconsModule.pick(TABLER_ICONS),
+  ...PRIMENG_SHARED_MODULES,
+];
 
 @NgModule({
-  imports: [TablerIconsModule.pick(TABLER_ICONS)],
-  exports: [TablerIconsModule],
+  imports: [...modules],
+  exports: [...modules],
 })
 export class SharedModule {}

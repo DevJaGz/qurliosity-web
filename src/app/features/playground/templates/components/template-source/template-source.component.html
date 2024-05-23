@@ -1,6 +1,15 @@
-@if (sourceType() === type.PDF) {
-<div class="flex items-center gap-2">
-  <i-tabler name="file-type-pdf"></i-tabler>
-  <span>{{ sourceName() }}</span>
-</div>
-}
+<p-panel [collapsed]="true" styleClass="overflow-hidden">
+  <ng-template pTemplate="header">
+    @if (sourceType() === type.PDF) {
+    <div class="flex items-center gap-2">
+      <i-tabler name="file-type-pdf"></i-tabler>
+      <span>{{ sourceName() }}</span>
+    </div>
+    }
+  </ng-template>
+  <ng-template pTemplate="icons">
+    <i-tabler name="x"></i-tabler>
+  </ng-template>
+  <!-- <ng-template pTemplate="footer"> FOOTER </ng-template> -->
+  <!-- CONTENT -->
+</p-panel>
