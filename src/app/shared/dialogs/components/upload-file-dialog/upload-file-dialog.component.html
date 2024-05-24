@@ -1,9 +1,8 @@
 <p-fileUpload
   name="myfile[]"
-  url="https://www.primefaces.org/cdn/api/upload.php"
-  [multiple]="true"
-  accept="image/*"
-  maxFileSize="1000000"
+  accept="application/pdf"
+  [maxFileSize]="1024 * 1024 * 2"
+  (onSelect)="onFileSelect($event)"
 >
   <ng-template
     pTemplate="header"
@@ -12,7 +11,9 @@
     let-clearCallback="clearCallback"
     let-uploadCallback="uploadCallback"
   >
-    HEADER
+    <div class="flex">
+      <button pButton (click)="chooseCallback($event)">Upload</button>
+    </div>
   </ng-template>
   <ng-template
     pTemplate="content"
@@ -21,15 +22,15 @@
     let-removeFileCallback="removeFileCallback"
     let-removeUploadedFileCallback="removeUploadedFileCallback"
   >
-    CONTENT
+    CONTENT:
+    <pre>{{ files | json }}</pre>
   </ng-template>
-  <ng-template pTemplate="file"> </ng-template>
-  <ng-template pTemplate="empty">
+  <!-- <ng-template pTemplate="empty">
     <div class="flex align-items-center justify-content-center flex-column">
       <i
         class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"
       ></i>
       <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
     </div>
-  </ng-template>
+  </ng-template> -->
 </p-fileUpload>

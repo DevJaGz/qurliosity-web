@@ -12,7 +12,7 @@ export class UploadFileDialogService {
     const ref = this.dialogService.open(UploadFileDialogComponent, {
       modal: true,
       style: {
-        width: '50vw',
+        width: '90vw',
         maxWidth: '600px',
       },
       draggable: true,

@@ -30,6 +30,7 @@
   [visible]="showDeleteDialog()"
   (visibleChange)="showDeleteDialog.set($event)"
   [modal]="true"
+  [focusOnShow]="false"
 >
   <ng-template pTemplate="header"> Delete source </ng-template>
   <ng-template pTemplate="closeicon">
