@@ -15,6 +15,7 @@ import {
 } from '@core/interceptors';
 import { AppErrorService } from '@core/services';
 import { DialogService } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     DialogService,
+    MessageService,
     {
       provide: ErrorHandler,
       useClass: AppErrorService,

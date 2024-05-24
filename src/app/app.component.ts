@@ -8,6 +8,7 @@ import { SharedModule } from './shared';
   standalone: true,
   imports: [RouterOutlet, SharedModule],
   template: `
+    <p-toast />
     <router-outlet></router-outlet>
     <p-blockUI [blocked]="isLoading()">
       <p-progressSpinner
