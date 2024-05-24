@@ -16,6 +16,7 @@ export class UploadFileDialogService {
         maxWidth: '600px',
       },
       draggable: true,
+      header: 'Upload files',
     });
     return ref;
   }

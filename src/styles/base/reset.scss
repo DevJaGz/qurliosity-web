@@ -16,3 +16,11 @@ i-tabler {
   display: grid !important;
   align-items: center !important;
 }
+
+.p-dialog-header-icons {
+  @apply dark:hover:text-red-500 dark:focus:text-red-500 dark:focus-visible:text-red-500 focus:outline-none focus-visible:border-none transition-colors;
+}
+
+.p-dialog-title {
+  @apply text-base;
+}
