@@ -8,7 +8,6 @@ export interface UploadedFile {
   errors: { [key: string]: unknown };
 }
 
-export type ValidationFileErrors<T = unknown> = null | { [key: string]: T };
 export type UploadedFiles = UploadedFile[];
 
 export interface FileLoaderConfig {

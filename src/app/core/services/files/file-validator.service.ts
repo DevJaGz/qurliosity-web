@@ -1,10 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  FileLoaderConfig,
-  UploadedFile,
-  ValidationFileErrors,
-} from '@shared/datatypes';
+import { FileLoaderConfig, UploadedFile } from '@shared/datatypes';
 import { MimeTypeService } from './mime-type.service';
+import { ValidationAppErrors } from '@core/datatypes';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +17,7 @@ export class FileValidatorService {
     uploadedFile: UploadedFile,
     config: FileLoaderConfig
   ): void {
-    const applyValidationError = (validationErrors: ValidationFileErrors) => {
+    const applyValidationError = (validationErrors: ValidationAppErrors) => {
       uploadedFile.errors = {
         ...uploadedFile.errors,
         ...validationErrors,
@@ -55,7 +52,7 @@ export class FileValidatorService {
     type: string | null,
     size: number | null,
     config: FileLoaderConfig
-  ): ValidationFileErrors {
+  ): ValidationAppErrors {
     const maxSize = config.maxSize;
 
     if (maxSize === undefined || maxSize === -1) return null;
@@ -93,7 +90,7 @@ export class FileValidatorService {
   private hasFileValidType(
     type: string | null,
     config: FileLoaderConfig
-  ): ValidationFileErrors {
+  ): ValidationAppErrors {
     const accept = config.accept;
 
     if (!accept || accept === '*') return null;

@@ -78,7 +78,6 @@ export class FileLoaderComponent {
   }
 
   #emitFiles(uploadedFiles: UploadedFiles): void {
-    console.log(uploadedFiles);
     this.uploadedFiles.emit(uploadedFiles);
   }
 }
