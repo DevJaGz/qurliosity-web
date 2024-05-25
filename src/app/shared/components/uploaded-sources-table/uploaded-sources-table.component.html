@@ -1,6 +1,13 @@
+<div class="flex justify-end">
+  <p class="!mb-4 !mx-0 !p-0 text-cyan-400">
+    {{ numberOfUploadedFiles() }} file{{
+      numberOfUploadedFiles() > 1 ? "s" : ""
+    }}
+  </p>
+</div>
 <section class="flex flex-nowrap flex-col gap-1" role="table">
   <div
-    class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 font-medium"
+    class="grid grid-cols-[1fr_30%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 font-medium"
   >
     <span>Name</span>
     <span>Size</span>
@@ -16,6 +23,3 @@
   </div>
   }
 </section>
-<p class="my-4 !mx-0 !p-0 text-cyan-400">
-  Number of files: {{ numberOfUploadedFiles() }}
-</p>
