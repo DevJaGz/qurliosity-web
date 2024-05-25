@@ -31,10 +31,6 @@ export class FileValidatorService {
     uploadedFile: UploadedFile,
     config: FileLoaderConfig
   ): void {
-    const { file } = uploadedFile;
-    const type = file.type ? file.type : null;
-    const size = file.size ? file.size : null;
-
     const validationFileSizeErrors = this.validateFileSize(
       uploadedFile,
       config
