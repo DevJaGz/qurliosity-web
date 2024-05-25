@@ -1,1 +1,1 @@
-export * from './upload-file-dialog.service';
+export * from './source-dialog.service';

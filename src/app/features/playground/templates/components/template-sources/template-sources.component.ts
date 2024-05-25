@@ -9,7 +9,7 @@ import { TemplateSourceComponent } from '../template-source/template-source.comp
 import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
-import { UploadFileDialogService } from '@core/services';
+import { SourceDialogService } from '@core/services';
 
 @Component({
   selector: 'app-template-sources',
@@ -21,7 +21,7 @@ import { UploadFileDialogService } from '@core/services';
 })
 export class TemplateSourcesComponent {
   readonly #sourcesService = inject(SourcesService);
-  readonly #uploadFileDialogService = inject(UploadFileDialogService);
+  readonly #sourceDialogService = inject(SourceDialogService);
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
   buttons: MenuItem[] = [
     {
@@ -53,6 +53,6 @@ export class TemplateSourcesComponent {
   }
 
   #addPDFSource() {
-    this.#uploadFileDialogService.openDialog();
+    this.#sourceDialogService.openUploadDialog();
   }
 }

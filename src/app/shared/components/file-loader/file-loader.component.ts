@@ -30,10 +30,10 @@ export class FileLoaderComponent {
   readonly #isOverDragZone = new Subject<boolean>();
   readonly #fileLoaderService = inject(FileLoaderService);
 
-  disabled = input<boolean | undefined>(false);
-  multiple = input<boolean | undefined>(true);
-  accept = input<string | undefined>('*');
-  maxSize = input<number | MaxFileSize | undefined>(-1);
+  disabled = input<boolean>(false);
+  multiple = input<boolean>(false);
+  accept = input<string>('*');
+  maxSize = input<number | MaxFileSize>(-1);
   uploadedFiles = output<UploadedFiles>();
   isOverDragZone$ = this.#isOverDragZone.asObservable();
   isOverDragZone = outputFromObservable<boolean>(this.isOverDragZone$);
