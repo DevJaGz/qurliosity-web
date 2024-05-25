@@ -5,6 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { UploadSourceService } from '@core/services';
 import { FileLoaderComponent } from '@shared/components';
 import { UploadedFile, UploadedFiles } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
@@ -20,15 +21,21 @@ import { MessageService } from 'primeng/api';
 })
 export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
+  readonly #uploadSourceService = inject(UploadSourceService);
+
   readonly uploadedFiles = signal<UploadedFiles>([]);
-  numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
+  readonly numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
   readonly maxFileSize = 1024 * 1024 * 10;
   readonly maxFiles = 10;
 
   onUploadedFiles(uploadedFiles: UploadedFiles): void {
     console.log(uploadedFiles);
 
-    const duplicatedFiles = this.#getDuplicatedFiles(uploadedFiles);
+    const duplicatedFiles = this.#uploadSourceService.getDuplicatedFiles(
+      this.uploadedFiles(),
+      uploadedFiles
+    );
+
     if (duplicatedFiles.length) {
       this.#notifyDuplicatedFiles(duplicatedFiles);
       return;
@@ -72,22 +79,6 @@ export class UploadSourceDialogComponent {
       detail: `You can only upload ${this.maxFiles} files`,
       life: 10000,
     });
-  }
-
-  #getDuplicatedFiles(uploadedFiles: UploadedFiles): UploadedFiles {
-    const duplicatedFiles: UploadedFiles = [];
-    for (const uploadedFile of uploadedFiles) {
-      const duplicatedFile = this.#getDuplicatedFile(uploadedFile.file);
-      if (duplicatedFile) {
-        duplicatedFiles.push(duplicatedFile);
-      }
-    }
-    return duplicatedFiles;
-  }
-
-  #getDuplicatedFile(file: File): UploadedFile | null {
-    const currentUploadedFiles = this.uploadedFiles();
-    return currentUploadedFiles.find((f) => f.file.name === file.name) || null;
   }
 
   #notifyDuplicatedFiles(duplicatedFiles: UploadedFiles): void {

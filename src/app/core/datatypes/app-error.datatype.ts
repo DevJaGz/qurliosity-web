@@ -4,5 +4,3 @@ export interface AppError<T = unknown> {
   appCode?: string;
   error: T;
 }
-
-export type ValidationAppErrors<T = unknown> = null | { [key: string]: T };

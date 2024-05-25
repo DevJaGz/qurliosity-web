@@ -5,8 +5,16 @@ export interface MaxFileSize {
 export interface UploadedFile {
   file: File;
   hasErrors: boolean;
-  errors: { [key: string]: unknown };
+  errors: ValidationFileErrors;
 }
+
+export interface UploadedFileError {
+  size?: { currentSize: number; limitSize: number };
+  type?: { currentType: string; acceptedTypes: string[] };
+  duplicated?: boolean;
+}
+
+export type ValidationFileErrors = UploadedFileError | null;
 
 export type UploadedFiles = UploadedFile[];
 

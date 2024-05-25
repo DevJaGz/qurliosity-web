@@ -1,7 +1,11 @@
 import { Injectable, inject } from '@angular/core';
-import { FileLoaderConfig, UploadedFile } from '@shared/datatypes';
+import {
+  FileLoaderConfig,
+  UploadedFile,
+  ValidationFileErrors,
+} from '@shared/datatypes';
 import { MimeTypeService } from './mime-type.service';
-import { ValidationAppErrors } from '@core/datatypes';
+import { getExtensionFromName } from '@core/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +15,7 @@ export class FileValidatorService {
 
   readonly #applyValidationErrorFn = (
     uploadedFile: UploadedFile,
-    validationErrors: ValidationAppErrors
+    validationErrors: ValidationFileErrors
   ) => {
     uploadedFile.errors = {
       ...uploadedFile.errors,
@@ -31,17 +35,23 @@ export class FileValidatorService {
     const type = file.type ? file.type : null;
     const size = file.size ? file.size : null;
 
-    const validationFileSizeErrors = this.validateFileSize(type, size, config);
+    const validationFileSizeErrors = this.validateFileSize(
+      uploadedFile,
+      config
+    );
     if (validationFileSizeErrors) {
       this.#applyValidationErrorFn(uploadedFile, validationFileSizeErrors);
     }
 
-    const validationFileTypeErrors = this.validateFileType(type, config);
+    const validationFileTypeErrors = this.validateFileType(
+      uploadedFile,
+      config
+    );
     if (validationFileTypeErrors) {
       this.#applyValidationErrorFn(uploadedFile, validationFileTypeErrors);
     }
 
-    uploadedFile.hasErrors = Boolean(Object.keys(uploadedFile.errors).length);
+    uploadedFile.hasErrors = Boolean(uploadedFile.errors);
   }
 
   /**
@@ -52,11 +62,12 @@ export class FileValidatorService {
    * the errors.
    */
   validateFileSize(
-    fileType: string | null,
-    fileSize: number | null,
+    uploadedFile: UploadedFile,
     config: FileLoaderConfig
-  ): ValidationAppErrors {
+  ): ValidationFileErrors {
     const maxSize = config.maxSize;
+    const fileSize = uploadedFile.file.size;
+    const fileType = uploadedFile.file.type;
 
     if (maxSize === undefined || maxSize === -1) return null;
 
@@ -91,17 +102,22 @@ export class FileValidatorService {
    * the errors.
    */
   validateFileType(
-    fileType: string | null,
+    uploadedFile: UploadedFile,
     config: FileLoaderConfig
-  ): ValidationAppErrors {
+  ): ValidationFileErrors {
     const accept = config.accept;
 
     if (!accept || accept === '*') return null;
 
+    const acceptedTypes = accept.split(',').map((v) => v.trim());
+
+    const fileType =
+      uploadedFile.file.type || getExtensionFromName(uploadedFile.file.name);
+
     if (fileType) {
       // Create an array of the accepted types
-      const acceptedTypes = accept.split(',').map((v) => v.trim());
 
+      console.log('acceptedTypes', acceptedTypes);
       // Validate if the type is valid
       const isValidType = acceptedTypes.some((acceptedType) =>
         this.#hasExtensionInCommon(fileType, acceptedType)
@@ -111,7 +127,9 @@ export class FileValidatorService {
         : { type: { currentType: fileType, acceptedTypes } };
     }
 
-    return null;
+    return {
+      type: { currentType: 'Unknown', acceptedTypes },
+    };
   }
 
   /**
@@ -126,14 +144,13 @@ export class FileValidatorService {
     const extensionsForAcceptedFileType =
       this.#mimeTypesService.getAllExtensions(acceptedFileType);
 
-    if (!extensionsForFileType.length) {
-      return false;
-    }
+    console.log('extensionsForFileType', extensionsForFileType);
+    console.log('extensionsForAcceptedFileType', extensionsForAcceptedFileType);
 
     // Validate if the file type and the accepted file type has a extension in common,
     // if so, finalize the validation. That in case there are accepted extensions
     // available.
-    if (extensionsForAcceptedFileType.length) {
+    if (extensionsForAcceptedFileType.length && extensionsForFileType.length) {
       return extensionsForFileType.some((availableTypeExtension) =>
         extensionsForAcceptedFileType.includes(availableTypeExtension)
       );
@@ -142,7 +159,7 @@ export class FileValidatorService {
     // At this point, any extension where found for the accepted type
     // maybe because the accepted type is an extension with dot (".mp3"), so
     // as last try, the extension is extracted manually and then check.
-    const extension = acceptedFileType.split('.').pop();
+    const extension = getExtensionFromName(acceptedFileType);
     return extensionsForFileType.some(
       (availableTypeExtension) => availableTypeExtension === extension
     );

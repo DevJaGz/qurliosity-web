@@ -11,6 +11,7 @@ import {
 })
 export class FileLoaderService {
   readonly #fileValidator = inject(FileValidatorService);
+
   processFiles(files: FileList, config: FileLoaderConfig): UploadedFiles {
     const uploadedFiles: UploadedFiles = [];
     const isMultiple = config.multiple || false;
@@ -32,7 +33,7 @@ export class FileLoaderService {
     const uploadedFile: UploadedFile = {
       file,
       hasErrors: false,
-      errors: {},
+      errors: null,
     };
     this.#fileValidator.applyValidationErrors(uploadedFile, config);
     return uploadedFile;
