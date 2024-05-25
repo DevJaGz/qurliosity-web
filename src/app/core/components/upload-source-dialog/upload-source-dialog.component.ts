@@ -29,8 +29,6 @@ export class UploadSourceDialogComponent {
   readonly maxFiles = 10;
 
   onUploadedFiles(uploadedFiles: UploadedFiles): void {
-    console.log(uploadedFiles);
-
     const duplicatedFiles = this.#uploadSourceService.getDuplicatedFiles(
       this.uploadedFiles(),
       uploadedFiles

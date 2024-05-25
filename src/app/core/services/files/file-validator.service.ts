@@ -111,9 +111,6 @@ export class FileValidatorService {
       uploadedFile.file.type || getExtensionFromName(uploadedFile.file.name);
 
     if (fileType) {
-      // Create an array of the accepted types
-
-      console.log('acceptedTypes', acceptedTypes);
       // Validate if the type is valid
       const isValidType = acceptedTypes.some((acceptedType) =>
         this.#hasExtensionInCommon(fileType, acceptedType)
@@ -139,9 +136,6 @@ export class FileValidatorService {
       this.#mimeTypesService.getAllExtensions(fileType);
     const extensionsForAcceptedFileType =
       this.#mimeTypesService.getAllExtensions(acceptedFileType);
-
-    console.log('extensionsForFileType', extensionsForFileType);
-    console.log('extensionsForAcceptedFileType', extensionsForAcceptedFileType);
 
     // Validate if the file type and the accepted file type has a extension in common,
     // if so, finalize the validation. That in case there are accepted extensions
