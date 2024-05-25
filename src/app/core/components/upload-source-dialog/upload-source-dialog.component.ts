@@ -21,7 +21,7 @@ import { MessageService } from 'primeng/api';
 export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
   readonly uploadedFiles = signal<UploadedFiles>([]);
-  #numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
+  numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
   readonly maxFileSize = 1024 * 1024 * 10;
   readonly maxFiles = 10;
 
@@ -29,15 +29,49 @@ export class UploadSourceDialogComponent {
     console.log(uploadedFiles);
 
     const duplicatedFiles = this.#getDuplicatedFiles(uploadedFiles);
-    if (duplicatedFiles.length > 0) {
+    if (duplicatedFiles.length) {
       this.#notifyDuplicatedFiles(duplicatedFiles);
       return;
     }
 
+    const { allowedFiles, isOverMaxFiles } =
+      this.#getAllowedFiles(uploadedFiles);
+
+    if (isOverMaxFiles) {
+      this.#notififyOverMaxFiles();
+    }
+
     this.uploadedFiles.update((currentUploadedFiles) => [
       ...currentUploadedFiles,
-      ...uploadedFiles,
+      ...allowedFiles,
     ]);
+  }
+
+  #getAllowedFiles(uploadedFiles: UploadedFiles): {
+    allowedFiles: UploadedFiles;
+    isOverMaxFiles: boolean;
+  } {
+    const currentNumberFiles = this.uploadedFiles().length;
+    const uploadedNumberFiles = uploadedFiles.length;
+    const isOverMaxFiles =
+      uploadedNumberFiles + currentNumberFiles > this.maxFiles;
+    const allowedFiles = uploadedFiles.slice(
+      0,
+      this.maxFiles - currentNumberFiles
+    );
+    return {
+      allowedFiles,
+      isOverMaxFiles,
+    };
+  }
+
+  #notififyOverMaxFiles(): void {
+    this.#messageService.add({
+      severity: 'warn',
+      summary: 'Over max files',
+      detail: `You can only upload ${this.maxFiles} files`,
+      life: 10000,
+    });
   }
 
   #getDuplicatedFiles(uploadedFiles: UploadedFiles): UploadedFiles {
