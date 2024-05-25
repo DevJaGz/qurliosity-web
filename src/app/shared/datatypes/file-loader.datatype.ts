@@ -1,4 +1,4 @@
-export interface MaxSize {
+export interface MaxFileSize {
   [key: string]: number;
 }
 
@@ -8,4 +8,11 @@ export interface UploadedFile {
   errors: { [key: string]: unknown };
 }
 
+export type ValidationFileErrors<T = unknown> = null | { [key: string]: T };
 export type UploadedFiles = UploadedFile[];
+
+export interface FileLoaderConfig {
+  maxSize?: number | MaxFileSize; // Max size in bytes or max size per file type
+  accept?: string; // Accepted file types
+  multiple?: boolean; // Allow multiple files
+}

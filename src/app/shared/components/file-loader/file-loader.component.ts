@@ -2,32 +2,39 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
   output,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { SharedModule } from '@shared/shared.module';
 import { cancelEvent } from '@shared/utils';
-import { FileLoaderService } from './services';
-import { UploadedFiles } from '@shared/datatypes';
+import {
+  FileLoaderConfig,
+  MaxFileSize,
+  UploadedFiles,
+} from '@shared/datatypes';
 import { DragzoneDirective } from '@shared/directives/dragzone.directive';
 import { Subject } from 'rxjs';
+import { FileLoaderService } from '@core/services';
 
 @Component({
   selector: 'app-file-loader',
   standalone: true,
   imports: [SharedModule, NgClass, AsyncPipe, DragzoneDirective],
-  providers: [FileLoaderService],
   templateUrl: './file-loader.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileLoaderComponent {
-  disabled = input<boolean | undefined>(false);
-  multiple = input<boolean | undefined>(false);
-  accept = input<string | undefined>('*');
-  files = output<UploadedFiles>();
   readonly #isOverDragZone = new Subject<boolean>();
+  readonly #fileLoaderService = inject(FileLoaderService);
+
+  disabled = input<boolean | undefined>(false);
+  multiple = input<boolean | undefined>(true);
+  accept = input<string | undefined>('*');
+  maxSize = input<number | MaxFileSize | undefined>(-1);
+  uploadedFiles = output<UploadedFiles>();
   isOverDragZone$ = this.#isOverDragZone.asObservable();
   isOverDragZone = outputFromObservable<boolean>(this.isOverDragZone$);
 
@@ -61,10 +68,17 @@ export class FileLoaderComponent {
   }
 
   #processFiles(files: FileList): void {
-    console.log(files);
+    const config: FileLoaderConfig = {
+      maxSize: this.maxSize(),
+      accept: this.accept(),
+      multiple: this.multiple(),
+    };
+    const uploadedFiles = this.#fileLoaderService.processFiles(files, config);
+    this.#emitFiles(uploadedFiles);
   }
 
-  #emitFiles(files: UploadedFiles): void {
-    this.files.emit(files);
+  #emitFiles(uploadedFiles: UploadedFiles): void {
+    console.log(uploadedFiles);
+    this.uploadedFiles.emit(uploadedFiles);
   }
 }
