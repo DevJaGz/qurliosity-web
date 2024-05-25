@@ -31,17 +31,31 @@ export class FileLoaderComponent {
   attached(event: Event): void {
     cancelEvent(event);
     const files = (event.target as HTMLInputElement).files;
-    console.log(files);
     if (files) {
       this.#processFiles(files);
     }
   }
 
   onDragZoneEvent(event: DragEvent): void {
-    console.log(event.type);
+    if (['dragenter', 'dragover'].includes(event.type)) {
+      this.isOverDragZone.emit(true);
+    }
+
+    if (['dragleave', 'drop'].includes(event.type)) {
+      this.isOverDragZone.emit(false);
+    }
+
+    if (event.type === 'drop') {
+      const files = event.dataTransfer?.files;
+      if (files) {
+        this.#processFiles(files);
+      }
+    }
   }
 
-  #processFiles(files: FileList): void {}
+  #processFiles(files: FileList): void {
+    console.log(files);
+  }
 
   #emitFiles(files: UploadedFiles): void {
     this.files.emit(files);
