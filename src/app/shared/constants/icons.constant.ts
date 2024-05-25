@@ -8,6 +8,7 @@ import {
   IconPlus,
   IconCloudUpload,
   IconTrash,
+  IconUpload,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -20,6 +21,7 @@ const icons = {
   IconPlus,
   IconCloudUpload,
   IconTrash,
+  IconUpload,
 } as const;
 
 export { icons as TABLER_ICONS };
