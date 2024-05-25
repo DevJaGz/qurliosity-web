@@ -1,8 +1,8 @@
 @if (uploadedFiles().length) {
 <section class="flex flex-nowrap flex-col gap-1" role="table">
   <div class="grid grid-cols-[1fr_20%_20%] gap-2">
-    <strong>Name</strong>
-    <strong>Size</strong>
+    <span class="font-medium">Name</span>
+    <span class="font-medium">Size</span>
   </div>
   @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
   <div
