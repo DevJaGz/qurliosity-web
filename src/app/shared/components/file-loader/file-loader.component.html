@@ -1,4 +1,6 @@
 <div
+  appDragzone
+  (dragZoneEvent)="onDragZoneEvent($event)"
   class="relative hover:bg-neutral-950/40 p-8 rounded-lg transition-colors"
   [ngClass]="{
     'bg-neutral-950/40': isOverDragZone | async,
@@ -10,7 +12,6 @@
     <p>Click to upload or drag and drop the files here</p>
   </div>
   <div
-    #dragzoneRef
     aria-hidden="true"
     class="absolute inset-0 z-10 cursor-pointer"
     (click)="inputFile.click()"

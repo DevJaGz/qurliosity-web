@@ -10,11 +10,12 @@ import { SharedModule } from '@shared/shared.module';
 import { cancelEvent } from '@shared/utils';
 import { FileLoaderService } from './services';
 import { UploadedFiles } from '@shared/datatypes';
+import { DragzoneDirective } from '@shared/directives/dragzone.directive';
 
 @Component({
   selector: 'app-file-loader',
   standalone: true,
-  imports: [SharedModule, NgClass, AsyncPipe],
+  imports: [SharedModule, NgClass, AsyncPipe, DragzoneDirective],
   providers: [FileLoaderService],
   templateUrl: './file-loader.component.html',
   styles: ``,
@@ -34,6 +35,10 @@ export class FileLoaderComponent {
     if (files) {
       this.#processFiles(files);
     }
+  }
+
+  onDragZoneEvent(event: DragEvent): void {
+    console.log(event.type);
   }
 
   #processFiles(files: FileList): void {}
