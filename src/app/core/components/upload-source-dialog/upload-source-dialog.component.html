@@ -1,15 +1,18 @@
 @if (uploadedFiles().length) {
-<section class="flex flex-nowrap flex-col gap-1 mb-8">
-  <div class="grid grid-cols-[1fr_20%_20%] gap-1">
+<section class="flex flex-nowrap flex-col gap-1 mb-8" role="table">
+  <div class="grid grid-cols-[1fr_20%_20%] gap-2">
     <strong>Name</strong>
     <strong>Size</strong>
-    <strong></strong>
   </div>
   @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
-  <div class="grid grid-cols-[1fr_20%_20%] gap-1 text-neutral-300">
+  <div class="grid grid-cols-[1fr_20%_20%] gap-2 text-neutral-300">
     <span>{{ uploadedFile.file.name }}</span>
     <span>{{ uploadedFile.file.size | formatFileSize }}</span>
-    <span></span>
+    <span class="flex items-center justify-end flex-nowrap gap-1">
+      <button type="button" pButton class="icon danger">
+        <i-tabler name="trash" />
+      </button>
+    </span>
   </div>
   }
 </section>
