@@ -1,6 +1,23 @@
+@if (uploadedFiles().length) {
+<section class="flex flex-nowrap flex-col gap-1 mb-8">
+  <div class="grid grid-cols-[1fr_20%_20%] gap-1">
+    <strong>Name</strong>
+    <strong>Size</strong>
+    <strong></strong>
+  </div>
+  @for (uploadedFile of uploadedFiles(); track $index) {
+  <div class="grid grid-cols-[1fr_20%_20%] gap-1 text-neutral-300">
+    <span>{{ uploadedFile.file.name }}</span>
+    <span>{{ uploadedFile.file.size | formatFileSize }}</span>
+    <span></span>
+  </div>
+  }
+</section>
+}
+
 <app-file-loader
   accept="application/pdf"
   [multiple]="true"
-  [disabled]="true"
+  [maxSize]="maxFileSize"
   (uploadedFiles)="onUploadedFiles($event)"
 />

@@ -16,7 +16,7 @@ export class SourceDialogService {
         maxWidth: '600px',
       },
       draggable: true,
-      header: 'Upload files',
+      header: 'Upload Source',
     });
     return ref;
   }
