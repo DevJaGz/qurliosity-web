@@ -1,10 +1,10 @@
 <div
   appDragzone
   (dragZoneEvent)="onDragZoneEvent($event)"
-  class="relative hover:bg-neutral-950/40 p-8 rounded-lg transition-colors"
+  class="relative dark:hover:bg-neutral-950/40 p-8 rounded-lg transition-colors"
   [ngClass]="{
-    'bg-neutral-950/40': isOverDragZone$ | async,
-    'opacity-20 pointer-events-none': disabled(),
+    'dark:bg-neutral-950/40': isOverDragZone$ | async,
+    'opacity-5 pointer-events-none select-none': disabled(),
   }"
 >
   <div class="flex flex-col items-center justify-center text-center">
