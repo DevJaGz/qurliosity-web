@@ -1,12 +1,12 @@
 @if (uploadedFiles().length) {
 <section class="flex flex-nowrap flex-col gap-1" role="table">
-  <div class="grid grid-cols-[1fr_20%_20%] gap-2">
+  <div class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2">
     <span class="font-medium">Name</span>
     <span class="font-medium">Size</span>
   </div>
   @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
   <div
-    class="grid grid-cols-[1fr_20%_20%] gap-2 text-neutral-300"
+    class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 text-neutral-300"
     style="align-items: self-start"
   >
     <span>{{ uploadedFile.file.name }}</span>
