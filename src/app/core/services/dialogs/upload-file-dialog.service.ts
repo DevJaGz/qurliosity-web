@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { UploadFileDialogComponent } from '@shared/components';
+import { FileLoaderComponent } from '@shared/components';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Injectable({
@@ -8,8 +8,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class UploadFileDialogService {
   dialogService = inject(DialogService);
 
-  openDialog(): DynamicDialogRef<UploadFileDialogComponent> {
-    const ref = this.dialogService.open(UploadFileDialogComponent, {
+  openDialog(): DynamicDialogRef<FileLoaderComponent> {
+    const ref = this.dialogService.open(FileLoaderComponent, {
       modal: true,
       style: {
         width: '90vw',

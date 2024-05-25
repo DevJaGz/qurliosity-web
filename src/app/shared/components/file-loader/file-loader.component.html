@@ -1,0 +1,28 @@
+<div
+  class="relative hover:bg-neutral-950/40 p-8 rounded-lg transition-colors"
+  [ngClass]="{
+    'bg-neutral-950/40': isOverDragZone | async,
+    'opacity-20 pointer-events-none ': disabled()
+  }"
+>
+  <div class="flex flex-col items-center justify-center text-center">
+    <i-tabler name="cloud-upload" class="!w-16 !h-16" />
+    <p>Click to upload or drag and drop the files here</p>
+  </div>
+  <div
+    #dragzoneRef
+    aria-hidden="true"
+    class="absolute inset-0 z-10 cursor-pointer"
+    (click)="inputFile.click()"
+  ></div>
+  <input
+    #inputFile
+    id="dropzone-file"
+    type="file"
+    class="hidden"
+    [disabled]="disabled()"
+    [multiple]="multiple()"
+    [accept]="accept()"
+    (change)="attached($event)"
+  />
+</div>
