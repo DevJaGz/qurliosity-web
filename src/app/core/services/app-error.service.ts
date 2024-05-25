@@ -1,12 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, inject } from '@angular/core';
 import { AppErrorModel } from '@core/models';
 import { removeDomainFromMessage } from '@shared/utils';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppErrorService implements ErrorHandler {
+  readonly #messageService = inject(MessageService);
+
   handleError(error: unknown): void {
     if (error instanceof AppErrorModel) {
       return this.#handleAppError(error);
@@ -24,7 +27,11 @@ export class AppErrorService implements ErrorHandler {
     }
 
     if (appError.userMessage) {
-      alert(appError.userMessage);
+      this.#messageService.add({
+        severity: 'error',
+        summary: appError.userMessage,
+        life: 5000,
+      });
     }
   }
 }
