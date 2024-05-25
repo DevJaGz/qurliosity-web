@@ -7,3 +7,5 @@ export interface UploadedFile {
   hasErrors: boolean;
   errors: { [key: string]: unknown };
 }
+
+export type UploadedFiles = UploadedFile[];
