@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  @apply text-base sm:text-sm;
 }
 
 h1 {

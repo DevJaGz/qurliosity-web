@@ -1,4 +1,8 @@
-import { ApplicationConfig, ErrorHandler } from '@angular/core';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 

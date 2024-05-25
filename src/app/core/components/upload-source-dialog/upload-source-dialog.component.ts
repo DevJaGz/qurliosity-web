@@ -6,15 +6,18 @@ import {
   signal,
 } from '@angular/core';
 import { UploadSourceService } from '@core/services';
-import { FileLoaderComponent } from '@shared/components';
-import { UploadedFile, UploadedFiles } from '@shared/datatypes';
+import {
+  FileLoaderComponent,
+  UploadedSourcesTableComponent,
+} from '@shared/components';
+import { UploadedFiles } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-upload-source-dialog',
   standalone: true,
-  imports: [SharedModule, FileLoaderComponent],
+  imports: [SharedModule, FileLoaderComponent, UploadedSourcesTableComponent],
   templateUrl: './upload-source-dialog.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,

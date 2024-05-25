@@ -1,24 +1,5 @@
 @if (uploadedFiles().length) {
-<section class="flex flex-nowrap flex-col gap-1" role="table">
-  <div class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2">
-    <span class="font-medium">Name</span>
-    <span class="font-medium">Size</span>
-  </div>
-  @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
-  <div
-    class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 text-neutral-300"
-    style="align-items: self-start"
-  >
-    <span>{{ uploadedFile.file.name }}</span>
-    <span>{{ uploadedFile.file.size | formatFileSize }}</span>
-    <span class="flex items-center justify-end flex-nowrap gap-1">
-      <button type="button" pButton class="icon danger">
-        <i-tabler name="trash" />
-      </button>
-    </span>
-  </div>
-  }
-</section>
+<app-uploaded-sources-table [uploadedFiles]="uploadedFiles()" />
 <section class="my-8 flex items-center flex-nowrap justify-end gap-2">
   <button type="button" pButton class="btn primary">
     <i-tabler name="upload" />
@@ -26,6 +7,13 @@
   </button>
 </section>
 }
+
+<section class="my-4">
+  <p class="dark:text-neutral-300">
+    You can upload up to {{ maxFiles }} files each up to
+    {{ maxFileSize | formatFileSize }}.
+  </p>
+</section>
 
 <app-file-loader
   accept="application/pdf"

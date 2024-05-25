@@ -1,0 +1,21 @@
+<section class="flex flex-nowrap flex-col gap-1" role="table">
+  <div
+    class="grid grid-cols-[1fr_25%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 font-medium"
+  >
+    <span>Name</span>
+    <span>Size</span>
+  </div>
+  @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
+  <app-uploaded-sources-table-row [uploadedFile]="uploadedFile" />
+  } @if (numberOfUploadedFiles() > 1) {
+  <div
+    class="grid grid-cols-[1fr_30%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 font-medium"
+  >
+    <span></span>
+    <span class="text-cyan-400"> {{ totalSize() | formatFileSize }}</span>
+  </div>
+  }
+</section>
+<p class="my-4 !mx-0 !p-0 text-cyan-400">
+  Number of files: {{ numberOfUploadedFiles() }}
+</p>
