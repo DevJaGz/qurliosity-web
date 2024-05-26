@@ -12,7 +12,14 @@
     uploadedFile().file.size | formatFileSize
   }}</span>
   <span class="flex items-center justify-end flex-nowrap gap-1">
-    <button type="button" pButton class="icon danger" (click)="remove()">
+    <button
+      type="button"
+      pTooltip="Remove file"
+      tooltipPosition="top"
+      pButton
+      class="icon danger"
+      (click)="remove()"
+    >
       <i-tabler name="trash" />
     </button>
   </span>
