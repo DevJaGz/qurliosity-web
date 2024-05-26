@@ -12,15 +12,13 @@
     <span>Upload</span>
   </button>
 </section>
-}
-
+} @if (!isOverMaxFiles()) {
 <section class="my-4">
   <p class="dark:text-neutral-300">
-    You can upload up to {{ maxFiles }} files each up to
+    You can upload up to {{ remainingFilesNumber() }} files each up to
     {{ maxFileSize | formatFileSize }}.
   </p>
 </section>
-
 <app-file-loader
   accept="application/pdf"
   [multiple]="true"
@@ -28,3 +26,5 @@
   [cleanValue]="!displayedFiles().length"
   (uploadedFiles)="onUploadedFiles($event)"
 />
+
+}

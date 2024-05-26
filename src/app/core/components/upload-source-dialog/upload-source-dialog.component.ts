@@ -28,7 +28,13 @@ export class UploadSourceDialogComponent {
 
   readonly displayedFiles = this.#uploadSourceService.displayedFiles;
   readonly maxFileSize = 1024 * 1024 * 10;
-  readonly maxFiles = 10;
+  readonly maxFiles = 3;
+  readonly isOverMaxFiles = computed(
+    () => this.displayedFiles().length >= this.maxFiles
+  );
+  readonly remainingFilesNumber = computed(
+    () => this.maxFiles - this.displayedFiles().length
+  );
 
   onUploadedFiles(uploadedFiles: UploadedFiles): void {
     const duplicatedFiles =
@@ -44,12 +50,12 @@ export class UploadSourceDialogComponent {
       this.maxFiles
     );
 
-    const isOverMaxFiles = this.#uploadSourceService.isOverMaxFiles(
+    const willOverMaxFiles = this.#uploadSourceService.isOverMaxFiles(
       uploadedFiles,
       this.maxFiles
     );
 
-    if (isOverMaxFiles) {
+    if (willOverMaxFiles) {
       this.#notififyOverMaxFiles();
     }
 
