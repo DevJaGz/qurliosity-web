@@ -82,7 +82,7 @@ export class UploadSourceDialogComponent {
       this.#messageService.add({
         severity: 'warn',
         summary: 'Duplicated files',
-        detail: `The following file was already uploaded: ${duplicatedFile.file.name}`,
+        detail: `${duplicatedFile.file.name} was already uploaded`,
         life: 10000,
       });
     }
