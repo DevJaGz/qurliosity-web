@@ -26,12 +26,11 @@ export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
   readonly #dialogConfig = inject(DynamicDialogConfig);
   readonly #uploadSourceService = inject(UploadSourceService);
-
   readonly displayedFiles = this.#uploadSourceService.displayedFiles;
   readonly maxFileSize =
     this.#dialogConfig.data.maxFileSize ?? 1024 * 1024 * 10;
   readonly maxFiles = this.#dialogConfig.data.maxFiles ?? 10;
-  readonly isOverMaxFiles = computed(
+  readonly isMaxFileLimitExceeded = computed(
     () => this.displayedFiles().length >= this.maxFiles
   );
   readonly remainingFilesNumber = computed(
@@ -52,13 +51,14 @@ export class UploadSourceDialogComponent {
       this.maxFiles
     );
 
-    const willOverMaxFiles = this.#uploadSourceService.isOverMaxFiles(
-      uploadedFiles,
-      this.maxFiles
-    );
+    const hasExceedMaxFileLimit =
+      this.#uploadSourceService.hasExceedMaxFileLimit(
+        uploadedFiles,
+        this.maxFiles
+      );
 
-    if (willOverMaxFiles) {
-      this.#notififyOverMaxFiles();
+    if (hasExceedMaxFileLimit) {
+      this.#notififyMaxFileLimitExceeded();
     }
 
     this.#uploadSourceService.upadateDisplayedFiles(filesToDisplay);
@@ -68,10 +68,10 @@ export class UploadSourceDialogComponent {
     this.#uploadSourceService.setDisplayedFiles([]);
   }
 
-  #notififyOverMaxFiles(): void {
+  #notififyMaxFileLimitExceeded(): void {
     this.#messageService.add({
       severity: 'warn',
-      summary: 'Over max files',
+      summary: 'Max file limit exceeded',
       detail: `You can only upload ${this.maxFiles} files`,
       life: 10000,
     });

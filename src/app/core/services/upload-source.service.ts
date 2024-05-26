@@ -52,7 +52,7 @@ export class UploadSourceService {
     return filesToDisplay;
   }
 
-  isOverMaxFiles(newFiles: UploadedFiles, maxFiles: number): boolean {
+  hasExceedMaxFileLimit(newFiles: UploadedFiles, maxFiles: number): boolean {
     const currentFiles = this.#displayedFiles();
     const currentNumberFiles = currentFiles.length;
     const newNumberFiles = newFiles.length;

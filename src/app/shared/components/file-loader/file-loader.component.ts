@@ -30,9 +30,9 @@ import { FileLoaderService } from '@core/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileLoaderComponent {
+  readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputFile');
   readonly #isOverDragZone = new Subject<boolean>();
   readonly #fileLoaderService = inject(FileLoaderService);
-  readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputFile');
 
   @Input()
   set cleanValue(value: boolean) {

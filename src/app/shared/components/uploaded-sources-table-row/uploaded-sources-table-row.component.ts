@@ -20,7 +20,7 @@ export class UploadedSourcesTableRowComponent {
   readonly #uploadSourceService = inject(UploadSourceService);
 
   readonly index = input.required<number>();
-  uploadedFile = input.required<UploadedFile>();
+  readonly uploadedFile = input.required<UploadedFile>();
 
   remove(): void {
     this.#uploadSourceService.removeFromIndex(this.index());

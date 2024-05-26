@@ -17,7 +17,7 @@ import { UploadedSourcesTableRowComponent } from '../uploaded-sources-table-row/
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadedSourcesTableComponent {
-  uploadedFiles = input.required<UploadedFiles>();
+  readonly uploadedFiles = input.required<UploadedFiles>();
   readonly numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
   readonly totalSize = computed(() => {
     const uploadedFiles = this.uploadedFiles();
