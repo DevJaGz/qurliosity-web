@@ -6,6 +6,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 export const PRIMENG_SHARED_MODULES = [
   ButtonModule,
@@ -16,4 +17,5 @@ export const PRIMENG_SHARED_MODULES = [
   DialogModule,
   DynamicDialogModule,
   ToastModule,
+  TooltipModule,
 ] as const;

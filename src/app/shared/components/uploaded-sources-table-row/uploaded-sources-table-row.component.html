@@ -2,8 +2,13 @@
   class="grid grid-cols-[1fr_30%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 text-neutral-300 border-b border-dashed border-b-neutral-700 py-2"
   style="align-items: self-start"
 >
-  <span class="line-clamp-1">{{ uploadedFile().file.name }}</span>
-  <span class="line-clamp-1">{{
+  <span
+    class="line-clamp-1 break-all"
+    [pTooltip]="uploadedFile().file.name"
+    tooltipPosition="top"
+    >{{ uploadedFile().file.name }}</span
+  >
+  <span class="line-clamp-1 break-all">{{
     uploadedFile().file.size | formatFileSize
   }}</span>
   <span class="flex items-center justify-end flex-nowrap gap-1">
