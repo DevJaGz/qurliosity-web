@@ -1,5 +1,5 @@
-@if (uploadedFiles().length) {
-<app-uploaded-sources-table [uploadedFiles]="uploadedFiles()" />
+@if (displayedFiles().length) {
+<app-uploaded-sources-table [uploadedFiles]="displayedFiles()" />
 <section class="my-8 flex items-center flex-nowrap justify-end gap-2">
   <button type="button" pButton class="btn primary">
     <i-tabler name="upload" />

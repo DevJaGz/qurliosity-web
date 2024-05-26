@@ -26,14 +26,13 @@ export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
   readonly #uploadSourceService = inject(UploadSourceService);
 
-  readonly uploadedFiles = signal<UploadedFiles>([]);
-  readonly numberOfUploadedFiles = computed(() => this.uploadedFiles().length);
+  readonly displayedFiles = signal<UploadedFiles>([]);
   readonly maxFileSize = 1024 * 1024 * 10;
   readonly maxFiles = 10;
 
   onUploadedFiles(uploadedFiles: UploadedFiles): void {
     const duplicatedFiles = this.#uploadSourceService.getDuplicatedFiles(
-      this.uploadedFiles(),
+      this.displayedFiles(),
       uploadedFiles
     );
 
@@ -42,35 +41,26 @@ export class UploadSourceDialogComponent {
       return;
     }
 
-    const { allowedFiles, isOverMaxFiles } =
-      this.#getAllowedFiles(uploadedFiles);
+    const filesToDisplay = this.#uploadSourceService.getFilesToDisplay(
+      this.displayedFiles(),
+      uploadedFiles,
+      this.maxFiles
+    );
+
+    const isOverMaxFiles = this.#uploadSourceService.isOverMaxFiles(
+      this.displayedFiles(),
+      uploadedFiles,
+      this.maxFiles
+    );
 
     if (isOverMaxFiles) {
       this.#notififyOverMaxFiles();
     }
 
-    this.uploadedFiles.update((currentUploadedFiles) => [
+    this.displayedFiles.update((currentUploadedFiles) => [
       ...currentUploadedFiles,
-      ...allowedFiles,
+      ...filesToDisplay,
     ]);
-  }
-
-  #getAllowedFiles(uploadedFiles: UploadedFiles): {
-    allowedFiles: UploadedFiles;
-    isOverMaxFiles: boolean;
-  } {
-    const currentNumberFiles = this.uploadedFiles().length;
-    const uploadedNumberFiles = uploadedFiles.length;
-    const isOverMaxFiles =
-      uploadedNumberFiles + currentNumberFiles > this.maxFiles;
-    const allowedFiles = uploadedFiles.slice(
-      0,
-      this.maxFiles - currentNumberFiles
-    );
-    return {
-      allowedFiles,
-      isOverMaxFiles,
-    };
   }
 
   #notififyOverMaxFiles(): void {
