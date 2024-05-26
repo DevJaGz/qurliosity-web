@@ -63,6 +63,10 @@ export class UploadSourceDialogComponent {
     ]);
   }
 
+  removeAll(): void {
+    this.displayedFiles.update(() => []);
+  }
+
   #notififyOverMaxFiles(): void {
     this.#messageService.add({
       severity: 'warn',

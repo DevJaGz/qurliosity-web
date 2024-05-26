@@ -2,7 +2,7 @@
 <app-uploaded-sources-table [uploadedFiles]="displayedFiles()" />
 <section class="my-8 flex items-center flex-nowrap justify-end gap-4">
   @if (displayedFiles().length > 1) {
-  <button type="button" pButton class="btn danger">
+  <button type="button" pButton class="btn danger" (click)="removeAll()">
     <i-tabler name="trash" />
     <span>Remove All</span>
   </button>
