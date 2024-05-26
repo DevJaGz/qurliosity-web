@@ -25,5 +25,6 @@
   accept="application/pdf"
   [multiple]="true"
   [maxSize]="maxFileSize"
+  [cleanValue]="!displayedFiles().length"
   (uploadedFiles)="onUploadedFiles($event)"
 />

@@ -2,9 +2,12 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  Input,
   inject,
   input,
   output,
+  viewChild,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { SharedModule } from '@shared/shared.module';
@@ -29,14 +32,23 @@ import { FileLoaderService } from '@core/services';
 export class FileLoaderComponent {
   readonly #isOverDragZone = new Subject<boolean>();
   readonly #fileLoaderService = inject(FileLoaderService);
+  readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputFile');
 
-  disabled = input<boolean>(false);
-  multiple = input<boolean>(false);
-  accept = input<string>('*');
-  maxSize = input<number | MaxFileSize>(-1);
-  uploadedFiles = output<UploadedFiles>();
-  isOverDragZone$ = this.#isOverDragZone.asObservable();
-  isOverDragZone = outputFromObservable<boolean>(this.isOverDragZone$);
+  @Input()
+  set cleanValue(value: boolean) {
+    if (!value) return;
+    const input = this.inputRef()?.nativeElement;
+    if (!input) return;
+    input.value = '';
+  }
+
+  readonly disabled = input<boolean>(false);
+  readonly multiple = input<boolean>(false);
+  readonly accept = input<string>('*');
+  readonly maxSize = input<number | MaxFileSize>(-1);
+  readonly uploadedFiles = output<UploadedFiles>();
+  readonly isOverDragZone$ = this.#isOverDragZone.asObservable();
+  readonly isOverDragZone = outputFromObservable<boolean>(this.isOverDragZone$);
 
   attached(event: Event): void {
     cancelEvent(event);

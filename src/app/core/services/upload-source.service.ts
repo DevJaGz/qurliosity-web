@@ -23,7 +23,6 @@ export class UploadSourceService {
   }
 
   removeFromIndex(index: number): void {
-    console.log('removeFromIndex', index);
     this.#displayedFiles.update((currentFiles) => {
       const newFiles = currentFiles.filter((_, i) => i !== index);
       return newFiles;
