@@ -1,10 +1,12 @@
 @if (displayedFiles().length) {
 <app-uploaded-sources-table [uploadedFiles]="displayedFiles()" />
-<section class="my-8 flex items-center flex-nowrap justify-end gap-2">
+<section class="my-8 flex items-center flex-nowrap justify-end gap-4">
+  @if (displayedFiles().length > 1) {
   <button type="button" pButton class="btn secondary">
-    <i-tabler name="upload" />
+    <i-tabler name="trash" />
     <span>Remove All</span>
   </button>
+  }
   <button type="button" pButton class="btn primary">
     <i-tabler name="upload" />
     <span>Upload</span>
