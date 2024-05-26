@@ -7,7 +7,11 @@ button.btn {
     }
 
     &.secondary {
-      @apply px-3 py-1.5 rounded-lg dark:bg-neutral-800 dark:hover:bg-neutral-700;
+      @apply dark:bg-neutral-800 dark:hover:bg-neutral-700;
+    }
+
+    &.danger {
+      @apply dark:bg-red-800 dark:hover:bg-red-700;
     }
   }
 
@@ -20,7 +24,7 @@ button.icon {
   @apply rounded-full grid place-items-center transition-colors;
 
   &.danger {
-    @apply dark:hover:text-red-500;
+    @apply dark:hover:text-red-700;
   }
 }
 
@@ -28,7 +32,7 @@ button.text {
   @apply flex items-center gap-1 justify-center transition-colors;
 
   &.danger {
-    @apply dark:hover:text-red-500 dark:focus:text-red-500 dark:focus-visible:text-red-500 focus:outline-none focus-visible:border-none;
+    @apply dark:hover:text-red-500 dark:focus:text-red-700 dark:focus-visible:text-red-700 focus:outline-none focus-visible:border-none;
   }
 
   &.primary {
