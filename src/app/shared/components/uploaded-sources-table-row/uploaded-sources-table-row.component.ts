@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
+import { UploadSourceService } from '@core/services';
 import { UploadedFile } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 
@@ -11,5 +17,12 @@ import { SharedModule } from '@shared/shared.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadedSourcesTableRowComponent {
+  readonly #uploadSourceService = inject(UploadSourceService);
+
+  readonly index = input.required<number>();
   uploadedFile = input.required<UploadedFile>();
+
+  remove(): void {
+    this.#uploadSourceService.removeFromIndex(this.index());
+  }
 }

@@ -26,15 +26,13 @@ export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
   readonly #uploadSourceService = inject(UploadSourceService);
 
-  readonly displayedFiles = signal<UploadedFiles>([]);
+  readonly displayedFiles = this.#uploadSourceService.displayedFiles;
   readonly maxFileSize = 1024 * 1024 * 10;
   readonly maxFiles = 10;
 
   onUploadedFiles(uploadedFiles: UploadedFiles): void {
-    const duplicatedFiles = this.#uploadSourceService.getDuplicatedFiles(
-      this.displayedFiles(),
-      uploadedFiles
-    );
+    const duplicatedFiles =
+      this.#uploadSourceService.getDuplicatedFiles(uploadedFiles);
 
     if (duplicatedFiles.length) {
       this.#notifyDuplicatedFiles(duplicatedFiles);
@@ -42,13 +40,11 @@ export class UploadSourceDialogComponent {
     }
 
     const filesToDisplay = this.#uploadSourceService.getFilesToDisplay(
-      this.displayedFiles(),
       uploadedFiles,
       this.maxFiles
     );
 
     const isOverMaxFiles = this.#uploadSourceService.isOverMaxFiles(
-      this.displayedFiles(),
       uploadedFiles,
       this.maxFiles
     );
@@ -57,14 +53,11 @@ export class UploadSourceDialogComponent {
       this.#notififyOverMaxFiles();
     }
 
-    this.displayedFiles.update((currentUploadedFiles) => [
-      ...currentUploadedFiles,
-      ...filesToDisplay,
-    ]);
+    this.#uploadSourceService.upadateDisplayedFiles(filesToDisplay);
   }
 
   removeAll(): void {
-    this.displayedFiles.update(() => []);
+    this.#uploadSourceService.setDisplayedFiles([]);
   }
 
   #notififyOverMaxFiles(): void {

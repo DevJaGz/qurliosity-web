@@ -12,8 +12,12 @@
     <span>Name</span>
     <span>Size</span>
   </div>
-  @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name) {
-  <app-uploaded-sources-table-row [uploadedFile]="uploadedFile" />
+  @for (uploadedFile of uploadedFiles(); track uploadedFile.file.name; let index
+  = $index) {
+  <app-uploaded-sources-table-row
+    [uploadedFile]="uploadedFile"
+    [index]="index"
+  />
   } @if (numberOfUploadedFiles() > 1) {
   <div
     class="grid grid-cols-[1fr_30%_20%] sm:grid-cols-[1fr_20%_20%] gap-2 font-medium"

@@ -1,17 +1,39 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { UploadedFile, UploadedFiles } from '@shared/datatypes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadSourceService {
-  getDuplicatedFiles(
-    currentFiles: UploadedFiles,
-    newFiles: UploadedFiles
-  ): UploadedFiles {
+  readonly #displayedFiles = signal<UploadedFiles>([]);
+
+  get displayedFiles(): Signal<UploadedFiles> {
+    return this.#displayedFiles.asReadonly();
+  }
+
+  upadateDisplayedFiles(newFiles: UploadedFiles): void {
+    this.#displayedFiles.update((currentFiles) => [
+      ...currentFiles,
+      ...newFiles,
+    ]);
+  }
+
+  setDisplayedFiles(newFiles: UploadedFiles): void {
+    this.#displayedFiles.set(newFiles);
+  }
+
+  removeFromIndex(index: number): void {
+    console.log('removeFromIndex', index);
+    this.#displayedFiles.update((currentFiles) => {
+      const newFiles = currentFiles.filter((_, i) => i !== index);
+      return newFiles;
+    });
+  }
+
+  getDuplicatedFiles(newFiles: UploadedFiles): UploadedFiles {
     const duplicatedFiles: UploadedFiles = [];
     for (const newFile of newFiles) {
-      const duplicatedFile = this.getDuplicatedFile(currentFiles, newFile.file);
+      const duplicatedFile = this.getDuplicatedFile(newFile.file);
       if (duplicatedFile) {
         duplicatedFiles.push(duplicatedFile);
       }
@@ -19,28 +41,20 @@ export class UploadSourceService {
     return duplicatedFiles;
   }
 
-  getDuplicatedFile(
-    currentFiles: UploadedFiles,
-    newFile: File
-  ): UploadedFile | null {
+  getDuplicatedFile(newFile: File): UploadedFile | null {
+    const currentFiles = this.#displayedFiles();
     return currentFiles.find((f) => f.file.name === newFile.name) || null;
   }
 
-  getFilesToDisplay(
-    currentFiles: UploadedFiles,
-    newFiles: UploadedFiles,
-    maxFiles: number
-  ): UploadedFiles {
+  getFilesToDisplay(newFiles: UploadedFiles, maxFiles: number): UploadedFiles {
+    const currentFiles = this.#displayedFiles();
     const currentNumberFiles = currentFiles.length;
     const filesToDisplay = newFiles.slice(0, maxFiles - currentNumberFiles);
     return filesToDisplay;
   }
 
-  isOverMaxFiles(
-    currentFiles: UploadedFiles,
-    newFiles: UploadedFiles,
-    maxFiles: number
-  ): boolean {
+  isOverMaxFiles(newFiles: UploadedFiles, maxFiles: number): boolean {
+    const currentFiles = this.#displayedFiles();
     const currentNumberFiles = currentFiles.length;
     const newNumberFiles = newFiles.length;
     const isOverMaxFiles = newNumberFiles + currentNumberFiles > maxFiles;
