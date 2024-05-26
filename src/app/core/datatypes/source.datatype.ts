@@ -19,3 +19,8 @@ export interface QuerySource extends Query {
 export interface ListSources extends QuerySource {
   _templateId: string;
 }
+
+export interface UploadSourceConfig {
+  maxFileSize?: number;
+  maxFiles?: number;
+}

@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   inject,
-  signal,
 } from '@angular/core';
 import { UploadSourceService } from '@core/services';
 import {
@@ -13,6 +12,7 @@ import {
 import { UploadedFiles } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 import { MessageService } from 'primeng/api';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-upload-source-dialog',
@@ -24,11 +24,13 @@ import { MessageService } from 'primeng/api';
 })
 export class UploadSourceDialogComponent {
   readonly #messageService = inject(MessageService);
+  readonly #dialogConfig = inject(DynamicDialogConfig);
   readonly #uploadSourceService = inject(UploadSourceService);
 
   readonly displayedFiles = this.#uploadSourceService.displayedFiles;
-  readonly maxFileSize = 1024 * 1024 * 10;
-  readonly maxFiles = 3;
+  readonly maxFileSize =
+    this.#dialogConfig.data.maxFileSize ?? 1024 * 1024 * 10;
+  readonly maxFiles = this.#dialogConfig.data.maxFiles ?? 10;
   readonly isOverMaxFiles = computed(
     () => this.displayedFiles().length >= this.maxFiles
   );
