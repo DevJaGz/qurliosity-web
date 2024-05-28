@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { LoaderIndicatorService } from '@core/services';
+import { LoaderIndicatorService } from '@shared/services';
 import { execAfterResponsePipe, isApiRequest } from '@core/utils';
 
 export const apiLoadingInterceptor: HttpInterceptorFn = (req, next) => {

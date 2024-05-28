@@ -17,9 +17,9 @@ import {
   MaxFileSize,
   UploadedFiles,
 } from '@shared/datatypes';
-import { DragzoneDirective } from '@shared/directives/dragzone.directive';
+import { DragzoneDirective } from '@shared/directives';
 import { Subject } from 'rxjs';
-import { FileLoaderService } from '@core/services';
+import { FileLoaderService } from '@shared/services';
 
 @Component({
   selector: 'app-file-loader',

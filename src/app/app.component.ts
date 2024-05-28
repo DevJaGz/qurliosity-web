@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { SharedModule } from './shared';
-import { LoaderIndicatorService } from '@core/services';
+import { LoaderIndicatorService } from '@shared/services';
 
 @Component({
   selector: 'app-root',

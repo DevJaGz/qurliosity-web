@@ -3,7 +3,10 @@ import { EMPTY, Observable, Subject, forkJoin, map, tap } from 'rxjs';
 import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
 import { TemplateFormService } from '../services';
-import { SourcesRequestService, TemplatesRequestService } from '@core/services';
+import {
+  SourcesRequestService,
+  TemplatesRequestService,
+} from '@shared/services';
 import { SourceType } from '@core/enums';
 
 const goHomeAfterNextTick = (router: Router) => {
