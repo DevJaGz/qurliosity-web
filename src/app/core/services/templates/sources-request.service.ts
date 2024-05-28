@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ListSources, Sources } from '@core/datatypes';
+import { CreatePDFSource, ListSources, Source, Sources } from '@core/datatypes';
 import { handleErrorPipeUtil } from '@core/utils';
 import { environment } from '@env';
 import { queryMapUtil } from '@shared/utils';
-import { Observable, startWith, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,33 @@ export class SourcesRequestService {
       .pipe(
         handleErrorPipeUtil({
           userMessage: 'Sorry, there was an error loading the sources',
+        })
+      );
+  }
+
+  createPDFSource(data: CreatePDFSource): Observable<Source> {
+    const formData = new FormData();
+    formData.append('file', data.file);
+    formData.append(
+      'embedderCredential',
+      JSON.stringify(data.embedderCredential)
+    );
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data',
+      }),
+    };
+
+    return this.#http
+      .post<Source>(
+        `${environment.API_URL}/templates/${data._templateId}/sources`,
+        formData,
+        options
+      )
+      .pipe(
+        handleErrorPipeUtil({
+          userMessage: 'Sorry, there was an error creating the source',
         })
       );
   }

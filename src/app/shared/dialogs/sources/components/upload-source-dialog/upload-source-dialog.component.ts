@@ -12,7 +12,7 @@ import {
 import { UploadedFiles } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 import { MessageService } from 'primeng/api';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UploadSourceService } from '../../services/upload-source.service';
 
 @Component({
@@ -24,8 +24,9 @@ import { UploadSourceService } from '../../services/upload-source.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadSourceDialogComponent {
-  readonly #messageService = inject(MessageService);
+  readonly #dialogRef = inject(DynamicDialogRef<UploadSourceDialogComponent>);
   readonly #dialogConfig = inject(DynamicDialogConfig);
+  readonly #messageService = inject(MessageService);
   readonly #uploadSourceService = inject(UploadSourceService);
   readonly displayedFiles = this.#uploadSourceService.displayedFiles;
   readonly maxFileSize =
@@ -63,6 +64,11 @@ export class UploadSourceDialogComponent {
     }
 
     this.#uploadSourceService.upadateDisplayedFiles(filesToDisplay);
+  }
+
+  upload(): void {
+    const files = this.#uploadSourceService.displayedFiles();
+    this.#dialogRef.close(files.map((f) => f.file));
   }
 
   removeAll(): void {

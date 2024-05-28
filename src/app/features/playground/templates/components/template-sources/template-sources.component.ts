@@ -53,6 +53,13 @@ export class TemplateSourcesComponent {
   }
 
   #addPDFSource() {
-    this.#sourceDialogService.openUploadDialog();
+    this.#sourceDialogService
+      .openUploadDialog()
+      .onClose.subscribe((sources) => {
+        if (!sources) {
+          return;
+        }
+        console.log(sources);
+      });
   }
 }
