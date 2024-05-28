@@ -1,15 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SourceFormFactoryService } from './source-form-factory.service';
-import { TemplateState } from '../datatypes';
-import { Sources } from '@core/datatypes';
+import { Sources, TemplateWithResources } from '@core/datatypes';
 
 @Injectable()
 export class TemplateFormFactoryService {
   readonly #sourceFormFactoryService = inject(SourceFormFactoryService);
   readonly #formBuilder = inject(FormBuilder);
 
-  createForm(template: TemplateState): FormGroup {
+  createForm(template: TemplateWithResources): FormGroup {
     return this.#formBuilder.group({
       _id: [template._id, [Validators.required]],
       isDemo: [template.isDemo, [Validators.required]],

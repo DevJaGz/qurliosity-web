@@ -1,13 +1,8 @@
 import { ResolveFn, Router } from '@angular/router';
 import { EMPTY, Observable, Subject, forkJoin, map, tap } from 'rxjs';
-import { TemplateState } from '../datatypes';
 import { inject } from '@angular/core';
 import { TemplateFormService } from '../services';
-import {
-  SourcesRequestService,
-  TemplatesRequestService,
-} from '@shared/services';
-import { SourceType } from '@core/enums';
+import { TemplatesRequestService } from '@shared/services';
 
 const goHomeAfterNextTick = (router: Router) => {
   setTimeout(() => {
@@ -20,7 +15,6 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
   const isDataLoaded = new Subject<boolean>();
 
   const templatesRequestService = inject(TemplatesRequestService);
-  const sourcesRequestService = inject(SourcesRequestService);
   const templateFormService = inject(TemplateFormService);
 
   const templateId = route.params['templateId'];
@@ -29,31 +23,12 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
     return EMPTY;
   }
 
-  forkJoin({
-    template: templatesRequestService.getTemplate(templateId),
-    sources: sourcesRequestService.listSources({
-      _templateId: templateId,
-    }),
-  })
+  templatesRequestService
+    .getTemplateWithResources(templateId)
     .pipe(
-      map(({ template }) => {
-        return {
-          ...template,
-          sources: [
-            {
-              _id: '1',
-              __v: 0,
-              value: 'Source 1',
-              type: SourceType.PDF,
-              _templateId: '6644ffa6065e545f87808399',
-              _storageRecordId: '2',
-            },
-          ],
-        } as TemplateState;
-      }),
       tap({
-        next: (templateState) => {
-          templateFormService.initializeForm(templateState);
+        next: (template) => {
+          templateFormService.initializeForm(template);
           isDataLoaded.next(true);
         },
         error: () => {

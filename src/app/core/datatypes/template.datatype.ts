@@ -1,5 +1,6 @@
 import { Entity } from './entity.datatype';
 import { Query } from './query.datatype';
+import { Sources } from './source.datatype';
 
 export interface Template extends Entity {
   name: string;
@@ -11,6 +12,10 @@ export interface Template extends Entity {
   imagePath: string;
   onHoverInfo?: HoverInfoSchema;
   sessionId: string;
+}
+
+export interface TemplateWithResources extends Template {
+  sources: Sources;
 }
 
 export interface HoverInfoSchema {

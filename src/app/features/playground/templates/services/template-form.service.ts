@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { TemplateState } from '../datatypes';
 import { TemplateFormFactoryService } from './template-form-factory.service';
 import { FormGroup } from '@angular/forms';
+import { TemplateWithResources } from '@core/datatypes';
 
 @Injectable()
 export class TemplateFormService {
@@ -9,7 +9,7 @@ export class TemplateFormService {
 
   form!: FormGroup;
 
-  initializeForm(template: TemplateState): void {
+  initializeForm(template: TemplateWithResources): void {
     const form = this.#templateFormFactoryService.createForm(template);
     this.form = form;
   }

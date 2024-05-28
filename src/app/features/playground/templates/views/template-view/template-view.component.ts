@@ -14,9 +14,9 @@ import {
 import { SharedModule } from '@shared/index';
 import { ButtonList, ButtonListItem } from '@shared/datatypes';
 import { FormsModule } from '@angular/forms';
-import { TemplateState } from '../../datatypes';
 import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { SourcesService, TemplateService } from '../../services';
+import { TemplateWithResources } from '@core/datatypes';
 
 @Component({
   selector: 'app-template-view',
@@ -58,7 +58,7 @@ export class TemplateViewComponent implements OnInit {
   ];
 
   currentNavigation = signal('sources');
-  templateData!: WritableSignal<TemplateState>;
+  templateData!: WritableSignal<TemplateWithResources>;
 
   onOptionClick(data: SelectButtonOptionClickEvent) {
     const option = data.option as ButtonListItem;
@@ -72,8 +72,9 @@ export class TemplateViewComponent implements OnInit {
   }
 
   #initializeTemplateData() {
-    const template = this.#templateService.templateForm.value as TemplateState;
-    this.templateData = signal<TemplateState>(template);
+    const template = this.#templateService.templateForm
+      .value as TemplateWithResources;
+    this.templateData = signal<TemplateWithResources>(template);
   }
 
   #initializeNavigation() {
