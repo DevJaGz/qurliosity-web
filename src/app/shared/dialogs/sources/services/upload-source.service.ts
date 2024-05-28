@@ -59,4 +59,8 @@ export class UploadSourceService {
     const isOverMaxFiles = newNumberFiles + currentNumberFiles > maxFiles;
     return isOverMaxFiles;
   }
+
+  reset(): void {
+    this.#displayedFiles.set([]);
+  }
 }

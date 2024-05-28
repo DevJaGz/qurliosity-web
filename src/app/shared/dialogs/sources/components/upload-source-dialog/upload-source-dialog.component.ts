@@ -69,6 +69,7 @@ export class UploadSourceDialogComponent {
   upload(): void {
     const files = this.#uploadSourceService.displayedFiles();
     this.#dialogRef.close(files.map((f) => f.file));
+    this.#uploadSourceService.reset();
   }
 
   removeAll(): void {
