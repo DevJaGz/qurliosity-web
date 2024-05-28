@@ -9,7 +9,7 @@ import { TemplateSourceComponent } from '../template-source/template-source.comp
 import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
-import { SourceDialogService } from '@core/services';
+import { SourceDialogService } from '@shared/dialogs/sources';
 
 @Component({
   selector: 'app-template-sources',

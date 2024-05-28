@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { UploadSourceDialogComponent } from '@core/components';
+
 import { UploadSourceConfig } from '@core/datatypes';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UploadSourceDialogComponent } from '../components';
 
 @Injectable({
   providedIn: 'root',

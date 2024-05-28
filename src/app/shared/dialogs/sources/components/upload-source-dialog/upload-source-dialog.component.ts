@@ -4,7 +4,7 @@ import {
   computed,
   inject,
 } from '@angular/core';
-import { UploadSourceService } from '@core/services';
+
 import {
   FileLoaderComponent,
   UploadedSourcesTableComponent,
@@ -13,6 +13,7 @@ import { UploadedFiles } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { UploadSourceService } from '../../services/upload-source.service';
 
 @Component({
   selector: 'app-upload-source-dialog',

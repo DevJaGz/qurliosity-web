@@ -4,8 +4,9 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { UploadSourceService } from '@core/services';
+
 import { UploadedFile } from '@shared/datatypes';
+import { UploadSourceService } from '@shared/dialogs/sources';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
