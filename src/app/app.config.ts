@@ -18,7 +18,7 @@ import {
   apiResponseInterceptor,
   cookieInterceptor,
 } from '@core/interceptors';
-import { AppErrorService } from '@shared/services';
+import { AppErrorService } from '@core/services';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 

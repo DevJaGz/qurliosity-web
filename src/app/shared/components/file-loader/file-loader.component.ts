@@ -19,7 +19,7 @@ import {
 } from '@shared/datatypes';
 import { DragzoneDirective } from '@shared/directives';
 import { Subject } from 'rxjs';
-import { FileLoaderService } from '@shared/services';
+import { FileLoaderService } from '@core/services';
 
 @Component({
   selector: 'app-file-loader',

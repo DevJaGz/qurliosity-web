@@ -1,8 +1,8 @@
 import { ResolveFn, Router } from '@angular/router';
-import { EMPTY, Observable, Subject, forkJoin, map, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { TemplateFormService } from '../services';
-import { TemplatesRequestService } from '@shared/services';
+import { TemplatesRequestService } from '@core/services';
 
 const goHomeAfterNextTick = (router: Router) => {
   setTimeout(() => {
