@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { CreatePDFSource, ListSources, Source, Sources } from '@core/datatypes';
 import { handleErrorPipeUtil } from '@core/utils';
@@ -41,17 +41,10 @@ export class SourcesRequestService {
       JSON.stringify(data.embedderCredential)
     );
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-      }),
-    };
-
     return this.#http
       .post<Source>(
-        `${environment.API_URL}/templates/${data._templateId}/sources`,
-        formData,
-        options
+        `${environment.API_URL}/templates/${data._templateId}/sources/pdf`,
+        formData
       )
       .pipe(
         handleErrorPipeUtil({

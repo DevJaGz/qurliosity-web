@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { TemplateFormFactoryService } from './template-form-factory.service';
 import { FormGroup } from '@angular/forms';
-import { TemplateWithResources } from '@core/datatypes';
+import { Sources, TemplateWithResources } from '@core/datatypes';
 
 @Injectable()
 export class TemplateFormService {

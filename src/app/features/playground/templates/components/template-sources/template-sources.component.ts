@@ -10,6 +10,7 @@ import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
 import { SourceDialogService } from '@shared/dialogs/sources';
+import { EmbedderCredential } from '@core/datatypes';
 
 @Component({
   selector: 'app-template-sources',
@@ -53,13 +54,19 @@ export class TemplateSourcesComponent {
   }
 
   #addPDFSource() {
-    this.#sourceDialogService
-      .openUploadDialog()
-      .onClose.subscribe((sources) => {
-        if (!sources) {
-          return;
-        }
-        console.log(sources);
-      });
+    this.#sourceDialogService.openUploadDialog().onClose.subscribe((files) => {
+      if (!files?.length) {
+        return;
+      }
+
+      // TODO: get embedder credential from user
+      const embedderCredential: EmbedderCredential = {
+        apiKey: localStorage.getItem('apiKey') || '',
+        modelName: 'text-embedding-ada-002',
+        brandId: 'id',
+      };
+
+      this.#sourcesService.createPDFSources(files, embedderCredential);
+    });
   }
 }
