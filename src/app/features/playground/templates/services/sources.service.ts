@@ -10,6 +10,9 @@ import {
 } from '@core/datatypes';
 import { Observable, forkJoin } from 'rxjs';
 import { SourceFormFactoryService } from './source-form-factory.service';
+import { SourceType } from '@core/enums';
+import { AppErrorModel } from '@core/models';
+import { byFormId } from '@shared/utils';
 
 @Injectable()
 export class SourcesService {
@@ -37,13 +40,21 @@ export class SourcesService {
       });
       sourcesRequests.push(sourceRequest);
     }
-    forkJoin(sourcesRequests).subscribe((sources) =>
-      this.#pushSourcesToForm(sources)
-    );
+    forkJoin(sourcesRequests).subscribe({
+      next: (sources) => this.#pushSourcesToForm(sources),
+    });
   }
 
   createPDFSource(params: CreatePDFSource): Observable<Source> {
     return this.#sourcesRequestService.createPDFSource(params);
+  }
+
+  deleteSource(source: Source): void {
+    if (source.type === SourceType.PDF) {
+      this.#sourcesRequestService.deletePDFSource(source).subscribe({
+        next: () => this.#removeSourceFromForm(source),
+      });
+    }
   }
 
   #pushSourcesToForm(sources: Sources): void {
@@ -56,5 +67,24 @@ export class SourcesService {
     const sourceForm = this.#sourceFormFactoryService.createForm(source);
     this.sourcesFormArray.push(sourceForm);
     this.#sourcesFormControls.update((sourceForms) => [...sourceForms]);
+  }
+
+  #removeSourceFromForm(source: Source): void {
+    const index = this.#findSourceIndex(source);
+    if (!index) {
+      throw new Error('Source cannot be deleted from the view');
+    }
+    this.sourcesFormArray.removeAt(index);
+    this.#sourcesFormControls.update((sourceForms) =>
+      sourceForms.filter(byFormId(source, 'notEq'))
+    );
+  }
+
+  #findSourceIndex(source: Source): number | null {
+    const index = this.#sourcesFormControls().findIndex(byFormId(source));
+    if (index === -1) {
+      return null;
+    }
+    return index;
   }
 }

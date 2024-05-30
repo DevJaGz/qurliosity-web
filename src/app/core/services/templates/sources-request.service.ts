@@ -52,4 +52,16 @@ export class SourcesRequestService {
         })
       );
   }
+
+  deletePDFSource(source: Source): Observable<Source> {
+    return this.#http
+      .delete<Source>(
+        `${environment.API_URL}/templates/${source._templateId}/sources/${source._id}/pdf`
+      )
+      .pipe(
+        handleErrorPipeUtil({
+          userMessage: 'Sorry, there was an error deleting the source',
+        })
+      );
+  }
 }
