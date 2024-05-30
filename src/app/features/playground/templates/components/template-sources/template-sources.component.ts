@@ -23,7 +23,15 @@ import { EmbedderCredential } from '@core/datatypes';
 export class TemplateSourcesComponent {
   readonly #sourcesService = inject(SourcesService);
   readonly #sourceDialogService = inject(SourceDialogService);
+
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
+
+  get sourceNumberInfo() {
+    const nSources = this.sourcesFormControls().length;
+    const sourcesText = nSources === 1 ? 'source.' : 'sources.';
+    return `${nSources} ${sourcesText}`;
+  }
+
   buttons: MenuItem[] = [
     {
       tooltipOptions: {

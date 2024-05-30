@@ -1,8 +1,5 @@
 <div class="p-5 flex flex-col gap-5 pb-24">
-  <p>
-    {{ sourcesFormControls().length }}
-    {{ sourcesFormControls().length === 1 ? "source." : "sources." }}
-  </p>
+  <p>{{ sourceNumberInfo }}</p>
   @for (sourceForm of sourcesFormControls(); track sourceForm.value._id) {
   <app-template-source [source]="sourceForm.value" />
   }
