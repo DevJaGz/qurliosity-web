@@ -1,5 +1,8 @@
-import { AbstractControl } from '@angular/forms';
+import { Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AbstractControl, FormArray } from '@angular/forms';
 import { Entity } from '@core/datatypes';
+import { Observable, map, tap } from 'rxjs';
 
 export const byFormId = <T extends Entity>(
   entity: T,
@@ -16,4 +19,15 @@ export const byFormId = <T extends Entity>(
   }
 
   throw new Error('Invalid comparison');
+};
+
+export const toSignalArray = (formArray: FormArray): Signal<FormArray> => {
+  const valueChanges = formArray.valueChanges;
+  const arrayChanges = valueChanges.pipe(
+    map(() => Object.assign(new FormArray([]), formArray)),
+    tap({
+      complete: () => console.log('complete'),
+    })
+  ) as Observable<FormArray>;
+  return toSignal(arrayChanges, { initialValue: formArray });
 };

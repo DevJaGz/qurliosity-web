@@ -19,9 +19,9 @@ export class SourcesService {
   readonly #templateFormService = inject(TemplateFormService);
   readonly #sourceFormFactoryService = inject(SourceFormFactoryService);
   readonly #sourcesRequestService = inject(SourcesRequestService);
-  readonly templateForm = this.#templateFormService.form;
-  readonly templateId = this.templateForm.get('_id')?.value;
-  readonly sourcesFormArray = this.templateForm.get('sources') as FormArray;
+  readonly sourcesFormArray = this.#templateFormService.sourceFormArray;
+  readonly templateId = this.#templateFormService.templateId;
+
   readonly #sourcesFormControls = signal<FormGroup[]>(
     this.sourcesFormArray.controls as FormGroup[]
   );

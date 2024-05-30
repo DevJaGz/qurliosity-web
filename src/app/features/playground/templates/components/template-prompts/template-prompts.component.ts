@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+import { toSignalArray } from '@shared/utils';
 
 @Component({
   selector: 'app-template-prompts',
@@ -24,18 +25,7 @@ export class TemplatePromptsComponent {
 
   #itemsArray = this.form.get('items') as FormArray;
 
-  xItemsArray = toSignal(
-    this.value$.pipe(
-      map(() => {
-        const items = this.#itemsArray;
-        if (!items) return null;
-        return Object.assign(new FormArray([]), items) as FormArray;
-      })
-    ),
-    {
-      initialValue: this.form.get('items') as FormArray,
-    }
-  );
+  xItemsArray = toSignalArray(this.#itemsArray);
 
   xItemsControls = computed(() => {
     const controls = this.xItemsArray()?.controls;
