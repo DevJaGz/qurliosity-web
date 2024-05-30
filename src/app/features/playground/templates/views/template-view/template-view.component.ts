@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { SourcesService, TemplateService } from '../../services';
 import { TemplateWithResources } from '@core/datatypes';
+import { AiCredentialButtonComponent } from '@shared/components';
 
 @Component({
   selector: 'app-template-view',
@@ -28,6 +29,7 @@ import { TemplateWithResources } from '@core/datatypes';
     LowerCasePipe,
     SelectButtonModule,
     SharedModule,
+    AiCredentialButtonComponent,
   ],
   providers: [SourcesService, TemplateService],
   templateUrl: './template-view.component.html',
