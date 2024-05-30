@@ -1,8 +1,8 @@
-import { Signal } from '@angular/core';
+import { Signal, computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormArray } from '@angular/forms';
 import { Entity } from '@core/datatypes';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 export const byFormId = <T extends Entity>(
   entity: T,
@@ -24,10 +24,17 @@ export const byFormId = <T extends Entity>(
 export const toSignalArray = (formArray: FormArray): Signal<FormArray> => {
   const valueChanges = formArray.valueChanges;
   const arrayChanges = valueChanges.pipe(
-    map(() => Object.assign(new FormArray([]), formArray)),
-    tap({
-      complete: () => console.log('complete'),
-    })
+    map(() => Object.assign(new FormArray([]), formArray))
   ) as Observable<FormArray>;
   return toSignal(arrayChanges, { initialValue: formArray });
+};
+
+export const computedArrayControls = (
+  signalArray: Signal<FormArray>
+): Signal<AbstractControl[]> => {
+  return computed(() => {
+    const controls = signalArray().controls;
+    if (!controls?.length) return [];
+    return [...controls];
+  });
 };

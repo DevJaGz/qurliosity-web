@@ -6,7 +6,7 @@
 
   <hr class="w-80" />
   <h2>ITEMS:</h2>
-  @for (item of xItemsControls(); track $index) {
+  @for (item of itemsControls; track $index) {
   <div class="grid place-items-center">
     <div (click)="deleteOne($index)">X</div>
     <pre>

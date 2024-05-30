@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { toSignalArray } from '@shared/utils';
+import { computedArrayControls, toSignalArray } from '@shared/utils';
 
 @Component({
   selector: 'app-template-prompts',
@@ -24,14 +24,14 @@ export class TemplatePromptsComponent {
   }
 
   #itemsArray = this.form.get('items') as FormArray;
+  // itemsControls = this.#itemsArray.controls;
+  get itemsControls() {
+    return this.#itemsArray.controls;
+  }
 
   xItemsArray = toSignalArray(this.#itemsArray);
 
-  xItemsControls = computed(() => {
-    const controls = this.xItemsArray()?.controls;
-    if (!controls?.length) return [];
-    return [...controls];
-  });
+  xItemsControls = computedArrayControls(this.xItemsArray);
 
   add(name = 'item') {
     setTimeout(() => {
