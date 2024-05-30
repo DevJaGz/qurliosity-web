@@ -1,5 +1,4 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Injectable, inject } from '@angular/core';
 import { TemplateFormService } from './template-form.service';
 import { SourcesRequestService } from '@core/services';
 import {
@@ -11,21 +10,22 @@ import {
 import { Observable, forkJoin } from 'rxjs';
 import { SourceFormFactoryService } from './source-form-factory.service';
 import { SourceType } from '@core/enums';
-import { AppErrorModel } from '@core/models';
-import { byFormId } from '@shared/utils';
+import {
+  computedFormControls,
+  findIndexControl,
+  toSignalFormArray,
+} from '@shared/utils';
 
 @Injectable()
 export class SourcesService {
-  readonly #templateFormService = inject(TemplateFormService);
   readonly #sourceFormFactoryService = inject(SourceFormFactoryService);
   readonly #sourcesRequestService = inject(SourcesRequestService);
-  readonly sourcesFormArray = this.#templateFormService.sourceFormArray;
+  readonly #templateFormService = inject(TemplateFormService);
   readonly templateId = this.#templateFormService.templateId;
-
-  readonly #sourcesFormControls = signal<FormGroup[]>(
-    this.sourcesFormArray.controls as FormGroup[]
+  readonly sourcesFormArray = toSignalFormArray(
+    this.#templateFormService.sourceFormArray
   );
-  readonly sourcesFormControls = this.#sourcesFormControls.asReadonly();
+  readonly sourcesFormControls = computedFormControls(this.sourcesFormArray);
 
   createPDFSources(
     files: File[],
@@ -41,7 +41,7 @@ export class SourcesService {
       sourcesRequests.push(sourceRequest);
     }
     forkJoin(sourcesRequests).subscribe({
-      next: (sources) => this.#pushSourcesToForm(sources),
+      next: (sources) => this.#pushSources(sources),
     });
   }
 
@@ -52,39 +52,27 @@ export class SourcesService {
   deleteSource(source: Source): void {
     if (source.type === SourceType.PDF) {
       this.#sourcesRequestService.deletePDFSource(source).subscribe({
-        next: () => this.#removeSourceFromForm(source),
+        next: () => this.#removeSource(source),
       });
     }
   }
 
-  #pushSourcesToForm(sources: Sources): void {
+  #pushSources(sources: Sources): void {
     for (const source of sources) {
-      this.#pushSourceToForm(source);
+      this.#pushSource(source);
     }
   }
 
-  #pushSourceToForm(source: Source): void {
+  #pushSource(source: Source): void {
     const sourceForm = this.#sourceFormFactoryService.createForm(source);
-    this.sourcesFormArray.push(sourceForm);
-    this.#sourcesFormControls.update((sourceForms) => [...sourceForms]);
+    this.sourcesFormArray().push(sourceForm);
   }
 
-  #removeSourceFromForm(source: Source): void {
-    const index = this.#findSourceIndex(source);
+  #removeSource(source: Source): void {
+    const index = findIndexControl(this.sourcesFormControls(), source);
     if (!index) {
       throw new Error('Source cannot be deleted from the view');
     }
-    this.sourcesFormArray.removeAt(index);
-    this.#sourcesFormControls.update((sourceForms) =>
-      sourceForms.filter(byFormId(source, 'notEq'))
-    );
-  }
-
-  #findSourceIndex(source: Source): number | null {
-    const index = this.#sourcesFormControls().findIndex(byFormId(source));
-    if (index === -1) {
-      return null;
-    }
-    return index;
+    this.sourcesFormArray().removeAt(index);
   }
 }

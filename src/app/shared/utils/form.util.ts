@@ -21,7 +21,18 @@ export const byFormId = <T extends Entity>(
   throw new Error('Invalid comparison');
 };
 
-export const toSignalArray = (formArray: FormArray): Signal<FormArray> => {
+export const findIndexControl = <T extends Entity, K extends AbstractControl>(
+  sources: K[],
+  source: T
+): number | null => {
+  const index = sources.findIndex(byFormId(source));
+  if (index === -1) {
+    return null;
+  }
+  return index;
+};
+
+export const toSignalFormArray = (formArray: FormArray): Signal<FormArray> => {
   const valueChanges = formArray.valueChanges;
   const arrayChanges = valueChanges.pipe(
     map(() => Object.assign(new FormArray([]), formArray))
@@ -29,7 +40,7 @@ export const toSignalArray = (formArray: FormArray): Signal<FormArray> => {
   return toSignal(arrayChanges, { initialValue: formArray });
 };
 
-export const computedArrayControls = (
+export const computedFormControls = (
   signalArray: Signal<FormArray>
 ): Signal<AbstractControl[]> => {
   return computed(() => {
