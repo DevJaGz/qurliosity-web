@@ -1,1 +1,21 @@
-<p>template-prompts works!</p>
+<div class="flex flex-col justify-center items-center gap-3">
+  <h2>FORM:</h2>
+  <pre>
+    {{ form.value | json }}
+  </pre>
+
+  <hr class="w-80" />
+  <h2>ITEMS:</h2>
+  @for (item of xItemsFormControls(); track $index) {
+  <div class="grid place-items-center">
+    <pre>
+      {{ item.value | json }}
+    </pre>
+  </div>
+  }
+</div>
+
+<footer class="flex flex-col gap-3 mt-4">
+  <button class="btn danger justify-center">Delete</button>
+  <button class="btn primary justify-center" (click)="add()">Add</button>
+</footer>
