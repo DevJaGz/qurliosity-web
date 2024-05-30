@@ -6,8 +6,9 @@
 
   <hr class="w-80" />
   <h2>ITEMS:</h2>
-  @for (item of xItemsFormControls(); track $index) {
+  @for (item of xItemsControls(); track $index) {
   <div class="grid place-items-center">
+    <div (click)="deleteOne($index)">X</div>
     <pre>
       {{ item.value | json }}
     </pre>
@@ -16,6 +17,6 @@
 </div>
 
 <footer class="flex flex-col gap-3 mt-4">
-  <button class="btn danger justify-center">Delete</button>
+  <button class="btn danger justify-center" (click)="delete()">Delete</button>
   <button class="btn primary justify-center" (click)="add()">Add</button>
 </footer>

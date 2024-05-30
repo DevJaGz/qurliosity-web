@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -18,27 +18,57 @@ export class TemplatePromptsComponent {
     items: new FormArray([]),
   });
 
-  items = this.form.get('items') as FormArray;
+  get value$() {
+    return this.form.valueChanges;
+  }
 
-  xItemsFormControls = toSignal(
-    this.items.valueChanges.pipe(map(() => [...this.items.controls])),
+  #itemsArray = this.form.get('items') as FormArray;
+
+  xItemsArray = toSignal(
+    this.value$.pipe(
+      map(() => {
+        const items = this.#itemsArray;
+        if (!items) return null;
+        return Object.assign(new FormArray([]), items) as FormArray;
+      })
+    ),
     {
-      initialValue: [],
+      initialValue: this.form.get('items') as FormArray,
     }
   );
 
+  xItemsControls = computed(() => {
+    const controls = this.xItemsArray()?.controls;
+    if (!controls?.length) return [];
+    return [...controls];
+  });
+
   add(name = 'item') {
     setTimeout(() => {
-      this.items.push(
+      const randomHashName = Math.random().toString(36).substring(2);
+      this.#itemsArray.push(
         new FormGroup({
-          name: new FormControl(name),
+          arrayItemName: new FormControl(name + randomHashName),
         })
       );
     }, 2000);
   }
 
+  delete() {
+    setTimeout(() => {
+      this.#itemsArray.clear();
+    }, 2000);
+  }
+
+  deleteOne(index: number) {
+    setTimeout(() => {
+      this.#itemsArray.removeAt(index);
+    }, 2000);
+  }
+
   constructor() {
-    this.items.valueChanges.subscribe((items) => {
+    console.log('CTOR', this.form, this.#itemsArray);
+    this.value$.subscribe((items) => {
       console.log('CTOR: items', items);
     });
   }
