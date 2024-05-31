@@ -21,7 +21,7 @@ export class AiCredentialsService {
   });
 
   openDialog() {
-    const initialAICredentials = this.#AICredentials();
+    const initialAICredentials = structuredClone(this.#AICredentials());
     this.#aiCredentialsDialogService
       .openDialog(initialAICredentials)
       .onClose.subscribe({
