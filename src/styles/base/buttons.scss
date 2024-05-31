@@ -15,8 +15,10 @@ button.btn {
   }
 
   &.btn-outline {
+    @apply outline-1 outline;
+
     &.secondary {
-      @apply outline-1 outline dark:text-neutral-400 dark:hover:text-neutral-300  dark:outline-neutral-400 dark:hover:outline-neutral-300;
+      @apply dark:text-neutral-400 dark:hover:text-neutral-300  dark:outline-neutral-400 dark:hover:outline-neutral-300;
     }
   }
 }

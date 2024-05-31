@@ -5,7 +5,7 @@
   </p>
 </section>
 <section
-  class="grid place-items-center text-sm my-4 sticky top-4 p-0.5 rounded-lg dark:bg-[#27272a] w-fit mx-auto z-10"
+  class="grid place-items-center text-sm my-4 sticky top-4 p-0.5 rounded-lg dark:bg-neutral-800 w-fit mx-auto z-10"
 >
   <p-selectButton
     [ngModel]="currentNavigation()"
@@ -26,7 +26,7 @@
 </section>
 
 <section class="grid place-items-center">
-  <app-ai-credential-button />
+  <app-ai-credential-button [isValid]="false" [dissabled]="true" />
 </section>
 
 <router-outlet></router-outlet>
