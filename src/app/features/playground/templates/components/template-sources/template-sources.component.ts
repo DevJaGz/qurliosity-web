@@ -11,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
 import { SourceDialogService } from '@shared/dialogs/sources';
 import { EmbedderCredential } from '@core/datatypes';
+import { AiCredentialsService } from '@shared/services';
 
 @Component({
   selector: 'app-template-sources',
@@ -23,6 +24,7 @@ import { EmbedderCredential } from '@core/datatypes';
 export class TemplateSourcesComponent {
   readonly #sourcesService = inject(SourcesService);
   readonly #sourceDialogService = inject(SourceDialogService);
+  readonly #aiCredentialsService = inject(AiCredentialsService);
 
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
 
@@ -63,16 +65,12 @@ export class TemplateSourcesComponent {
 
   #addPDFSource() {
     this.#sourceDialogService.openUploadDialog().onClose.subscribe((files) => {
-      if (!files?.length) {
+      const AICredentials = this.#aiCredentialsService.AICredentials();
+      const embedderCredential = AICredentials.embedderCredential;
+
+      if (!files?.length || !embedderCredential) {
         return;
       }
-
-      // TODO: get embedder credential from user
-      const embedderCredential: EmbedderCredential = {
-        apiKey: localStorage.getItem('apiKey') || '',
-        modelName: 'text-embedding-ada-002',
-        brandId: 'id',
-      };
 
       this.#sourcesService.createPDFSources(files, embedderCredential);
     });
