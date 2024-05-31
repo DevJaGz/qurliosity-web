@@ -12,6 +12,7 @@ export class AiCredentialsService {
   readonly #localStorageService = inject(LocalStorageService);
   readonly #AICredentials = signal<AICredentials>({
     embedderCredential: null,
+    LLMCredential: null,
   });
 
   readonly AICredentials = this.#AICredentials.asReadonly();
@@ -24,9 +25,10 @@ export class AiCredentialsService {
   }
 
   setEmbedderCredential(embedderCredential: EmbedderCredential) {
-    this.#AICredentials.set({
+    this.#AICredentials.update((aiCredentials) => ({
+      ...aiCredentials,
       embedderCredential,
-    });
+    }));
     this.#upadteLocalStorage();
   }
 

@@ -1,6 +1,6 @@
-import { AIModels } from '@shared/datatypes';
+import { EmbedderModels } from '@shared/datatypes';
 
-export const OPENAI_EMBEDDER_MODELS: AIModels = [
+export const OPENAI_EMBEDDER_MODELS: EmbedderModels = [
   {
     name: 'text-embedding-ada-002',
     input: 8191,
