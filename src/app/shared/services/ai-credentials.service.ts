@@ -21,14 +21,20 @@ export class AiCredentialsService {
   });
 
   openDialog() {
-    this.#aiCredentialsDialogService.openDialog();
+    const initialAICredentials = this.#AICredentials();
+    this.#aiCredentialsDialogService
+      .openDialog(initialAICredentials)
+      .onClose.subscribe({
+        next: (AICredentials) => {
+          if (AICredentials) {
+            this.setAICredentials(AICredentials);
+          }
+        },
+      });
   }
 
-  setEmbedderCredential(embedderCredential: EmbedderCredential) {
-    this.#AICredentials.update((aiCredentials) => ({
-      ...aiCredentials,
-      embedderCredential,
-    }));
+  setAICredentials(aiCredentials: AICredentials) {
+    this.#AICredentials.set(aiCredentials);
     this.#upadteLocalStorage();
   }
 

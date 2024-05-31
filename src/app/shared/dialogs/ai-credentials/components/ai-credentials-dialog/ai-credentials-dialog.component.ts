@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   AICredentials,
   EmbedderCredential,
@@ -7,6 +12,7 @@ import {
 import { OPENAI_EMBEDDER_MODELS, OPENAI_LLM_MODELS } from '@shared/constants';
 import { EmbedderModels, LLMModels } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-ai-credentials-dialog',
@@ -16,7 +22,9 @@ import { SharedModule } from '@shared/shared.module';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AiCredentialsDialogComponent {
+export class AiCredentialsDialogComponent implements OnInit {
+  readonly #dialogRef = inject(DynamicDialogRef<AiCredentialsDialogComponent>);
+  readonly #dialogConfig = inject(DynamicDialogConfig);
   AICredentialsViewModel: AICredentials = {
     embedderCredential: {
       apiKey: '',
@@ -53,6 +61,26 @@ export class AiCredentialsDialogComponent {
     this.LLMCredential.brandId = brandId;
     if (brandId === 'openai') {
       this.LLModels = OPENAI_LLM_MODELS;
+    }
+  }
+
+  confirm() {
+    this.#dialogRef.close(this.AICredentialsViewModel);
+  }
+
+  close() {
+    this.#dialogRef.close();
+  }
+
+  ngOnInit(): void {
+    const initialAICredentials = this.#dialogConfig.data as AICredentials;
+    const embedderCredential = initialAICredentials.embedderCredential;
+    const LLMCredential = initialAICredentials.LLMCredential;
+    if (embedderCredential) {
+      this.AICredentialsViewModel.embedderCredential = embedderCredential;
+    }
+    if (LLMCredential) {
+      this.AICredentialsViewModel.LLMCredential = LLMCredential;
     }
   }
 }
