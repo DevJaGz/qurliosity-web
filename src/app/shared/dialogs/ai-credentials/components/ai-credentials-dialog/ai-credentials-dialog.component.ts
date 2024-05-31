@@ -9,7 +9,11 @@ import {
   EmbedderCredential,
   LLMCredential,
 } from '@core/datatypes';
-import { OPENAI_EMBEDDER_MODELS, OPENAI_LLM_MODELS } from '@shared/constants';
+import {
+  OPENAI_API_REGEX,
+  OPENAI_EMBEDDER_MODELS,
+  OPENAI_LLM_MODELS,
+} from '@shared/constants';
 import { EmbedderModels, LLMModels } from '@shared/datatypes';
 import { SharedModule } from '@shared/shared.module';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -25,6 +29,8 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class AiCredentialsDialogComponent implements OnInit {
   readonly #dialogRef = inject(DynamicDialogRef<AiCredentialsDialogComponent>);
   readonly #dialogConfig = inject(DynamicDialogConfig);
+  apiKeyRegex = OPENAI_API_REGEX;
+
   AICredentialsViewModel: AICredentials = {
     embedderCredential: {
       apiKey: '',
@@ -37,8 +43,10 @@ export class AiCredentialsDialogComponent implements OnInit {
       modelName: 'GPT-4o',
     },
   };
+
   embedderBrands = [{ name: 'OpenAI', value: 'openai' }];
   emebedderModels: EmbedderModels = OPENAI_EMBEDDER_MODELS;
+
   LLMBrands = [{ name: 'OpenAI', value: 'openai' }];
   LLModels: LLMModels = OPENAI_LLM_MODELS;
 
