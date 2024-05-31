@@ -18,6 +18,7 @@ import { LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { SourcesService, TemplateService } from '../../services';
 import { TemplateWithResources } from '@core/datatypes';
 import { AiCredentialButtonComponent } from '@shared/components';
+import { AiCredentialsService } from '@shared/services';
 
 @Component({
   selector: 'app-template-view',
@@ -40,7 +41,8 @@ export class TemplateViewComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
   readonly #templateService = inject(TemplateService);
-  readonly hasAICredentials = this.#templateService.hasAICredentials;
+  readonly #aiCredentialsService = inject(AiCredentialsService);
+  readonly hasAICredentials = this.#aiCredentialsService.hasAICredentials;
 
   templateButtons: ButtonList = [
     {
