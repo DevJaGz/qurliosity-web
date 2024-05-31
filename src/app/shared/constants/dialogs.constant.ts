@@ -7,4 +7,5 @@ export const DIALOG_CONFIG_DEFAULT: DynamicDialogConfig = {
     maxWidth: '600px',
   },
   draggable: true,
+  focusOnShow: false,
 };

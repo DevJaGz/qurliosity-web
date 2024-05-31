@@ -7,6 +7,8 @@ import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 
 export const PRIMENG_SHARED_MODULES = [
   ButtonModule,
@@ -18,4 +20,6 @@ export const PRIMENG_SHARED_MODULES = [
   DynamicDialogModule,
   ToastModule,
   TooltipModule,
+  DropdownModule,
+  InputTextModule,
 ] as const;
