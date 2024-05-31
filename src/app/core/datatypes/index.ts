@@ -5,3 +5,4 @@ export * from './entity.datatype';
 export * from './source.datatype';
 export * from './app-error.datatype';
 export * from './embedder-credential.datatype';
+export * from './ai-credentials.datatype';

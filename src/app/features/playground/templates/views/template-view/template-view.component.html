@@ -26,7 +26,10 @@
 </section>
 
 <section class="grid place-items-center">
-  <app-ai-credential-button [isValid]="false" [dissabled]="true" />
+  <app-ai-credential-button
+    [isValid]="hasAICredentials()"
+    [dissabled]="false"
+  />
 </section>
 
 <router-outlet></router-outlet>

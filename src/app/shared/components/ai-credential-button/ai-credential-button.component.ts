@@ -12,5 +12,5 @@ import { SharedModule } from '@shared/shared.module';
 })
 export class AiCredentialButtonComponent {
   isValid = input.required<boolean>();
-  dissabled = input.required<boolean>();
+  dissabled = input<boolean>();
 }

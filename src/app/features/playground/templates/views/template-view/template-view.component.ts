@@ -40,6 +40,7 @@ export class TemplateViewComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
   readonly #templateService = inject(TemplateService);
+  readonly hasAICredentials = this.#templateService.hasAICredentials;
 
   templateButtons: ButtonList = [
     {
