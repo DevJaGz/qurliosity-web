@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { UploadSourceConfig } from '@core/datatypes';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UploadSourceDialogComponent } from '../components';
+import { DIALOG_CONFIG_DEFAULT } from '@shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,9 @@ export class SourceDialogService {
     data?: UploadSourceConfig
   ): DynamicDialogRef<UploadSourceDialogComponent> {
     const ref = this.dialogService.open(UploadSourceDialogComponent, {
-      modal: true,
-      style: {
-        width: '90vw',
-        maxWidth: '600px',
-      },
-      data: data || {},
-      draggable: true,
+      ...DIALOG_CONFIG_DEFAULT,
       header: 'Upload Source',
+      data: data || {},
     });
     return ref;
   }

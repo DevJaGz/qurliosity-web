@@ -1,12 +1,14 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { AICredentials, EmbedderCredential } from '@core/datatypes';
 import { LocalStorageService } from './local-storage.service';
+import { AiCredentialsDialogService } from '@shared/dialogs/ai-credentials';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AiCredentialsService {
   readonly #STORAGE_KEY = 'AICredentials';
+  readonly #aiCredentialsDialogService = inject(AiCredentialsDialogService);
   readonly #localStorageService = inject(LocalStorageService);
   readonly #AICredentials = signal<AICredentials>({
     embedderCredential: null,
@@ -16,6 +18,10 @@ export class AiCredentialsService {
   readonly hasAICredentials = computed(() => {
     return Boolean(this.#AICredentials().embedderCredential);
   });
+
+  openDialog() {
+    this.#aiCredentialsDialogService.openDialog();
+  }
 
   setEmbedderCredential(embedderCredential: EmbedderCredential) {
     this.#AICredentials.set({

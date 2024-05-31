@@ -1,5 +1,11 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
+import { AiCredentialsService } from '@shared/services';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
@@ -11,6 +17,11 @@ import { SharedModule } from '@shared/shared.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AiCredentialButtonComponent {
-  isValid = input.required<boolean>();
-  dissabled = input<boolean>();
+  readonly #aiCredentialsService = inject(AiCredentialsService);
+  readonly isValid = this.#aiCredentialsService.hasAICredentials;
+  readonly dissabled = input<boolean>();
+
+  openDialog() {
+    this.#aiCredentialsService.openDialog();
+  }
 }
