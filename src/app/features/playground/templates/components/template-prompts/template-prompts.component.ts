@@ -8,12 +8,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-template-prompts',
   standalone: true,
-  imports: [
-    NgClass,
-    SharedModule,
-    TemplatePromptComponent,
-    TemplatePromptVarsComponent,
-  ],
+  imports: [NgClass, SharedModule, TemplatePromptComponent],
   templateUrl: './template-prompts.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,

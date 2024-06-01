@@ -36,3 +36,7 @@ input[type="text"] {
 label {
   @apply dark:text-neutral-400;
 }
+
+textarea {
+  @apply min-h-[2.25rem] p-3;
+}
