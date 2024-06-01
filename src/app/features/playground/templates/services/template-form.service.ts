@@ -21,6 +21,10 @@ export class TemplateFormService {
     return this.form.get('sources') as FormArray;
   }
 
+  get promptFormArray() {
+    return this.form.get('prompts') as FormArray;
+  }
+
   initializeForm(template: TemplateWithResources): void {
     const form = this.#templateFormFactoryService.createForm(template);
     this.form = form;

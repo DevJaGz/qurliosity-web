@@ -1,8 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { TemplateFormService } from './template-form.service';
 
-@Injectable()
-export class TemplateService {
+@Injectable({
+  providedIn: 'root',
+})
+export class PromptsService {
   readonly #templateFormService = inject(TemplateFormService);
-  readonly templateForm = this.#templateFormService.form;
+  readonly templateId = this.#templateFormService.templateId;
 }
