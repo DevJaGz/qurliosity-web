@@ -8,11 +8,12 @@ import { Prompt } from '@core/datatypes';
 export class PromptFormFactoryService {
   readonly #formBuilder = inject(FormBuilder);
 
-  createForm(prompt: Prompt): FormGroup {
+  createForm(prompt?: Prompt): FormGroup {
     return this.#formBuilder.group({
-      _templateId: [prompt._templateId, [Validators.required]],
-      value: [prompt.value, [Validators.required]],
-      vars: [prompt.vars], // TODO: Create a form for vars
+      _id: [prompt?._id || ''],
+      _templateId: [prompt?._templateId || '', [Validators.required]],
+      value: [prompt?.value || '', [Validators.required]],
+      vars: [prompt?.vars] || {}, // TODO: Create a form for vars
     });
   }
 }

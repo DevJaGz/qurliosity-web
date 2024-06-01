@@ -4,9 +4,8 @@
     <p>Here you can write your prompts.</p>
   </section>
   <div class="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-    @for (promptFormControl of promptsFormControls(); track
-    promptFormControl.value._id) {
-    <app-template-prompt [prompt]="promptFormControl.value" />
+    @for (promptFormControl of promptsFormControls(); track $index) {
+    <app-template-prompt [promptForm]="promptFormControl" />
     }
   </div>
 </div>

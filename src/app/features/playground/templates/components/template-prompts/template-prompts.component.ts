@@ -6,15 +6,14 @@ import {
 } from '@angular/core';
 import { TemplatePromptComponent } from '../template-prompt/template-prompt.component';
 import { SharedModule } from '@shared/shared.module';
-import { TemplatePromptVarsComponent } from '../template-prompt-vars/template-prompt-vars.component';
 import { MenuItem } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { PromptsService } from '../../services';
-
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-template-prompts',
   standalone: true,
-  imports: [NgClass, SharedModule, TemplatePromptComponent],
+  imports: [NgClass, SharedModule, TemplatePromptComponent, JsonPipe],
   templateUrl: './template-prompts.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,6 +46,8 @@ export class TemplatePromptsComponent {
   isShownButtons = signal(true);
 
   add(id: 'prompt' | 'var') {
-    console.log(id);
+    if (id === 'prompt') {
+      this.#promptsService.addPrompt();
+    }
   }
 }
