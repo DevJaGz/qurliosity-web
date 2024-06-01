@@ -28,3 +28,11 @@ i-tabler {
 .p-dialog-title {
   @apply text-base;
 }
+
+input[type="text"] {
+  @apply h-9 p-3;
+}
+
+label {
+  @apply dark:text-neutral-400;
+}

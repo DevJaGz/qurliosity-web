@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-5">
-  <app-template-prompt-vars />
+  <!-- <app-template-prompt-vars /> -->
   <app-template-prompt />
 </div>
 <div class="fixed right-20 bottom-20">
@@ -22,6 +22,7 @@
     </ng-template>
     <ng-template pTemplate="item" let-item>
       <div
+        [ngClass]="{ 'pointer-events-none opacity-40': item.id === 'var' }"
         (click)="add(item.id)"
         class="grid place-items-center p-3.5 shadow dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors rounded-full cursor-pointer"
       >
