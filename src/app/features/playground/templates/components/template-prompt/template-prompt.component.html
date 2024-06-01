@@ -7,7 +7,49 @@
     [value]="prompt().value"
     [autoResize]="true"
   ></textarea>
-  <button pButton type="button" class="icon danger">
+  <button
+    pButton
+    type="button"
+    class="icon danger"
+    (click)="showDeleteDialog.set(true)"
+  >
     <i-tabler name="x"></i-tabler>
   </button>
 </div>
+<p-dialog
+  header="Header"
+  [visible]="showDeleteDialog()"
+  (visibleChange)="showDeleteDialog.set($event)"
+  [modal]="true"
+  [focusOnShow]="false"
+>
+  <ng-template pTemplate="header"> Delete prompt </ng-template>
+  <ng-template pTemplate="closeicon">
+    <button type="button" pButton class="icon danger">
+      <i-tabler name="x"></i-tabler>
+    </button>
+  </ng-template>
+  <span class="p-text-secondary block mb-5"
+    >Are you sure you want to delete the prompt?</span
+  >
+  <ng-template pTemplate="footer">
+    <div class="flex gap-8 items-center flex-nowrap justify-end">
+      <button
+        type="button"
+        pButton
+        (click)="showDeleteDialog.set(false)"
+        class="text danger"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        pButton
+        (click)="deletePrompt()"
+        class="text primary"
+      >
+        Yes
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

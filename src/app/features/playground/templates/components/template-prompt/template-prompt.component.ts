@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Prompt } from '@core/datatypes';
 import { SharedModule } from '@shared/shared.module';
+import { PromptsService } from '../../services';
 
 @Component({
   selector: 'app-template-prompt',
@@ -11,5 +18,12 @@ import { SharedModule } from '@shared/shared.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplatePromptComponent {
+  readonly #promptsService = inject(PromptsService);
   prompt = input.required<Prompt>();
+  showDeleteDialog = signal(false);
+
+  deletePrompt() {
+    this.showDeleteDialog.set(false);
+    this.#promptsService.deletePrompt(this.prompt());
+  }
 }
