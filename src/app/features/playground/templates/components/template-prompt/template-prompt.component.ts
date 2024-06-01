@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Prompt } from '@core/datatypes';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
@@ -9,4 +10,6 @@ import { SharedModule } from '@shared/shared.module';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplatePromptComponent {}
+export class TemplatePromptComponent {
+  prompt = input.required<Prompt>();
+}

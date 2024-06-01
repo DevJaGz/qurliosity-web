@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { TemplatePromptComponent } from '../template-prompt/template-prompt.component';
 import { SharedModule } from '@shared/shared.module';
 import { TemplatePromptVarsComponent } from '../template-prompt-vars/template-prompt-vars.component';
 import { MenuItem } from 'primeng/api';
 import { NgClass } from '@angular/common';
+import { PromptsService } from '../../services';
 
 @Component({
   selector: 'app-template-prompts',
@@ -14,9 +20,8 @@ import { NgClass } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplatePromptsComponent {
-  add(id: 'prompt' | 'var') {
-    console.log(id);
-  }
+  readonly #promptsService = inject(PromptsService);
+  readonly promptsFormControls = this.#promptsService.promptsFormControls;
 
   buttons: MenuItem[] = [
     {
@@ -40,4 +45,8 @@ export class TemplatePromptsComponent {
   ];
 
   isShownButtons = signal(true);
+
+  add(id: 'prompt' | 'var') {
+    console.log(id);
+  }
 }

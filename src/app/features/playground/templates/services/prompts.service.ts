@@ -3,9 +3,7 @@ import { TemplateFormService } from './template-form.service';
 import { PromptsRequestService } from '@core/services';
 import { computedFormControls, toSignalFormArray } from '@shared/utils';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PromptsService {
   readonly #templateFormService = inject(TemplateFormService);
   readonly #promptsRequestService = inject(PromptsRequestService);

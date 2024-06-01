@@ -10,7 +10,6 @@ import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
 import { JsonPipe } from '@angular/common';
 import { SourceDialogService } from '@shared/dialogs/sources';
-import { EmbedderCredential } from '@core/datatypes';
 import { AiCredentialsService } from '@shared/services';
 
 @Component({

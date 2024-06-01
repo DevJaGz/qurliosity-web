@@ -15,7 +15,11 @@ import { SharedModule } from '@shared/index';
 import { ButtonList, ButtonListItem } from '@shared/datatypes';
 import { FormsModule } from '@angular/forms';
 import { LowerCasePipe, TitleCasePipe } from '@angular/common';
-import { SourcesService, TemplateService } from '../../services';
+import {
+  PromptsService,
+  SourcesService,
+  TemplateService,
+} from '../../services';
 import { TemplateWithResources } from '@core/datatypes';
 import { AiCredentialButtonComponent } from '@shared/components';
 
@@ -31,7 +35,7 @@ import { AiCredentialButtonComponent } from '@shared/components';
     SharedModule,
     AiCredentialButtonComponent,
   ],
-  providers: [SourcesService, TemplateService],
+  providers: [SourcesService, TemplateService, PromptsService],
   templateUrl: './template-view.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
