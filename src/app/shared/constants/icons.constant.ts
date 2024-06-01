@@ -12,6 +12,7 @@ import {
   IconBrandOpenai,
   IconCertificate,
   IconCheck,
+  IconMessage,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -28,6 +29,7 @@ const icons = {
   IconBrandOpenai,
   IconCertificate,
   IconCheck,
+  IconMessage,
 } as const;
 
 export { icons as TABLER_ICONS };

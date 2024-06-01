@@ -37,7 +37,7 @@ export class TemplateSourcesComponent {
   buttons: MenuItem[] = [
     {
       tooltipOptions: {
-        tooltipLabel: 'PDF',
+        tooltipLabel: 'Add PDF',
         tooltipPosition: 'left',
       },
       icon: 'file-type-pdf',
@@ -46,7 +46,7 @@ export class TemplateSourcesComponent {
     },
     {
       tooltipOptions: {
-        tooltipLabel: 'Link',
+        tooltipLabel: 'Add Link',
         tooltipPosition: 'left',
       },
       icon: 'unlink',

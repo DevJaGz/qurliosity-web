@@ -1,16 +1,17 @@
-import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
-import { computedFormControls, toSignalFormArray } from '@shared/utils';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TemplatePromptComponent } from '../template-prompt/template-prompt.component';
+import { SharedModule } from '@shared/shared.module';
 
 @Component({
   selector: 'app-template-prompts',
   standalone: true,
-  imports: [],
+  imports: [SharedModule, TemplatePromptComponent],
   templateUrl: './template-prompts.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplatePromptsComponent {}
+export class TemplatePromptsComponent {
+  addPrompt() {
+    console.log('add prompt');
+  }
+}
