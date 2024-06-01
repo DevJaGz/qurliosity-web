@@ -7,3 +7,4 @@ export * from './app-error.datatype';
 export * from './embedder-credential.datatype';
 export * from './ai-credentials.datatype';
 export * from './llm-credential.datatype';
+export * from './prompt.datatype';

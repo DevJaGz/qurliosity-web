@@ -1,4 +1,5 @@
 import { Entity } from './entity.datatype';
+import { Prompts } from './prompt.datatype';
 import { Query } from './query.datatype';
 import { Sources } from './source.datatype';
 
@@ -16,6 +17,7 @@ export interface Template extends Entity {
 
 export interface TemplateWithResources extends Template {
   sources: Sources;
+  prompts: Prompts;
 }
 
 export interface HoverInfoSchema {
