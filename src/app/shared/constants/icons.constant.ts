@@ -13,6 +13,7 @@ import {
   IconCertificate,
   IconCheck,
   IconMessage,
+  IconVariable,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -30,6 +31,7 @@ const icons = {
   IconCertificate,
   IconCheck,
   IconMessage,
+  IconVariable,
 } as const;
 
 export { icons as TABLER_ICONS };

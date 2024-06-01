@@ -1,12 +1,30 @@
-PROMPTS
-
-<div class="fixed right-8 bottom-8">
-  <button
-    (click)="addPrompt()"
-    pTooltip="Add Prompt"
-    pTooltipPosition="left"
-    class="grid place-items-center p-3.5 shadow dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors rounded-full cursor-pointer"
+<app-template-prompt-vars />
+<app-template-prompt />
+<div class="fixed right-20 bottom-20">
+  <p-speedDial
+    [model]="buttons"
+    radius="80"
+    direction="up-left"
+    type="quarter-circle"
+    [visible]="isShownButtons()"
+    (visibleChange)="isShownButtons.set($event)"
+    [rotateAnimation]="true"
+    buttonClassName="flex items-center justify-center w-full h-full rounded-none"
   >
-    <i-tabler name="message" class="text-cyan-400"></i-tabler>
-  </button>
+    <ng-template pTemplate="button">
+      <div
+        class="grid place-items-center p-3.5 shadow rounded-full dark:bg-cyan-900 dark:hover:bg-cyan-800 backdrop-blur transition-colors"
+      >
+        <i-tabler name="plus"></i-tabler>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+      <div
+        (click)="add(item.id)"
+        class="grid place-items-center p-3.5 shadow dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors rounded-full cursor-pointer"
+      >
+        <i-tabler [name]="item.icon" class="{{ item.styleClass }}"></i-tabler>
+      </div>
+    </ng-template>
+  </p-speedDial>
 </div>
