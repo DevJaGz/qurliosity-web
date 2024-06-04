@@ -1,7 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { TemplateFormService } from './template-form.service';
 import { PromptsRequestService } from '@core/services';
-import { computedFormControls, toSignalFormArray } from '@shared/utils';
+import {
+  computedFormControls,
+  findIndexControl,
+  toSignalFormArray,
+} from '@shared/utils';
 import { Prompt } from '@core/datatypes';
 import { PromptFormFactoryService } from './prompt-form-factory.service';
 
@@ -36,6 +40,10 @@ export class PromptsService {
 
   deletePrompt(prompt: Prompt) {
     console.log('deleting prompt', prompt);
+    if (!prompt._id) {
+      this.#removePromptFromArray(prompt);
+      return;
+    }
     // this.#promptsRequestService.deletePrompt(prompt).subscribe({
 
     // });
@@ -44,5 +52,13 @@ export class PromptsService {
   addPrompt() {
     const promptForm = this.#promptFormFactoryService.createForm();
     this.promptsFormArray().push(promptForm);
+  }
+
+  #removePromptFromArray(prompt: Prompt) {
+    const index = findIndexControl(this.promptsFormControls(), prompt);
+    if (!index) {
+      throw new Error('Prompt cannot be deleted from the view');
+    }
+    this.promptsFormArray().removeAt(index);
   }
 }

@@ -43,15 +43,14 @@ export class TemplatePromptComponent implements OnInit {
     this.promptForm()
       .valueChanges.pipe(
         takeUntilDestroyed(this.#destroyRef),
-        debounceTime(300)
+        debounceTime(500)
       )
       .subscribe({
         next: (prompt: Prompt) => {
           const controlValue = prompt.value || '';
           if (!controlValue) return;
 
-          const isEntityInDatabase = prompt._id;
-          if (!isEntityInDatabase) {
+          if (!prompt._id) {
             this.#promptsService.createPrompt(prompt);
             return;
           }
