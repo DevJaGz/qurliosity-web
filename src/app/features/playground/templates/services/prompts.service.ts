@@ -8,6 +8,7 @@ import {
 } from '@shared/utils';
 import { Prompt } from '@core/datatypes';
 import { PromptFormFactoryService } from './prompt-form-factory.service';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class PromptsService {
@@ -20,13 +21,17 @@ export class PromptsService {
   );
   readonly promptsFormControls = computedFormControls(this.promptsFormArray);
 
-  createPrompt(prompt: Prompt) {
+  createPrompt(prompt: Prompt): Observable<void> {
     console.log('creating prompt', prompt);
-    // this.#promptsRequestService.createPrompt(prompt).subscribe({
-    //   next: () => {
-    //     this.addPrompt();
-    //   },
-    // });
+    const isPromptCreated = new Subject<void>();
+    this.#promptsRequestService.createPrompt(prompt).subscribe({
+      next: (promptCreated) => {
+        isPromptCreated.next();
+        isPromptCreated.complete();
+        this.#findAndUpdatePrompt(promptCreated);
+      },
+    });
+    return isPromptCreated.asObservable();
   }
 
   updatePrompt(prompt: Prompt) {
@@ -41,7 +46,7 @@ export class PromptsService {
   deletePrompt(prompt: Prompt) {
     console.log('deleting prompt', prompt);
     if (!prompt._id) {
-      this.#removePromptFromArray(prompt);
+      this.#findAndDeletePrompt(prompt);
       return;
     }
     // this.#promptsRequestService.deletePrompt(prompt).subscribe({
@@ -50,11 +55,23 @@ export class PromptsService {
   }
 
   addPrompt() {
-    const promptForm = this.#promptFormFactoryService.createForm();
+    const promptForm = this.#promptFormFactoryService.createForm({
+      _templateId: this.templateId,
+      value: '',
+      vars: {},
+    });
     this.promptsFormArray().push(promptForm);
   }
 
-  #removePromptFromArray(prompt: Prompt) {
+  #findAndUpdatePrompt(prompt: Prompt) {
+    const index = findIndexControl(this.promptsFormControls(), prompt);
+    if (!index) {
+      throw new Error('Prompt cannot be updated from the view');
+    }
+    this.promptsFormArray().at(index).patchValue(prompt);
+  }
+
+  #findAndDeletePrompt(prompt: Prompt) {
     const index = findIndexControl(this.promptsFormControls(), prompt);
     if (!index) {
       throw new Error('Prompt cannot be deleted from the view');

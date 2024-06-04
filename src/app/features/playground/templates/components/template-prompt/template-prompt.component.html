@@ -1,4 +1,19 @@
-<div class="flex gap-4 items-center flex-nowrap">
+<div
+  class="flex gap-4 items-center flex-nowrap relative"
+  [ngClass]="{ 'pointer-events-none select-none': isLoading() }"
+>
+  @if (isLoading()) {
+  <div
+    class="z-10 absolute -inset-2 rounded-lg bg-black/70 grid place-items-center"
+  >
+    <p-progressSpinner
+      ariaLabel="loading"
+      styleClass="w-8 h-8"
+      strokeWidth="8"
+      animationDuration=".5s"
+    />
+  </div>
+  }
   <textarea
     rows="1"
     variant="filled"
@@ -17,6 +32,7 @@
     <i-tabler name="x"></i-tabler>
   </button>
 </div>
+{{ prompt() | json }}
 <p-dialog
   header="Header"
   [visible]="showDeleteDialog()"
