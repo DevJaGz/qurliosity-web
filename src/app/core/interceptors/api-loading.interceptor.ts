@@ -1,12 +1,23 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { LoaderIndicatorService } from '@shared/services';
-import { execAfterResponsePipe, isApiRequest } from '@core/utils';
+import {
+  execAfterResponsePipe,
+  isApiRequestAvoidLoading,
+  isApiRequest,
+} from '@core/utils';
 
 export const apiLoadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoaderIndicatorService);
+  const url = req.url;
 
-  if (!isApiRequest(req.url)) {
+  if (!isApiRequest(url)) {
+    return next(req);
+  }
+
+  const method = req.method;
+
+  if (isApiRequestAvoidLoading(url, method)) {
     return next(req);
   }
 
