@@ -4,6 +4,7 @@ import { PromptsRequestService } from '@core/services';
 import {
   computedFormControls,
   findIndexControl,
+  isNullish,
   toSignalFormArray,
 } from '@shared/utils';
 import { Prompt } from '@core/datatypes';
@@ -61,18 +62,20 @@ export class PromptsService {
   #findAndUpdatePrompt(prompt: Prompt, index?: number) {
     const controlIndex =
       index ?? findIndexControl(this.promptsFormControls(), prompt);
-    if (!controlIndex) {
+    if (isNullish(controlIndex)) {
       throw new Error('Prompt cannot be updated from the view');
     }
-    this.promptsFormArray().at(controlIndex).patchValue(prompt);
+    this.promptsFormArray()
+      .at(controlIndex as number)
+      .patchValue(prompt);
   }
 
   #findAndDeletePrompt(prompt: Prompt, index?: number) {
     const controlIndex =
       index ?? findIndexControl(this.promptsFormControls(), prompt);
-    if (!controlIndex) {
+    if (isNullish(controlIndex)) {
       throw new Error('Prompt cannot be deleted from the view');
     }
-    this.promptsFormArray().removeAt(controlIndex);
+    this.promptsFormArray().removeAt(controlIndex as number);
   }
 }
