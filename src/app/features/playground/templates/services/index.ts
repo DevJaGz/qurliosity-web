@@ -5,3 +5,4 @@ export * from './source-form-factory.service';
 export * from './sources.service';
 export * from './prompt-form-factory.service';
 export * from './prompts.service';
+export * from './completions.service';

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { CompletionsService } from '../../services';
 
 @Component({
   selector: 'app-template-completions',
@@ -6,8 +12,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './template-completions.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateCompletionsComponent {
+export class TemplateCompletionsComponent implements OnInit {
+  readonly #completionsService = inject(CompletionsService);
 
+  ngOnInit(): void {
+    this.#completionsService.getCompletion();
+  }
 }
