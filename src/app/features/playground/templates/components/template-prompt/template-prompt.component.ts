@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Input,
   OnInit,
   computed,
   inject,
@@ -32,26 +33,35 @@ export class TemplatePromptComponent implements OnInit {
   readonly textAreaRef =
     viewChild<ElementRef<HTMLTextAreaElement>>('textAreaRef');
   readonly index = input.required<number>();
-  readonly promptForm = input.required<AbstractControl>();
-  readonly prompt = computed(() => this.promptForm().value);
+  #promptForm!: AbstractControl;
+
+  @Input({ required: true })
+  set promptForm(promptForm: AbstractControl) {
+    this.#promptForm = promptForm;
+  }
+  get promptForm() {
+    return this.#promptForm;
+  }
+
+  get prompt() {
+    return this.promptForm.value;
+  }
+
   readonly showDeleteDialog = signal(false);
   readonly isLoading = signal(false);
 
   get formControl() {
-    return this.promptForm().get('value') as FormControl;
+    return this.promptForm.get('value') as FormControl;
   }
 
   deletePrompt() {
     this.showDeleteDialog.set(false);
-    this.#promptsService.deletePrompt(this.prompt());
+    this.#promptsService.deletePrompt(this.index(), this.prompt);
   }
 
   ngOnInit(): void {
-    this.promptForm()
-      .valueChanges.pipe(
-        takeUntilDestroyed(this.#destroyRef),
-        debounceTime(500)
-      )
+    this.promptForm.valueChanges
+      .pipe(takeUntilDestroyed(this.#destroyRef), debounceTime(500))
       .subscribe({
         next: (prompt: Prompt) => {
           const controlValue = prompt.value || '';

@@ -35,7 +35,10 @@ export const findIndexControl = <T extends Entity, K extends AbstractControl>(
 export const toSignalFormArray = (formArray: FormArray): Signal<FormArray> => {
   const valueChanges = formArray.valueChanges;
   const arrayChanges = valueChanges.pipe(
-    map(() => Object.assign(new FormArray([]), formArray))
+    map((value) => {
+      formArray.patchValue(value, { emitEvent: false });
+      return Object.assign(new FormArray([]), formArray);
+    })
   ) as Observable<FormArray>;
   return toSignal(arrayChanges, { initialValue: formArray });
 };

@@ -9,17 +9,18 @@ import { SharedModule } from '@shared/shared.module';
 import { MenuItem } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { PromptsService } from '../../services';
-import { JsonPipe } from '@angular/common';
+
 @Component({
   selector: 'app-template-prompts',
   standalone: true,
-  imports: [NgClass, SharedModule, TemplatePromptComponent, JsonPipe],
+  imports: [NgClass, SharedModule, TemplatePromptComponent],
   templateUrl: './template-prompts.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplatePromptsComponent {
   readonly #promptsService = inject(PromptsService);
+  readonly promptsFormArray = this.#promptsService.promptsFormArray;
   readonly promptsFormControls = this.#promptsService.promptsFormControls;
 
   buttons: MenuItem[] = [

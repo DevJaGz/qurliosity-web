@@ -37,9 +37,9 @@ export class PromptsService {
     this.#promptsRequestService.updatePrompt(prompt).subscribe();
   }
 
-  deletePrompt(prompt: Prompt) {
+  deletePrompt(index: number, prompt: Prompt) {
     if (!prompt._id) {
-      this.#findAndDeletePrompt(prompt);
+      this.#findAndDeletePrompt(prompt, index);
       return;
     }
     this.#promptsRequestService.deletePrompt(prompt).subscribe({
@@ -67,11 +67,12 @@ export class PromptsService {
     this.promptsFormArray().at(controlIndex).patchValue(prompt);
   }
 
-  #findAndDeletePrompt(prompt: Prompt) {
-    const index = findIndexControl(this.promptsFormControls(), prompt);
-    if (!index) {
+  #findAndDeletePrompt(prompt: Prompt, index?: number) {
+    const controlIndex =
+      index ?? findIndexControl(this.promptsFormControls(), prompt);
+    if (!controlIndex) {
       throw new Error('Prompt cannot be deleted from the view');
     }
-    this.promptsFormArray().removeAt(index);
+    this.promptsFormArray().removeAt(controlIndex);
   }
 }
