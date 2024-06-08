@@ -65,9 +65,7 @@ export class PromptsService {
     if (isNullish(controlIndex)) {
       throw new Error('Prompt cannot be updated from the view');
     }
-    this.promptsFormArray()
-      .at(controlIndex as number)
-      .patchValue(prompt);
+    this.promptsFormArray().at(controlIndex).patchValue(prompt);
   }
 
   #findAndDeletePrompt(prompt: Prompt, index?: number) {
@@ -76,6 +74,6 @@ export class PromptsService {
     if (isNullish(controlIndex)) {
       throw new Error('Prompt cannot be deleted from the view');
     }
-    this.promptsFormArray().removeAt(controlIndex as number);
+    this.promptsFormArray().removeAt(controlIndex);
   }
 }
