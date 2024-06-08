@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   computed,
   inject,
 } from '@angular/core';
@@ -23,7 +24,7 @@ import { UploadSourceService } from '../../services/upload-source.service';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UploadSourceDialogComponent {
+export class UploadSourceDialogComponent implements OnDestroy {
   readonly #dialogRef = inject(DynamicDialogRef<UploadSourceDialogComponent>);
   readonly #dialogConfig = inject(DynamicDialogConfig);
   readonly #messageService = inject(MessageService);
@@ -74,6 +75,10 @@ export class UploadSourceDialogComponent {
 
   removeAll(): void {
     this.#uploadSourceService.setDisplayedFiles([]);
+  }
+
+  ngOnDestroy(): void {
+    this.#uploadSourceService.reset();
   }
 
   #notififyMaxFileLimitExceeded(): void {
