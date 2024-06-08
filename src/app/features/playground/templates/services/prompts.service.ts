@@ -21,37 +21,32 @@ export class PromptsService {
   );
   readonly promptsFormControls = computedFormControls(this.promptsFormArray);
 
-  createPrompt(prompt: Prompt): Observable<void> {
-    console.log('creating prompt', prompt);
+  createPrompt(index: number, prompt: Prompt): Observable<void> {
     const isPromptCreated = new Subject<void>();
     this.#promptsRequestService.createPrompt(prompt).subscribe({
       next: (promptCreated) => {
         isPromptCreated.next();
         isPromptCreated.complete();
-        this.#findAndUpdatePrompt(promptCreated);
+        this.#findAndUpdatePrompt(promptCreated, index);
       },
     });
     return isPromptCreated.asObservable();
   }
 
   updatePrompt(prompt: Prompt) {
-    console.log('updating prompt', prompt);
-    // this.#promptsRequestService.updatePrompt(prompt).subscribe({
-    //   next: () => {
-    //     this.addPrompt();
-    //   },
-    // });
+    this.#promptsRequestService.updatePrompt(prompt).subscribe();
   }
 
   deletePrompt(prompt: Prompt) {
-    console.log('deleting prompt', prompt);
     if (!prompt._id) {
       this.#findAndDeletePrompt(prompt);
       return;
     }
-    // this.#promptsRequestService.deletePrompt(prompt).subscribe({
-
-    // });
+    this.#promptsRequestService.deletePrompt(prompt).subscribe({
+      next: (promptDeleted) => {
+        this.#findAndDeletePrompt(promptDeleted);
+      },
+    });
   }
 
   addPrompt() {
@@ -63,12 +58,13 @@ export class PromptsService {
     this.promptsFormArray().push(promptForm);
   }
 
-  #findAndUpdatePrompt(prompt: Prompt) {
-    const index = findIndexControl(this.promptsFormControls(), prompt);
-    if (!index) {
+  #findAndUpdatePrompt(prompt: Prompt, index?: number) {
+    const controlIndex =
+      index ?? findIndexControl(this.promptsFormControls(), prompt);
+    if (!controlIndex) {
       throw new Error('Prompt cannot be updated from the view');
     }
-    this.promptsFormArray().at(index).patchValue(prompt);
+    this.promptsFormArray().at(controlIndex).patchValue(prompt);
   }
 
   #findAndDeletePrompt(prompt: Prompt) {

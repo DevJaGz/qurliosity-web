@@ -12,14 +12,31 @@ export class PromptsRequestService {
   readonly #http = inject(HttpClient);
 
   createPrompt(data: Prompt): Observable<Prompt> {
+    const prompt = {
+      value: data.value,
+      vars: data.vars,
+    };
     return this.#http
       .post<Prompt>(
+        `${environment.API_URL}/templates/${data._templateId}/prompts`,
+        prompt
+      )
+      .pipe(
+        handleErrorPipeUtil({
+          userMessage: 'Sorry, there was an error creating the prompt',
+        })
+      );
+  }
+
+  updatePrompt(data: Prompt): Observable<Prompt> {
+    return this.#http
+      .put<Prompt>(
         `${environment.API_URL}/templates/${data._templateId}/prompts`,
         data
       )
       .pipe(
         handleErrorPipeUtil({
-          userMessage: 'Sorry, there was an error creating the prompt',
+          userMessage: 'Sorry, there was an error updating the prompt',
         })
       );
   }

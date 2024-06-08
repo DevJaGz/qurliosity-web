@@ -37,7 +37,7 @@ export class TemplatePromptsComponent {
         tooltipLabel: 'Add Variable',
         tooltipPosition: 'left',
       },
-      icon: 'variable',
+      icon: 'variable-plus',
       styleClass: 'text-fuchsia-400',
       id: 'var',
     },

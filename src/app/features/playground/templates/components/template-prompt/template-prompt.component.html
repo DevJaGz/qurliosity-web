@@ -15,6 +15,7 @@
   </div>
   }
   <textarea
+    #textAreaRef
     rows="1"
     variant="filled"
     class="flex-1"
@@ -32,7 +33,7 @@
     <i-tabler name="x"></i-tabler>
   </button>
 </div>
-{{ prompt() | json }}
+
 <p-dialog
   header="Header"
   [visible]="showDeleteDialog()"
