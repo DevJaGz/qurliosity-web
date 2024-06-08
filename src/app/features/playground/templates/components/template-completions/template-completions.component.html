@@ -1,1 +1,3 @@
-<p>template-completions works!</p>
+@for (prompt of prompts(); track $index) {
+<pre><p>{{ prompt | json }}</p></pre>
+}

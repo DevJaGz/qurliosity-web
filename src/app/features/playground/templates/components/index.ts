@@ -5,3 +5,4 @@ export * from './template-source/template-source.component';
 export * from './template-prompt/template-prompt.component';
 export * from './template-prompt-vars/template-prompt-vars.component';
 export * from './template-prompt-var/template-prompt-var.component';
+export * from './template-completion/template-completion.component';
