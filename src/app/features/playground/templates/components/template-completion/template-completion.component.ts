@@ -1,13 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Prompt } from '@core/datatypes';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-template-completion',
   standalone: true,
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './template-completion.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateCompletionComponent {
-
+  prompt = input.required<Prompt>();
 }
