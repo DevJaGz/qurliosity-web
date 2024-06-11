@@ -2,7 +2,7 @@ import { LLMModels } from '@shared/datatypes';
 
 export const OPENAI_LLM_MODELS: LLMModels = [
   {
-    name: 'GPT-4o',
+    name: 'gpt-4o',
     contextWindow: 128000,
     lastUpdate: 'Oct 2023',
   },
