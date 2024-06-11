@@ -22,7 +22,7 @@ export class CompletionsRequestService {
       throw new Error('No credentials provided for completion');
     }
 
-    return this.#http.post<unknown>(
+    return this.#http.post(
       `${environment.API_URL}/templates/${templateId}/completion`,
       {
         prompt,
@@ -32,6 +32,7 @@ export class CompletionsRequestService {
       {
         reportProgress: true,
         observe: 'events',
+        responseType: 'text',
       }
     );
   }
