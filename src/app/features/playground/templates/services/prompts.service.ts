@@ -10,10 +10,12 @@ import {
 import { Prompt } from '@core/datatypes';
 import { PromptFormFactoryService } from './prompt-form-factory.service';
 import { Observable, Subject } from 'rxjs';
+import { CompletionsStateService } from '../states';
 
 @Injectable()
 export class PromptsService {
   readonly #templateFormService = inject(TemplateFormService);
+  readonly #completionsStateService = inject(CompletionsStateService);
   readonly #promptFormFactoryService = inject(PromptFormFactoryService);
   readonly #promptsRequestService = inject(PromptsRequestService);
   readonly templateId = this.#templateFormService.templateId;
@@ -46,6 +48,9 @@ export class PromptsService {
     this.#promptsRequestService.deletePrompt(prompt).subscribe({
       next: (promptDeleted) => {
         this.#findAndDeletePrompt(promptDeleted);
+        this.#completionsStateService.deleteCompletion(
+          promptDeleted._id as string
+        );
       },
     });
   }
