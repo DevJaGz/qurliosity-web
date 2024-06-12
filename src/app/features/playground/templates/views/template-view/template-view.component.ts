@@ -23,6 +23,7 @@ import {
 } from '../../services';
 import { TemplateWithResources } from '@core/datatypes';
 import { AiCredentialButtonComponent } from '@shared/components';
+import { CompletionsStateService } from '../../states';
 
 @Component({
   selector: 'app-template-view',
@@ -41,6 +42,7 @@ import { AiCredentialButtonComponent } from '@shared/components';
     TemplateService,
     PromptsService,
     CompletionsService,
+    CompletionsStateService,
   ],
   templateUrl: './template-view.component.html',
   styles: ``,

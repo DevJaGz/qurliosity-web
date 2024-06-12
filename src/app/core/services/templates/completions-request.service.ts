@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AICredentials, Prompt } from '@core/datatypes';
 import { environment } from '@env';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class CompletionsRequestService {
     templateId: string,
     prompt: Prompt,
     AICredentials: AICredentials
-  ) {
+  ): Observable<HttpEvent<string>> {
     const embedderCredential = AICredentials.embedderCredential;
     const LLMCredential = AICredentials.LLMCredential;
     const hasCredential = Boolean(embedderCredential && LLMCredential);
