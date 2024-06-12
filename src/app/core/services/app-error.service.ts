@@ -1,7 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, inject } from '@angular/core';
 import { AppErrorModel } from '@core/models';
-import { removeDomainFromMessage } from '@shared/utils';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -19,13 +17,6 @@ export class AppErrorService implements ErrorHandler {
   }
 
   #handleAppError(appError: AppErrorModel): void {
-    const error = appError.error;
-
-    if (error instanceof HttpErrorResponse) {
-      const httpError = error;
-      console.log(removeDomainFromMessage(httpError.message), httpError.error);
-    }
-
     if (appError.userMessage) {
       this.#messageService.add({
         severity: 'error',

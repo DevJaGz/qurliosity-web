@@ -27,3 +27,7 @@ export const handleErrorPipeUtil = (params: Omit<AppError, 'error'> = {}) => {
     );
   };
 };
+
+export const throwAppError = (params: AppError) => {
+  throw new AppErrorModel(params);
+};

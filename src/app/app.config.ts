@@ -14,6 +14,7 @@ import {
 } from '@angular/common/http';
 
 import {
+  apiErrorInterceptor,
   apiLoadingInterceptor,
   apiResponseInterceptor,
   cookieInterceptor,
@@ -29,8 +30,9 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         cookieInterceptor,
-        apiLoadingInterceptor,
+        apiErrorInterceptor,
         apiResponseInterceptor,
+        apiLoadingInterceptor,
       ])
     ),
     provideAnimations(),

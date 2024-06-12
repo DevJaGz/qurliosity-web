@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AICredentials, Prompt } from '@core/datatypes';
 import { environment } from '@env';
@@ -23,13 +23,15 @@ export class CompletionsRequestService {
       throw new Error('No credentials provided for completion');
     }
 
+    const body = {
+      prompt,
+      LLMCredential,
+      embedderCredential,
+    };
+
     return this.#http.post(
       `${environment.API_URL}/templates/${templateId}/completion`,
-      {
-        prompt,
-        LLMCredential,
-        embedderCredential,
-      },
+      body,
       {
         reportProgress: true,
         observe: 'events',

@@ -1,7 +1,7 @@
 import { HttpEvent, HttpResponse } from '@angular/common/http';
 import { API_REQUEST_AVOID_LOADING } from '@core/constants';
 import { environment } from '@env';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { EMPTY, Observable, catchError, map, throwError } from 'rxjs';
 
 export const isApiRequest = (url: string) => url.includes(environment.API_URL);
 
@@ -17,6 +17,7 @@ export const execAfterResponsePipe =
   <T = unknown>(params: {
     execFn: (res: HttpResponse<T>) => HttpResponse<T> | void;
     errorFn?: (err: unknown) => void;
+    reThrowError?: boolean;
   }) =>
   (source: Observable<HttpEvent<T>>) => {
     return source.pipe(
@@ -31,8 +32,12 @@ export const execAfterResponsePipe =
         return newEvent;
       }),
       catchError((err) => {
-        params.errorFn?.(err);
-        return throwError(() => err);
+        params.errorFn && params.errorFn(err);
+        const reThrowError = params.reThrowError ?? true;
+        if (reThrowError) {
+          return throwError(() => err);
+        }
+        return EMPTY;
       })
     );
   };

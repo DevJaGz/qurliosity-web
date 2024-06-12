@@ -3,3 +3,5 @@ export interface ApiResponse<T> {
   success: boolean;
   statusCode: number;
 }
+
+export interface ApiResponseError extends ApiResponse<{ issues: string[] }> {}

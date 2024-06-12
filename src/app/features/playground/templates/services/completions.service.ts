@@ -90,7 +90,6 @@ export class CompletionsService {
         partialText = '';
         completionStream.next({ status, partialText });
         completionStream.complete();
-        throw new Error('Error getting completion event');
       }
       status = 'streaming';
     } else if (event.type === HttpEventType.DownloadProgress) {
