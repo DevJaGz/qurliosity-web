@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SkeletonModule } from 'primeng/skeleton';
 
 export const PRIMENG_SHARED_MODULES = [
   ButtonModule,
@@ -24,4 +25,5 @@ export const PRIMENG_SHARED_MODULES = [
   DropdownModule,
   InputTextModule,
   InputTextareaModule,
+  SkeletonModule,
 ] as const;

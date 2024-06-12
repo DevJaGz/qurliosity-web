@@ -1,6 +1,14 @@
 <article class="p-3.5 bg-neutral-900 rounded-lg">
   <div class="flex flex-col gap-2">
     <h4>{{ prompt().value }}</h4>
-    <p>{{ completion() }}</p>
+    @if (isLoading()) {
+    <div class="flex flex-col gap-2">
+      <p-skeleton />
+      <p-skeleton width="30%" />
+      <p-skeleton width="15%" />
+    </div>
+    } @else {
+    <pre><p>{{ completion() }}</p></pre>
+    }
   </div>
 </article>

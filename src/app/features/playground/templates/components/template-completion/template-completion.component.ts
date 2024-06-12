@@ -9,11 +9,12 @@ import {
 import { Prompt } from '@core/datatypes';
 import { CompletionsService } from '../../services';
 import { CompletionStream } from '../../datatypes';
+import { SharedModule } from '@shared/shared.module';
 
 @Component({
   selector: 'app-template-completion',
   standalone: true,
-  imports: [],
+  imports: [SharedModule],
   templateUrl: './template-completion.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
