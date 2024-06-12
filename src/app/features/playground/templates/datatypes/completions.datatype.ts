@@ -7,4 +7,5 @@ export type CompletionStreamStatus =
   | 'idle'
   | 'start'
   | 'streaming'
-  | 'finished';
+  | 'finished'
+  | 'error';

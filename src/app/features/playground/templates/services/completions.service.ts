@@ -9,6 +9,7 @@ import {
   HttpDownloadProgressEvent,
   HttpEvent,
   HttpEventType,
+  HttpHeaderResponse,
 } from '@angular/common/http';
 import { CompletionsStateService } from '../states';
 import { CompletionStream } from '../datatypes';
@@ -83,6 +84,14 @@ export class CompletionsService {
     if (event.type === HttpEventType.Sent) {
       status = 'start';
     } else if (event.type === HttpEventType.ResponseHeader) {
+      const response = event as HttpHeaderResponse;
+      if (response.status !== 200) {
+        status = 'error';
+        partialText = '';
+        completionStream.next({ status, partialText });
+        completionStream.complete();
+        throw new Error('Error getting completion event');
+      }
       status = 'streaming';
     } else if (event.type === HttpEventType.DownloadProgress) {
       const progress = event as HttpDownloadProgressEvent;
