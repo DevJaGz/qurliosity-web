@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
 import { SourcesService } from '../../services';
 import { TemplateSourceComponent } from '../template-source/template-source.component';
@@ -24,7 +26,7 @@ export class TemplateSourcesComponent {
   readonly #sourcesService = inject(SourcesService);
   readonly #sourceDialogService = inject(SourceDialogService);
   readonly #aiCredentialsService = inject(AiCredentialsService);
-
+  readonly disableAddSourceBtn = signal(false);
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
 
   get sourceNumberInfo() {
@@ -54,7 +56,18 @@ export class TemplateSourcesComponent {
     },
   ];
 
-  isShownButtons = signal(true);
+  showButtons = signal(false);
+
+  constructor() {
+    effect(() => {
+      const hasEmbedderCredential =
+        this.#aiCredentialsService.hasEmbedderCredential();
+      untracked(() => {
+        this.showButtons.set(hasEmbedderCredential);
+        this.disableAddSourceBtn.set(!hasEmbedderCredential);
+      });
+    });
+  }
 
   addSource(id: 'link' | 'pdf') {
     if (id === 'pdf') {

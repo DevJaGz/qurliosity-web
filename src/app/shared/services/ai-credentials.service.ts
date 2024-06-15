@@ -17,7 +17,12 @@ export class AiCredentialsService {
 
   readonly AICredentials = this.#AICredentials.asReadonly();
   readonly hasAICredentials = computed(() => {
-    return Boolean(this.#AICredentials().embedderCredential);
+    const credentials = this.#AICredentials();
+    return Boolean(credentials.embedderCredential && credentials.LLMCredential);
+  });
+  readonly hasEmbedderCredential = computed(() => {
+    const credentials = this.#AICredentials();
+    return Boolean(credentials.embedderCredential);
   });
 
   openDialog() {

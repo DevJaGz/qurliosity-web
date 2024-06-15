@@ -11,16 +11,17 @@
     radius="80"
     direction="up-left"
     type="quarter-circle"
-    [visible]="isShownButtons()"
-    (visibleChange)="isShownButtons.set($event)"
+    [visible]="showButtons()"
+    (visibleChange)="showButtons.set($event)"
     [rotateAnimation]="true"
+    [disabled]="disableAddSourceBtn()"
     buttonClassName="flex items-center justify-center w-full h-full rounded-none"
   >
     <ng-template pTemplate="button">
       <!-- <div
         class="flex items-center justify-center gap-2 flex-nowrap w-28 px-4 py-2 rounded-lg dark:bg-cyan-500/20 dark:hover:bg-cyan-400/20 backdrop-blur transition-colors"
       >
-        @if (isShownButtons()) {
+        @if (showButtons()) {
         <i-tabler name="x"></i-tabler>
         <span>CLOSE</span>
         } @else {
