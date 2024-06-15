@@ -10,7 +10,7 @@
   <p-selectButton
     [ngModel]="currentNavigation()"
     (ngModelChange)="currentNavigation.set($event)"
-    [options]="templateButtons"
+    [options]="templateButtons()"
     optionLabel="name"
     optionValue="navigateTo"
     [unselectable]="true"
