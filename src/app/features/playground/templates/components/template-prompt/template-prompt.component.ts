@@ -14,7 +14,7 @@ import {
 import { SharedModule } from '@shared/shared.module';
 import { PromptsService } from '../../services';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { debounceTime, distinct, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Prompt } from '@core/datatypes';
 import { NgClass } from '@angular/common';
@@ -61,7 +61,11 @@ export class TemplatePromptComponent implements OnInit {
 
   ngOnInit(): void {
     this.promptForm.valueChanges
-      .pipe(takeUntilDestroyed(this.#destroyRef), debounceTime(500))
+      .pipe(
+        takeUntilDestroyed(this.#destroyRef),
+        debounceTime(500),
+        distinctUntilChanged((prev, curr) => prev.value === curr.value)
+      )
       .subscribe({
         next: (prompt: Prompt) => {
           const controlValue = prompt.value || '';
