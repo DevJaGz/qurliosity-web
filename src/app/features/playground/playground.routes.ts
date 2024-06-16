@@ -7,6 +7,11 @@ export const playgroundRoutes: Routes = [
     component: PlaygroundComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'templates',
+        pathMatch: 'full',
+      },
+      {
         path: 'templates',
         loadChildren: () =>
           import('./templates/templates.routes').then((f) => f.templatesRoutes),

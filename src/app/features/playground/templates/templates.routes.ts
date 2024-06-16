@@ -9,6 +9,11 @@ import { TemplateViewComponent } from './views';
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '6644ffa6065e545f87808399/sources',
+  },
+  {
     path: ':templateId',
     component: TemplateViewComponent,
     resolve: {
