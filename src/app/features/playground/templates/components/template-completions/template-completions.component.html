@@ -1,5 +1,18 @@
-<div class="flex flex-col gap-4">
-  @for (prompt of prompts(); track $index) {
-  <app-template-completion [prompt]="prompt" />
+<div class="flex flex-col gap-4 h-full">
+  @if (hasPrompts()) {
+  <div class="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    @for (prompt of prompts(); track $index) {
+    <app-template-completion [prompt]="prompt" />
+    }
+  </div>
+  } @else {
+  <div class="grid place-items-center h-full">
+    <app-empty-state>
+      <p>There are no completions yet!</p>
+      <p>
+        Start by adding a source or writing a prompt if you already have one.
+      </p>
+    </app-empty-state>
+  </div>
   }
 </div>

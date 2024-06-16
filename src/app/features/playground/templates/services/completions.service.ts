@@ -28,6 +28,7 @@ export class CompletionsService {
     const prompts = this.promptFormArray().value as Prompts;
     return prompts.filter((prompt) => Boolean(prompt._id && prompt.value));
   });
+  readonly hasPrompts = computed(() => this.prompts().length > 0);
 
   getCompletion(prompt: Prompt): Observable<CompletionStream> {
     const promptId = prompt._id;

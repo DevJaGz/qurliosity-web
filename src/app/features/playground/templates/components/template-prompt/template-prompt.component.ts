@@ -14,7 +14,7 @@ import {
 import { SharedModule } from '@shared/shared.module';
 import { PromptsService } from '../../services';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { debounceTime, distinct, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Prompt } from '@core/datatypes';
 import { NgClass } from '@angular/common';
