@@ -127,9 +127,11 @@ export class TemplateViewComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          const route = event.url.split('/').pop();
-          if (!route) return;
-          this.currentNavigation.set(route);
+          const navigation = event.url.split('/').pop();
+          const currentNavigation = this.currentNavigation();
+          if (currentNavigation === navigation) return;
+          if (!navigation) return;
+          this.currentNavigation.set(navigation);
         }
       });
   }
