@@ -27,10 +27,15 @@ export class TemplateSourcesComponent {
   readonly #sourceDialogService = inject(SourceDialogService);
   readonly #aiCredentialsService = inject(AiCredentialsService);
   readonly disableAddSourceBtn = signal(false);
+  readonly #MAX_FILES = 5;
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
 
+  get sourceNumber() {
+    return this.sourcesFormControls().length;
+  }
+
   get sourceNumberInfo() {
-    const nSources = this.sourcesFormControls().length;
+    const nSources = this.sourceNumber;
     const sourcesText = nSources === 1 ? 'source.' : 'sources.';
     return `${nSources} ${sourcesText}`;
   }
@@ -76,15 +81,23 @@ export class TemplateSourcesComponent {
   }
 
   #addPDFSource() {
-    this.#sourceDialogService.openUploadDialog().onClose.subscribe((files) => {
-      const AICredentials = this.#aiCredentialsService.AICredentials();
-      const embedderCredential = AICredentials.embedderCredential;
+    const maxFiles =
+      this.sourceNumber >= this.#MAX_FILES
+        ? this.#MAX_FILES
+        : this.#MAX_FILES - this.sourceNumber;
+    this.#sourceDialogService
+      .openUploadDialog({
+        maxFiles,
+      })
+      .onClose.subscribe((files) => {
+        const AICredentials = this.#aiCredentialsService.AICredentials();
+        const embedderCredential = AICredentials.embedderCredential;
 
-      if (!files?.length || !embedderCredential) {
-        return;
-      }
+        if (!files?.length || !embedderCredential) {
+          return;
+        }
 
-      this.#sourcesService.createPDFSources(files, embedderCredential);
-    });
+        this.#sourcesService.createPDFSources(files, embedderCredential);
+      });
   }
 }

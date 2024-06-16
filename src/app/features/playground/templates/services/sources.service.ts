@@ -13,6 +13,7 @@ import { SourceType } from '@core/enums';
 import {
   computedFormControls,
   findIndexControl,
+  isNullish,
   toSignalFormArray,
 } from '@shared/utils';
 
@@ -70,7 +71,7 @@ export class SourcesService {
 
   #removeSource(source: Source): void {
     const index = findIndexControl(this.sourcesFormControls(), source);
-    if (!index) {
+    if (isNullish(index)) {
       throw new Error('Source cannot be deleted from the view');
     }
     this.sourcesFormArray().removeAt(index);
