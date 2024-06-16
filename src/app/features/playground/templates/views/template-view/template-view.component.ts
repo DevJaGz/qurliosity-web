@@ -35,7 +35,6 @@ import { AiCredentialsService } from '@shared/services';
   imports: [
     RouterOutlet,
     FormsModule,
-    TitleCasePipe,
     LowerCasePipe,
     SelectButtonModule,
     SharedModule,
