@@ -40,7 +40,7 @@ export class AiCredentialsDialogComponent implements OnInit {
     LLMCredential: {
       apiKey: '',
       brandId: 'openai',
-      modelName: 'GPT-4o',
+      modelName: 'gpt-4o',
     },
   };
 
