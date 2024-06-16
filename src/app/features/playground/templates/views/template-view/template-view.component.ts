@@ -62,7 +62,7 @@ export class TemplateViewComponent implements OnInit {
     {
       name: 'Sources',
       navigateTo: 'sources',
-      icon: 'list-tree',
+      icon: 'align-center',
       disabled: false,
     },
     {
