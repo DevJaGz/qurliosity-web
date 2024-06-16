@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+} from '@angular/core';
 import { CompletionsService } from '../../services';
 import { TemplateCompletionComponent } from '../template-completion/template-completion.component';
 import { SharedModule } from '@shared/shared.module';

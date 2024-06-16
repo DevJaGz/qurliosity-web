@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   OnInit,
   WritableSignal,
   effect,
@@ -8,7 +9,12 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import {
   SelectButtonModule,
   SelectButtonOptionClickEvent,
@@ -27,6 +33,8 @@ import { TemplateWithResources } from '@core/datatypes';
 import { AiCredentialButtonComponent } from '@shared/components';
 import { CompletionsStateService } from '../../states';
 import { AiCredentialsService } from '@shared/services';
+import { pipe } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-template-view',
@@ -55,6 +63,7 @@ export class TemplateViewComponent implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #templateService = inject(TemplateService);
   readonly #AiCredentialsService = inject(AiCredentialsService);
+  readonly #destroyRef = inject(DestroyRef);
 
   templateButtons: WritableSignal<ButtonList> = signal([
     {
@@ -110,6 +119,19 @@ export class TemplateViewComponent implements OnInit {
     const currentRoute = this.#router.url.split('/').pop();
     if (!currentRoute) return;
     this.currentNavigation.set(currentRoute);
+    this.#observeNavigation();
+  }
+
+  #observeNavigation() {
+    this.#router.events
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          const route = event.url.split('/').pop();
+          if (!route) return;
+          this.currentNavigation.set(route);
+        }
+      });
   }
 
   #updateButtonsDisabledState(hasAICredentials: boolean): void {
