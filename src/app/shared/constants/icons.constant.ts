@@ -1,7 +1,5 @@
 import {
-  IconCamera,
-  IconHeart,
-  IconBrandGithub,
+  IconBrandHipchat,
   IconFileTypePdf,
   IconX,
   IconUnlink,
@@ -14,12 +12,11 @@ import {
   IconCheck,
   IconMessage,
   IconVariablePlus,
+  IconListTree,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
-  IconCamera,
-  IconHeart,
-  IconBrandGithub,
+  IconBrandHipchat,
   IconFileTypePdf,
   IconX,
   IconUnlink,
@@ -32,6 +29,7 @@ const icons = {
   IconCheck,
   IconMessage,
   IconVariablePlus,
+  IconListTree,
 } as const;
 
 export { icons as TABLER_ICONS };

@@ -62,19 +62,19 @@ export class TemplateViewComponent implements OnInit {
     {
       name: 'Sources',
       navigateTo: 'sources',
-      icon: 'brand-github',
+      icon: 'list-tree',
       disabled: false,
     },
     {
       name: 'Prompts',
       navigateTo: 'prompts',
-      icon: 'heart',
+      icon: 'message',
       disabled: false,
     },
     {
       name: 'Completions',
       navigateTo: 'completions',
-      icon: 'camera',
+      icon: 'brand-hipchat',
       disabled: true,
     },
   ]);
