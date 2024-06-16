@@ -13,9 +13,11 @@ import {
   IconMessage,
   IconVariablePlus,
   IconAlignCenter,
+  IconInfoSquareRounded,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
+  IconInfoSquareRounded,
   IconBrandHipchat,
   IconFileTypePdf,
   IconX,

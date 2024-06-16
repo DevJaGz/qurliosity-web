@@ -1,34 +1,38 @@
-<section class="grid place-items-center mt-4 text-center">
-  <h1 class="line-clamp-2">{{ templateData().name }}</h1>
-  <p class="line-clamp-6">
-    {{ templateData().description | lowercase }}
-  </p>
-</section>
-<section
-  class="grid place-items-center text-sm my-4 sticky top-4 p-0.5 rounded-lg dark:bg-neutral-800 w-fit mx-auto z-10"
->
-  <p-selectButton
-    [ngModel]="currentNavigation()"
-    (ngModelChange)="currentNavigation.set($event)"
-    [options]="templateButtons()"
-    optionLabel="name"
-    optionValue="navigateTo"
-    [unselectable]="true"
-    (onOptionClick)="onOptionClick($event)"
-  >
-    <ng-template let-item pTemplate>
-      <a class="flex items-center flex-nowrap justify-center gap-1 z-10">
-        <i-tabler [name]="item.icon"></i-tabler>
-        <span>{{ item.name }}</span>
-      </a>
-    </ng-template>
-  </p-selectButton>
-</section>
+<div class="grid grid-rows-[min-content] min-h-svh">
+  <header>
+    <section class="grid place-items-center mt-4 text-center">
+      <h1 class="line-clamp-2">{{ templateData().name }}</h1>
+      <p class="line-clamp-6">
+        {{ templateData().description | lowercase }}
+      </p>
+    </section>
+    <section
+      class="grid place-items-center text-sm my-4 sticky top-4 p-0.5 rounded-lg dark:bg-neutral-800 w-fit mx-auto z-10"
+    >
+      <p-selectButton
+        [ngModel]="currentNavigation()"
+        (ngModelChange)="currentNavigation.set($event)"
+        [options]="templateButtons()"
+        optionLabel="name"
+        optionValue="navigateTo"
+        [unselectable]="true"
+        (onOptionClick)="onOptionClick($event)"
+      >
+        <ng-template let-item pTemplate>
+          <a class="flex items-center flex-nowrap justify-center gap-1 z-10">
+            <i-tabler [name]="item.icon"></i-tabler>
+            <span>{{ item.name }}</span>
+          </a>
+        </ng-template>
+      </p-selectButton>
+    </section>
 
-<section class="grid place-items-center">
-  <app-ai-credential-button />
-</section>
+    <section class="grid place-items-center">
+      <app-ai-credential-button />
+    </section>
+  </header>
 
-<main class="pb-24 p-5">
-  <router-outlet></router-outlet>
-</main>
+  <main class="pb-24 p-5">
+    <router-outlet></router-outlet>
+  </main>
+</div>

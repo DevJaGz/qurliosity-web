@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   signal,
@@ -10,14 +11,14 @@ import { SourcesService } from '../../services';
 import { TemplateSourceComponent } from '../template-source/template-source.component';
 import { SharedModule } from '@shared/index';
 import { MenuItem } from 'primeng/api';
-import { JsonPipe } from '@angular/common';
 import { SourceDialogService } from '@shared/dialogs/sources';
 import { AiCredentialsService } from '@shared/services';
+import { EmptyStateComponent } from '@shared/components';
 
 @Component({
   selector: 'app-template-sources',
   standalone: true,
-  imports: [SharedModule, TemplateSourceComponent, JsonPipe],
+  imports: [SharedModule, TemplateSourceComponent, EmptyStateComponent],
   templateUrl: './template-sources.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,7 @@ export class TemplateSourcesComponent {
   readonly disableAddSourceBtn = signal(false);
   readonly #MAX_FILES = 5;
   sourcesFormControls = this.#sourcesService.sourcesFormControls;
+  hasSources = computed(() => this.sourcesFormControls().length > 0);
 
   get sourceNumber() {
     return this.sourcesFormControls().length;
