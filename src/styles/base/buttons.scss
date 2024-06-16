@@ -45,3 +45,10 @@ button.text {
     @apply dark:hover:text-cyan-500 dark:focus:text-cyan-500 dark:focus-visible:text-cyan-500 focus:outline-none focus-visible:border-none;
   }
 }
+
+a.link {
+  @apply flex items-center gap-1 justify-center transition-colors underline;
+  &.primary {
+    @apply dark:text-cyan-400 dark:hover:text-cyan-500 dark:focus:text-cyan-500 dark:focus-visible:text-cyan-500 focus:outline-none focus-visible:border-none;
+  }
+}
