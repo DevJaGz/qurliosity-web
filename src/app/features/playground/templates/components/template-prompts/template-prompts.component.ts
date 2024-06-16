@@ -42,10 +42,10 @@ export class TemplatePromptsComponent {
       id: 'prompt',
     },
     {
-      // tooltipOptions: {
-      //   tooltipLabel: 'Add Variable',
-      //   tooltipPosition: 'left',
-      // },
+      tooltipOptions: {
+        tooltipLabel: 'Add Variable (Soon)',
+        tooltipPosition: 'left',
+      },
       icon: 'variable-plus',
       styleClass: 'text-fuchsia-400',
       id: 'var',

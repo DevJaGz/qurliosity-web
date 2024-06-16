@@ -14,11 +14,17 @@ import { MenuItem } from 'primeng/api';
 import { SourceDialogService } from '@shared/dialogs/sources';
 import { AiCredentialsService } from '@shared/services';
 import { EmptyStateComponent } from '@shared/components';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-template-sources',
   standalone: true,
-  imports: [SharedModule, TemplateSourceComponent, EmptyStateComponent],
+  imports: [
+    SharedModule,
+    TemplateSourceComponent,
+    EmptyStateComponent,
+    NgClass,
+  ],
   templateUrl: './template-sources.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,12 +60,13 @@ export class TemplateSourcesComponent {
     },
     {
       tooltipOptions: {
-        tooltipLabel: 'Add Link',
+        tooltipLabel: 'Add Link (soon)',
         tooltipPosition: 'left',
       },
       icon: 'unlink',
       styleClass: 'text-fuchsia-400',
       id: 'link',
+      disabled: true,
     },
   ];
 

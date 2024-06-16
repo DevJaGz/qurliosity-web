@@ -34,6 +34,7 @@
     </ng-template>
     <ng-template pTemplate="item" let-item>
       <div
+        [ngClass]="{ 'pointer-events-none opacity-40': item.id === 'link' }"
         (click)="addSource(item.id)"
         class="grid place-items-center p-3.5 shadow dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors rounded-full cursor-pointer"
       >
