@@ -1,3 +1,4 @@
+a.btn,
 button.btn {
   @apply px-3 py-1.5 rounded-lg  flex items-center justify-center flex-nowrap gap-2  transition-colors;
   &:not(:is(.btn-outline)) {
@@ -23,6 +24,7 @@ button.btn {
   }
 }
 
+a.icon,
 button.icon {
   @apply rounded-full grid place-items-center transition-colors;
 
@@ -31,6 +33,7 @@ button.icon {
   }
 }
 
+a.text,
 button.text {
   @apply flex items-center gap-1 justify-center transition-colors;
 

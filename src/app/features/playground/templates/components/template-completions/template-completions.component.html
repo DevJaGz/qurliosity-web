@@ -12,6 +12,24 @@
       <p>
         Start by adding a source or writing a prompt if you already have one.
       </p>
+      <div class="flex gap-2 flex-col sm:flex-row w-full sm:w-auto">
+        <button
+          (click)="navigateTo('sources')"
+          type="button"
+          class="btn primary flex-1 whitespace-nowrap"
+        >
+          <i-tabler name="align-center" />
+          See sources
+        </button>
+        <button
+          (click)="navigateTo('prompts')"
+          type="button"
+          class="btn secondary flex-1 whitespace-nowrap"
+        >
+          <i-tabler name="message" />
+          See Prompts
+        </button>
+      </div>
     </app-empty-state>
   </div>
   }
