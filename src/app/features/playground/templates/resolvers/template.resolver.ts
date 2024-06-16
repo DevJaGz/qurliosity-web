@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { TemplateFormService } from '../services';
 import { TemplatesRequestService } from '@core/services';
 
-const goErrorAfterNextTick = (router: Router) => {
+const navigateToErrorPageAfterNextTick = (router: Router) => {
   setTimeout(() => {
     router.navigateByUrl('/error');
   }, 0);
@@ -19,7 +19,7 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
 
   const templateId = route.params['templateId'];
   if (!templateId) {
-    goErrorAfterNextTick(router);
+    navigateToErrorPageAfterNextTick(router);
     return EMPTY;
   }
 
@@ -33,7 +33,7 @@ export const templateResolver: ResolveFn<Observable<boolean>> = (route) => {
         },
         error: () => {
           isDataLoaded.next(false);
-          goErrorAfterNextTick(router);
+          navigateToErrorPageAfterNextTick(router);
         },
         complete: () => isDataLoaded.complete(),
       })
