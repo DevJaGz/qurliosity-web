@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: 'error',
     loadComponent: () =>
-      import('@shared/components').then((f) => f.ErrorPageComponent),
+      import('@core/components').then((f) => f.ErrorViewComponent),
   },
   {
     path: '**',
