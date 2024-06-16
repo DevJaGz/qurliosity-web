@@ -1,14 +1,16 @@
 <div
-  class="p-10 bg-neutral-900 rounded-lg flex flex-col justify-center items-center gap-8"
+  class="p-10 bg-neutral-900 rounded-lg flex flex-col justify-center items-center gap-6 max-w-[400px] mx-auto"
 >
-  <section class="grid place-items-center overflow-hidden flex-1">
-    <i-tabler class="!w-28 !h-28 text-neutral-500" name="info-square-rounded" />
-  </section>
-  <section class="flex flex-col justify-center items-center gap-3">
-    <p>There are no sources yet. Add a source to get started.</p>
-    <button type="button" class="btn primary" pButton>
-      <i-tabler name="plus" />
-      Add Source
-    </button>
+  <figure
+    class="grid place-items-center overflow-hidden flex-1 object-contain w-56 filter grayscale-[50%]"
+  >
+    <img
+      src="assets/empty-box.avif"
+      alt="Empty box"
+      class="w-full aspect-square"
+    />
+  </figure>
+  <section class="flex flex-col justify-center items-center gap-1 text-center">
+    <ng-content></ng-content>
   </section>
 </div>
