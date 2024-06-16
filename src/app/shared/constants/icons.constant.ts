@@ -1,4 +1,6 @@
 import {
+  IconExclamationCircle,
+  IconLocation,
   IconBrandHipchat,
   IconFileTypePdf,
   IconX,
@@ -17,6 +19,8 @@ import {
 } from 'angular-tabler-icons/icons';
 
 const icons = {
+  IconExclamationCircle,
+  IconLocation,
   IconInfoSquareRounded,
   IconBrandHipchat,
   IconFileTypePdf,

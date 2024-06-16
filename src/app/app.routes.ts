@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('@features/playground').then((f) => f.playgroundRoutes),
   },
   {
+    path: 'error',
+    loadComponent: () =>
+      import('@shared/components').then((f) => f.ErrorPageComponent),
+  },
+  {
     path: '**',
     redirectTo: '/playground',
   },
