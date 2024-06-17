@@ -4,3 +4,4 @@ export * from './object.util';
 export * from './dom.util';
 export * from './form.util';
 export * from './operators.util';
+export * from './text.util';
