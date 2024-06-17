@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { ApiResponse, ApiResponseError } from '@core/datatypes';
 import { throwAppError } from '@core/utils';
@@ -29,8 +29,21 @@ export class ApiErrorService implements ErrorHandler {
     if (typeof apiResponse === 'string') {
       apiResponse = JSON.parse(apiResponse);
       this.#handleFailedEventsRequest(httpError, apiResponse);
+      this.#logError(httpError, apiResponse);
+      return;
     }
 
+    const firstIssue = apiResponse.payload.issues[0];
+    if (
+      firstIssue &&
+      firstIssue.includes('Error: 401 Incorrect API key provided')
+    ) {
+      this.#handleFailedEventsRequest(httpError, apiResponse);
+      this.#logError(httpError, apiResponse);
+    }
+  }
+
+  #logError(httpError: HttpErrorResponse, apiResponse: ApiResponseError): void {
     console.log(removeDomainFromMessage(httpError.message), apiResponse);
   }
 
