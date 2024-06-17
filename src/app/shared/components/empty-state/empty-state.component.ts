@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
@@ -9,4 +9,6 @@ import { SharedModule } from '@shared/shared.module';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmptyStateComponent {}
+export class EmptyStateComponent {
+  image = input<string>('assets/empty-box.avif');
+}
