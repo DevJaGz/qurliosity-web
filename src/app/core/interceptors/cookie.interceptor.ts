@@ -5,6 +5,5 @@ export const cookieInterceptor: HttpInterceptorFn = (req, next) => {
     withCredentials: true,
   });
 
-  console.log('cookieInterceptor', modifiedReq);
   return next(modifiedReq);
 };
