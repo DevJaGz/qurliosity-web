@@ -27,6 +27,7 @@ export class ApiErrorService implements ErrorHandler {
 
     // It is a failed request with observe events in HttpClient Options
     if (typeof apiResponse === 'string') {
+      console.log('string');
       apiResponse = JSON.parse(apiResponse);
       this.#handleFailedEventsRequest(httpError, apiResponse);
       this.#logError(httpError, apiResponse);
@@ -40,7 +41,10 @@ export class ApiErrorService implements ErrorHandler {
     ) {
       this.#handleFailedEventsRequest(httpError, apiResponse);
       this.#logError(httpError, apiResponse);
+      return;
     }
+
+    this.#logError(httpError, apiResponse);
   }
 
   #logError(httpError: HttpErrorResponse, apiResponse: ApiResponseError): void {

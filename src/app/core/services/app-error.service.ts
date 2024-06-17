@@ -20,9 +20,16 @@ export class AppErrorService implements ErrorHandler {
     if (appError.userMessage) {
       this.#messageService.add({
         severity: 'error',
-        summary: appError.userMessage,
-        life: 5000,
+        summary: this.#truncateMessage(appError.userMessage, 70),
+        life: 10000,
       });
     }
+  }
+
+  #truncateMessage(message: string, maxLength: number): string {
+    if (message.length <= maxLength) {
+      return message;
+    }
+    return message.substring(0, maxLength - 3) + '...';
   }
 }
