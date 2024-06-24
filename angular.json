@@ -38,7 +38,8 @@
               "src/favicon-16x16.png",
               "src/favicon-32x32.png",
               "src/site.webmanifest",
-              "src/whatsup.png"
+              "src/og-mobile.png",
+              "src/og-desktop.png"
             ],
             "styles": ["src/styles.scss"],
             "scripts": []
