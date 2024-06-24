@@ -16,9 +16,11 @@ import {
   IconVariablePlus,
   IconAlignCenter,
   IconInfoSquareRounded,
+  IconBrandGithub,
 } from 'angular-tabler-icons/icons';
 
 const icons = {
+  IconBrandGithub,
   IconExclamationCircle,
   IconLocation,
   IconInfoSquareRounded,
